@@ -16,6 +16,7 @@
 1. [Development](#development)
     1. [Installing Dependencies](#installing-dependencies)
     1. [Tasks](#tasks)
+1. [Roadmap](#roadmap)
 1. [Team](#team)
 1. [Contributing](#contributing)
 
@@ -37,6 +38,15 @@ From within the root directory:
 sudo npm install -g bower
 npm install
 bower install
+```
+
+### Tasks
+
+From within the root directory:
+
+```
+Configure Database
+Start Build
 ```
 
 ### Roadmap
