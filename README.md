@@ -1,4 +1,4 @@
-# Nodatchi
+# Nodachi
 
 > Cut though the confusion
 
