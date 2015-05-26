@@ -1,0 +1,27 @@
+
+{
+  "folders":
+  [
+    {
+      "path": "/",
+      "folder_exclude_patterns": ["notes"]
+    }
+  ],
+  "settings":
+  {
+    "tab_size": 2,
+    "translateTabsToSpaces": true,
+    "translate_tabs_to_spaces": true,
+    "default_line_ending" : "lf",
+    "ensure_newline_at_eof_on_save" : true,
+    "trim_automatic_white_space": true,
+    "rulers": [60, 80]
+  },
+  "build_systems":
+  [
+    {
+        "name": "List",
+        "cmd": ["ls -al"]
+    }
+  ]
+}
