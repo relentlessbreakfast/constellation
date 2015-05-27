@@ -1,0 +1,134 @@
+
+
+@mixin ios-breakpoint($point) {
+  // -----------------------------------------------------------
+  //    iPhone 2G - 4S
+  // -----------------------------------------------------------
+  @if $point == ip4 {
+    @media screen
+    and (device-aspect-ratio: 2/3) { @content }
+  }
+
+  @if $point == ip4por {
+    @media screen
+    and (device-aspect-ratio: 2/3)
+    and (orientation : portrait) { @content }
+  }
+
+  @if $point == ip4lan {
+    @media screen
+    and (device-aspect-ratio: 2/3)
+    and (orientation : landscape) { @content }
+  }
+
+  // -----------------------------------------------------------
+  //    iPhone 5 (Retina Display)
+  //
+  //    Screen Width -- CSS Pixels: 320px, Actual Pixels:  640px
+  //    Screen Height -- CSS Pixels: 568px, Actual Pixels: 1136px
+  // -----------------------------------------------------------
+  @if $point == ip5 {
+    @media screen
+    and (device-aspect-ratio: 40/71) { @content
+    }
+  }
+
+  @if $point == ip5por {
+    @media screen
+    and (device-aspect-ratio: 40/71)
+    and (orientation : portrait) { @content }
+  }
+
+  @if $point == ip5lan {
+    @media screen
+    and (device-aspect-ratio: 40/71)
+    and (orientation : landscape) { @content }
+  }
+
+  // -----------------------------------------------------------
+  //    iPad & iPad Mini
+  // -----------------------------------------------------------
+  @if $point == ipad {
+    @media screen
+    and (device-aspect-ratio: 3/4) { @content }
+  }
+  @if $point == ipadpor {
+    @media screen
+    and (device-aspect-ratio: 3/4)
+    and (orientation : portrait) { @content }
+  }
+  @if $point == ipadlan {
+    @media screen
+    and (device-aspect-ratio: 3/4)
+    and (orientation : landscape) { @content }
+  }
+
+
+  // -----------------------------------------------------------
+  //    iPad & iPad Mini (Retina Display)
+  // -----------------------------------------------------------
+  @if $point == ipadretina {
+    @media screen
+    and (device-aspect-ratio: 3/4)
+    and (-webkit-min-device-pixel-ratio: 2) { @content }
+  }
+  @if $point == ipadretinapor {
+    @media screen
+    and (device-aspect-ratio: 3/4)
+    and (-webkit-min-device-pixel-ratio: 2)
+    and (orientation : portrait) { @content }
+  }
+  @if $point == ipadretinalan {
+    @media screen
+    and (device-aspect-ratio: 3/4)
+    and (-webkit-min-device-pixel-ratio: 2)
+    and (orientation : landscape) { @content }
+  }
+
+}
+
+
+@mixin bs-breakpoint($point) {
+
+  // Really small, old screens not recognized by Boostrap / phone (X < 480px);
+  @if $point == xxs {
+    @media (max-width: $ui-xs-min - 1) {
+      @content;
+    }
+  }
+
+  // Extra small screen / phone (480px - 767px);
+  @if $point == xs {
+    @media (min-width: $ui-xs-min) and (max-width: $ui-xs-max) {
+      @content;
+    }
+  }
+
+  // Small screen / tablet (768px - 991px)
+  @if $point == sm {
+    @media (min-width: $ui-sm-min) and (max-width: $ui-sm-max) {
+      @content;
+    }
+  }
+  // Small screen minimum
+  @if $point == sm-min {
+    @media (min-width: $ui-sm-min) {
+      @content;
+    }
+  }
+
+  // Medium screen / desktop (992px - 1999px)
+  @if $point == md {
+    @media (min-width: $ui-md-min) and (max-width: $ui-md-max) {
+      @content;
+    }
+  }
+
+  // Large screen / wide desktop (1200px < X);
+  @if $point == lg {
+    @media (min-width: $ui-lg-min) {
+      @content;
+    }
+  }
+
+}
