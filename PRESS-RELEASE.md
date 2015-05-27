@@ -1,4 +1,4 @@
-# Project Name #
+# Constellation #
 
 <!-- 
 > This material was originally posted [here](http://www.quora.com/What-is-Amazons-approach-to-product-development-and-product-management). It is reproduced here for posterities sake.
@@ -16,29 +16,35 @@ Oh, and I also like to write press-releases in what I call "Oprah-speak" for mai
 Once the project moves into development, the press release can be used as a touchstone; a guiding light. The product team can ask themselves, "Are we building what is in the press release?" If they find they're spending time building things that aren't in the press release (overbuilding), they need to ask themselves why. This keeps product development focused on achieving the customer benefits and not building extraneous stuff that takes longer to build, takes resources to maintain, and doesn't provide real customer benefit (at least not enough to warrant inclusion in the press release).
  -->
  
-## Heading ##
+## _A dependency-aware project management system for GitHub issues_ ##
   > Name the product in a way the reader (i.e. your target customers) will understand.
 
-## Sub-Heading ##
-  > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+### Project managers and dev teams now have an interactive project roadmap and dashboard ###
 
 ## Summary ##
-  > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+
+Constellation is a project management system that interfaces with GitHub to track issues. Constellation tracks and visually represents task/issue dependencies in a _Hasse diagram_, a transitivity graph that gives project managers a visual project roadmap that doubles as a progress dashboard for sub-projects. The state of completion of the project can be assessed at a glance, making it easier to prioritize tasks and make decisions based on the state of the project.
 
 ## Problem ##
-  > Describe the problem your product solves.
+
+Existing issue-tracking project managers such as Waffle.io do not track and visually represent the hierarchy of tasks and their dependencies on other tasks, whereas projects inevitably have such hierarchies and dependencies. The hierarchy of tasks currently afforded by Waffle depends on GitHub's milestones, which cannot be nested and only goes one level deep, while having no visual representation of this heirarchy besides a label on each task's Waffle tile. In real life, many projects have sub-projects which contain tasks that can further be broken down into sub-tasks; In order to map out and and manage complex projects with a dashboard, the project management system must be able to handle project hierarchies with greater depth.
 
 ## Solution ##
-  > Describe how your product elegantly solves the problem.
 
-## Quote from You ##
-  > A quote from a spokesperson in your company.
+Constellation shows inter-task dependencies as a Hasse diagram, a kind of graph where the arrangement and connections between the nodes immediately conveys the sequence of pre-requisite tasks. Bottle-necks in the project become visually apparent, as do parts of the project that can be completed in parallel. Hasse diagrams are also capable of representing the project at different resolutions; clusters of related tasks and sub-projects can have their inner complexity hidden by being collapsed down into a single node, letting the user see the project map at the appropriate level of detail.
+
+## A word from our developers ##
+  > We designed a project management tool that addresses our own project management pain points. Finally, with a tool capable of mapping and planning out projects, and the capability to load up project templates that save you the work of mapping out the tasks that remain the same from project to project, you can plan the use of your time and resources with far less managerial decision making overhead. 
 
 ## How to Get Started ##
-  > Describe how easy it is to get started.
+
+  To get started, sign in with GitHub, and start placing nodes on the graph space, or chose one of our project templates. Select each node to edit its task details, or convert a node into a sub-project (a cluster of related tasks). Each task you add to the project automatically adds a corresponding GitHub issue. Resolving an issue in GitHub resolves the issue in Constellation.
 
 ## Customer Quote ##
-  > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+	> We used to spend a significant amount of time prioritizing and assigning tasks to keep everyone on our team busy; with Constellation, we no longer need to manually gather the details needed to make a sound decision. Whether any set of tasks can be worked on in parallel or in series is immediately apparent. We make decisions more fluidly and are more efficient with the use of our time and the assignment of our engineers.
+
 
 ## Closing and Call to Action ##
-  > Wrap it up and give pointers where the reader should go next.
+  
+  If you use GitHub to manage your project workflow, head over to Constellation and try it out.
+
