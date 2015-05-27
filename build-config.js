@@ -1,12 +1,13 @@
 module.exports  = {
   build   : 'build',
   server  : 'server',
+  client  : 'client',
   app     : 'client/app',
   data    : 'client/assets/data',
   images  : 'client/assets/images',
   fonts   : 'client/assets/fonts',
   styles  : 'client/assets/styles',
-  app_files: {
+  appFiles : {
 
     // Source excluding test files
     js: [ 'client/app/**/*.js', '!client/app/**/*.spec.js'],
@@ -18,21 +19,21 @@ module.exports  = {
     html: [ 'client/index.html' ],
 
     // Module styles
-    scss: [ 'client/app/**/*.scss' ]
+    scss: [ 'client/app/**/*.scss', 'client/assets/styles/**/*.scss' ]
   },
-  vendor_files  : {
+  vendorFiles  : {
     js: [
       'vendor/angular/angular.js',
       'vendor/angular-ui-router/release/angular-ui-router.js',
       'vendor/angular-animate/angular-animate.js',
-      'vendor/lodash/lodash.js',
+      'vendor/lodash/lodash.js'
     ],
     css: [
       'vendor/animate.css/animate.min.css'
     ]
   },
-  import_path: {
-    bootstrap : 'vendor/bootstrap-sass-official/assets/stylesheets',
-    fontawesome : 'vendor/font-awesome/scss'
+  importPath: {
+    foundationSass : 'vendor/font-awesome/scss',
+    fontawesomeSass : 'vendor/font-awesome/scss'
   }
 };
