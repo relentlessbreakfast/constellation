@@ -23,7 +23,7 @@ Once the project moves into development, the press release can be used as a touc
 
 ## Summary ##
 
-Constellation is a project management system that interfaces with GitHub to track issues. Constellation tracks and visually represents task/issue dependencies in a *[Hasse diagram](http://en.m.wikipedia.org/wiki/Hasse_diagram)*, a transitivity graph that gives project managers a visual project roadmap that doubles as a progress dashboard for sub-projects. The state of completion of the project can be assessed at a glance, making it easier to prioritize tasks and make decisions based on the state of the project.
+Constellation is a project management system that interfaces with GitHub to track issues. Constellation tracks and visually represents task/issue dependencies in a *[Hasse diagram](http://en.m.wikipedia.org/wiki/Hasse_diagram)*, a simplified directional graph that gives project managers a visual project roadmap that doubles as a progress dashboard for sub-projects. The state of completion of the project can be assessed at a glance, making it easier to prioritize tasks and make decisions based on the state of the project.
 
 ## Problem ##
 
