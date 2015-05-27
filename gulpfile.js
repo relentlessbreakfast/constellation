@@ -2,7 +2,7 @@
 * @Author: justinwebb
 * @Date:   2015-05-26 15:18:17
 * @Last Modified by:   justinwebb
-* @Last Modified time: 2015-05-26 21:10:36
+* @Last Modified time: 2015-05-27 11:01:32
 */
 
 'use strict';
@@ -50,12 +50,12 @@ var compileSassFiles = function () {
 // ---------------------------------------------------------
 gulp.task('sass', compileSassFiles);
 
+
 gulp.task('serve', ['sass'], function () {
 
   serveBuildFiles();
   
   gulp.watch(config.appFiles.scss, ['sass']);
-
   gulp.watch(config.appFiles.html).on('change', browserSyncReload);
 });
 
