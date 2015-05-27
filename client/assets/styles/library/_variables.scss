@@ -1,0 +1,29 @@
+/* -------------------------------------------------------------------
+ Bootstrap 3 breakpoints, cloned for use in '@mixin bs-breakpoint'
+------------------------------------------------------------------- */
+
+// Extra small screen / phone
+$ui-xs-min:                480px !default;
+$ui-xs-max:                767px !default;
+
+// Small screen / tablet
+$ui-sm-min:                768px !default;
+$ui-sm-max:                991px !default;
+
+// Medium screen / desktop
+$ui-md-min:                992px !default;
+$ui-md-max:               1999px !default;
+
+// Large screen / wide desktop
+$ui-lg-min:               1200px !default;
+
+
+/* -------------------------------------------------------------------
+ Constellation Color Palette
+------------------------------------------------------------------- */
+$brand-primary:         #00ad94 !default; // green
+$brand-secondary:       #E8834A !default; // orange
+$brand-info:            #5bc0de !default;
+$brand-warning:         #f0ad4e !default;
+$brand-danger:          #d9534f !default;
+$brand-background:      #e9eaed !default;

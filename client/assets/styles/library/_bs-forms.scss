@@ -1,0 +1,10 @@
+.bs-input {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 6px 12px;
+  vertical-align: middle;
+  font-size: 14px;
+  line-height: 1.428571429;
+  background-image: none;
+  @include box-shadow(inset 0 1px 1px rgba(0, 0, 0, 0.075));
+}
