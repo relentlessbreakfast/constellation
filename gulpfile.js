@@ -2,7 +2,7 @@
 * @Author: justinwebb
 * @Date:   2015-05-26 15:18:17
 * @Last Modified by:   justinwebb
-* @Last Modified time: 2015-05-27 17:39:19
+* @Last Modified time: 2015-05-28 16:56:02
 */
 
 'use strict';
@@ -19,6 +19,7 @@ var copy = require('gulp-copy');
 var jshint = require('gulp-jshint');
 var nodemon = require('gulp-nodemon');
 var config = require('./build-config');
+var indexer = require('./utils/indexer');
 var browserSyncReload = browserSync.reload;
 
 // ---------------------------------------------------------
@@ -47,23 +48,37 @@ var compileSassFiles = function () {
 };
 
 var cleanPreviousBuild = function () {
-  return gulp.src(config.build)
+  return gulp.src(config.dist)
     .pipe(clean());
 };
 
 var copySrcFilesToBuild = function () {
   var options = {prefix: 0};
-  var buildFiles = [];
+  var distFiles = [];
 
-  buildFiles = config.vendorFiles.js.concat(config.appFiles.js, config.data);
-  console.log('copySrcFilesToBuild: ', buildFiles);
-  return gulp.src(buildFiles)
-    .pipe(copy(config.build, options));
+  // load all JavaScript related files in the order they 
+  // should load inside index.html (e.g. vendor files appear
+  // before files from 'client/src')
+  distFiles = config.vendorFiles.js.concat(config.appFiles.js, config.data);
+
+  // Load CSS files
+  // TODO: add CSS to distFiles
+  console.log('copySrcFilesToBuild: ', distFiles);
+  return gulp.src(distFiles)
+    .pipe(copy(config.dist, options));
+};
+
+var attachSrcToIndex = function () {
+  var files = config.vendorFiles.js.concat(config.appFiles.js);
+  files = files.concat(config.styles +'/main.css');
+  indexer(config.dist, files);
 };
 
 // ---------------------------------------------------------
 // Register tasks
 // ---------------------------------------------------------
+gulp.task('index', attachSrcToIndex);
+
 gulp.task('clean', cleanPreviousBuild);
 
 gulp.task('copy', copySrcFilesToBuild);
