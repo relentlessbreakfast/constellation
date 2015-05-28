@@ -1,0 +1,57 @@
+'use strict';
+module.exports = function (distDir, fileSrc) {
+  
+  var _distDir = distDir;
+  var _fileSrc = fileSrc;
+
+  var filterForFileExtension = function (extension, files, targetDir) {
+
+    var regex = new RegExp('\\.' + extension + '$');
+    var dirRE = new RegExp('^(' + targetDir + ')\/', 'g');
+
+    return files
+      .filter(function (file) {
+          return file.match(regex);
+      })
+      .map(function (file) {
+          return file.replace(dirRE, '');
+      });
+  };
+
+  var attachFiles = function (files, targetDir) {
+    // Strip build directory off of copied JS source and vendor files, then
+    // store relative paths to files in jsFiles array
+    var jsFiles = filterForFileExtension('js', files, targetDir);
+    var cssFiles = filterForFileExtension('css', files, targetDir);
+    console.log('attachFiles: ', jsFiles, cssFiles);
+
+    // Output indexed JS files to console
+    // grunt.log.writeln(this.filesSrc.join().replace(/,/g, '\n'));
+
+    // Add indexed files to index.html as it moves from client to build
+    // grunt.file.copy('client/index.html', this.data.dir + '/index.html', {
+    //     process: function (contents, path) {
+    //         return grunt.template.process(contents, {
+    //             data: {
+    //                 scripts: jsFiles,
+    //                 styles: cssFiles,
+    //                 version: grunt.config('pkg.version')
+    //             }
+    //         });
+    //     }
+    // });
+
+  };
+
+  // 
+  var initConfig = function (distDir, fileSrc) {
+    if (typeof distDir === 'string' && Array.isArray(fileSrc)) {
+      attachFiles(fileSrc, distDir);
+    } else {
+      throw new Error('ERROR: invalid distDir or fileSrc');
+    }
+  };
+
+  //   
+  initConfig(_distDir, _fileSrc);
+};

@@ -1,5 +1,5 @@
 module.exports  = {
-  build   : 'build',
+  dist    : 'dist',
   server  : 'server',
   client  : 'client',
   app     : 'client/app',
