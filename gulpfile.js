@@ -2,7 +2,7 @@
 * @Author: justinwebb
 * @Date:   2015-05-26 15:18:17
 * @Last Modified by:   justinwebb
-* @Last Modified time: 2015-05-28 16:56:02
+* @Last Modified time: 2015-05-28 21:49:12
 */
 
 'use strict';
@@ -16,10 +16,10 @@ var sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
 var clean = require('gulp-clean');
 var copy = require('gulp-copy');
+var inject = require('gulp-inject');
 var jshint = require('gulp-jshint');
 var nodemon = require('gulp-nodemon');
 var config = require('./build-config');
-var indexer = require('./utils/indexer');
 var browserSyncReload = browserSync.reload;
 
 // ---------------------------------------------------------
@@ -69,9 +69,17 @@ var copySrcFilesToBuild = function () {
 };
 
 var attachSrcToIndex = function () {
-  var files = config.vendorFiles.js.concat(config.appFiles.js);
-  files = files.concat(config.styles +'/main.css');
-  indexer(config.dist, files);
+  var options = {addRootSlash: false};
+  var startTag = {starttag: '<!-- inject:head:{{ext}} -->'};
+  var jsFiles = config.vendorFiles.js.concat(config.appFiles.js);
+  var cssFiles = [config.styles +'/main.css'];
+  var makeRelativePath = function (path) { return './'+path; };
+  console.log('attachSrcToIndex:\n', jsFiles);
+
+  gulp.src(config.client +'/index.html')
+    .pipe(inject(gulp.src(cssFiles, {read: false}), options), startTag)
+    .pipe(inject(gulp.src(jsFiles, {read: false}), options))
+    .pipe(gulp.dest(config.dist));
 };
 
 // ---------------------------------------------------------
