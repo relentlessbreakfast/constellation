@@ -2,7 +2,7 @@
 * @Author: justinwebb
 * @Date:   2015-05-26 15:18:17
 * @Last Modified by:   justinwebb
-* @Last Modified time: 2015-05-28 22:06:40
+* @Last Modified time: 2015-05-28 22:08:26
 */
 
 'use strict';
@@ -100,6 +100,7 @@ gulp.task('serve', ['sass'], function () {
   serveBuildFiles();
   
   gulp.watch(config.appFiles.scss, ['sass']);
+  gulp.watch(config.appFiles.js).on('change', browserSyncReload);
   gulp.watch(config.appFiles.html).on('change', browserSyncReload);
 });
 
