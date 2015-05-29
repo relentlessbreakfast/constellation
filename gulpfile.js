@@ -2,7 +2,7 @@
 * @Author: justinwebb
 * @Date:   2015-05-26 15:18:17
 * @Last Modified by:   justinwebb
-* @Last Modified time: 2015-05-28 22:08:26
+* @Last Modified time: 2015-05-29 11:56:42
 */
 
 'use strict';
@@ -11,10 +11,11 @@
 // Require build process dependencies
 // ---------------------------------------------------------
 var gulp = require('gulp');
+var gulpUtil = require('gulp-util');
 var browserSync = require('browser-sync');
 var sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
-var clean = require('gulp-clean');
+var del = require('del');
 var copy = require('gulp-copy');
 var inject = require('gulp-inject');
 var jshint = require('gulp-jshint');
@@ -25,13 +26,6 @@ var browserSyncReload = browserSync.reload;
 // ---------------------------------------------------------
 // Setup task configurations
 // ---------------------------------------------------------
-var serveBuildFiles = function () {
-  browserSync({
-    server: {
-      baseDir: config.client
-    }
-  });
-};
 
 var compileSassFiles = function () {
   gulp.src(config.appFiles.scss)
@@ -47,12 +41,12 @@ var compileSassFiles = function () {
     .pipe(browserSyncReload({stream: true}));
 };
 
-var cleanPreviousBuild = function () {
-  return gulp.src(config.dist)
-    .pipe(clean());
+var cleanPreviousBuild = function (cb) {
+  del([config.dist]);
+  cb();
 };
 
-var copySrcFilesToBuild = function () {
+var copySrcFilesToDist = function (cb) {
   var options = {prefix: 0};
   var distFiles = [];
 
@@ -67,13 +61,17 @@ var copySrcFilesToBuild = function () {
 
   // Load CSS files
   // TODO: add CSS to distFiles
-  console.log('copySrcFilesToBuild: ', distFiles);
-  return gulp.src(distFiles)
+  console.log('copySrcFilesToDist: ', distFiles);
+  gulp.src(distFiles)
     .pipe(copy(config.dist, options));
+  cb();
 };
 
 var attachSrcToIndex = function () {
-  var options = {addRootSlash: false};
+  var options = {
+    addRootSlash: false
+    //ignorePath: 'client'
+  };
   var startTag = {starttag: '<!-- inject:head:{{ext}} -->'};
   var jsFiles = config.vendorFiles.js.concat(config.appFiles.js);
   var cssFiles = [config.styles +'/main.css'];
@@ -84,20 +82,30 @@ var attachSrcToIndex = function () {
     .pipe(gulp.dest(config.dist));
 };
 
+var serveDistFiles = function () {
+  browserSync({
+    server: {
+      baseDir: config.dist,
+      proxy: 'http://localhost:3030'
+    }
+  });
+};
+
 // ---------------------------------------------------------
 // Register tasks
 // ---------------------------------------------------------
-gulp.task('index', attachSrcToIndex);
 
 gulp.task('clean', cleanPreviousBuild);
 
-gulp.task('copy', copySrcFilesToBuild);
-
 gulp.task('sass', compileSassFiles);
 
-gulp.task('serve', ['sass'], function () {
+gulp.task('copy', copySrcFilesToDist);
 
-  serveBuildFiles();
+gulp.task('index', attachSrcToIndex);
+
+gulp.task('serve', ['clean', 'sass', 'copy', 'index'], function () {
+
+  serveDistFiles();
   
   gulp.watch(config.appFiles.scss, ['sass']);
   gulp.watch(config.appFiles.js).on('change', browserSyncReload);
