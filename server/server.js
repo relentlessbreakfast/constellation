@@ -1,8 +1,8 @@
 /* 
 * @Author: justinwebb
 * @Date:   2015-05-28 22:46:32
-* @Last Modified by:   Justin Webb
-* @Last Modified time: 2015-05-29 00:23:54
+* @Last Modified by:   justinwebb
+* @Last Modified time: 2015-05-29 00:29:32
 */
 
 'use strict';
@@ -15,6 +15,6 @@ var utils = require('../lib/utils');
 app.use(express.static(config.dist));
 
 server.listen(config.port, function () {
-  var project = utils.grandParentDir(__dirname);
+  var project = utils.grandParentDir(__dirname, true);
   console.log(project + ' is online at http://localhost:%d', config.port);
 });
