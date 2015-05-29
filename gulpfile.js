@@ -2,7 +2,7 @@
 * @Author: justinwebb
 * @Date:   2015-05-26 15:18:17
 * @Last Modified by:   justinwebb
-* @Last Modified time: 2015-05-28 21:49:12
+* @Last Modified time: 2015-05-28 22:06:40
 */
 
 'use strict';
@@ -59,7 +59,11 @@ var copySrcFilesToBuild = function () {
   // load all JavaScript related files in the order they 
   // should load inside index.html (e.g. vendor files appear
   // before files from 'client/src')
-  distFiles = config.vendorFiles.js.concat(config.appFiles.js, config.data);
+  distFiles = config.vendorFiles.js.concat(
+    config.appFiles.js,
+    config.data,
+    config.styles + '/main.css'
+  );
 
   // Load CSS files
   // TODO: add CSS to distFiles
@@ -73,8 +77,6 @@ var attachSrcToIndex = function () {
   var startTag = {starttag: '<!-- inject:head:{{ext}} -->'};
   var jsFiles = config.vendorFiles.js.concat(config.appFiles.js);
   var cssFiles = [config.styles +'/main.css'];
-  var makeRelativePath = function (path) { return './'+path; };
-  console.log('attachSrcToIndex:\n', jsFiles);
 
   gulp.src(config.client +'/index.html')
     .pipe(inject(gulp.src(cssFiles, {read: false}), options), startTag)
