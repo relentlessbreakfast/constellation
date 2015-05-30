@@ -2,7 +2,7 @@
 * @Author: justinwebb
 * @Date:   2015-05-26 15:18:17
 * @Last Modified by:   justinwebb
-* @Last Modified time: 2015-05-29 20:25:06
+* @Last Modified time: 2015-05-29 22:04:11
 */
 
 'use strict';
@@ -19,6 +19,7 @@ var del = require('del');
 var copy = require('gulp-copy');
 var eventStream = require('event-stream');
 var streamSeries = require('stream-series');
+var changed = require('gulp-changed');
 var inject = require('gulp-inject');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
@@ -130,11 +131,13 @@ gulp.task('sass', compileSassFiles);
 
 gulp.task('dist', transformSourceToDistFiles);
 
-gulp.task('index', attachSrcToIndex);
-
 gulp.task('build', ['clean', 'sass', 'dist']);
 
 gulp.task('nodemon', runNodemon);
+
+gulp.task('js-watch', ['dist'], browserSyncReload);
+
+gulp.task('html-watch', ['dist'], browserSyncReload);
 
 gulp.task('serve', ['build', 'nodemon'], function () {
   
@@ -148,8 +151,8 @@ gulp.task('serve', ['build', 'nodemon'], function () {
   });
 
   gulp.watch(config.appFiles.scss, ['sass']);
-  gulp.watch(config.appFiles.js).on('change', browserSyncReload);
-  gulp.watch(config.appFiles.html).on('change', browserSyncReload);
+  gulp.watch(config.appFiles.js, ['js-watch']);
+  gulp.watch(config.appFiles.html, ['html-watch']);
 });
 
 gulp.task('default', ['serve']);

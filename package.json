@@ -23,6 +23,7 @@
     "event-stream": "^3.3.1",
     "express": "^4.12.4",
     "gulp": "^3.8.11",
+    "gulp-changed": "^1.2.1",
     "gulp-concat": "^2.5.2",
     "gulp-copy": "0.0.2",
     "gulp-jshint": "^1.11.0",
