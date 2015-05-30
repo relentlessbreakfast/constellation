@@ -2,7 +2,7 @@
 * @Author: justinwebb
 * @Date:   2015-05-26 15:18:17
 * @Last Modified by:   justinwebb
-* @Last Modified time: 2015-05-29 22:04:11
+* @Last Modified time: 2015-05-29 22:17:11
 */
 
 'use strict';
@@ -135,9 +135,11 @@ gulp.task('build', ['clean', 'sass', 'dist']);
 
 gulp.task('nodemon', runNodemon);
 
-gulp.task('js-watch', ['dist'], browserSyncReload);
+gulp.task('watch-js', ['dist'], browserSyncReload);
 
-gulp.task('html-watch', ['dist'], browserSyncReload);
+gulp.task('watch-html', ['dist'], function () {
+  setTimeout(browserSyncReload, 500);
+});
 
 gulp.task('serve', ['build', 'nodemon'], function () {
   
@@ -151,8 +153,8 @@ gulp.task('serve', ['build', 'nodemon'], function () {
   });
 
   gulp.watch(config.appFiles.scss, ['sass']);
-  gulp.watch(config.appFiles.js, ['js-watch']);
-  gulp.watch(config.appFiles.html, ['html-watch']);
+  gulp.watch(config.appFiles.js, ['watch-js']);
+  gulp.watch(config.appFiles.html, ['watch-html']);
 });
 
 gulp.task('default', ['serve']);
