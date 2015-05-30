@@ -1,0 +1,69 @@
+/**
+ * SAMPLE JSON FILE
+ * Subject to change
+ *
+ * Tentative design: Array of nodes within a cluster.
+ * Every cluster includes the following:
+ *
+ * – Cluster "root" node, which reference the entry and exit nodes.
+ * 	 The root node normally show up in the graph one level up.
+ *
+ * 	 The project root is is the only cluster root that does not belong to another cluster.
+ * – entry node
+ * — exit node
+ *
+ *	The entire graph is doubly-linked, so the graph can be constructed
+ *	from the entry down to the exit
+ * 
+ */
+
+// NOTE: all of the numbers in here are made-up.
+
+{
+	"root":{
+		"name": "Authentication Tasks",
+		"description": "Cluster of authentication related tasks",
+		"nodeID": 0000,   			// integer
+		"nodeType": "C",  			// "N" stands for eNtry
+		"asignee": 87765,
+		"user": 344352,
+		"abbrev": "AuTsk",
+		"parentCluster": 0234, 	// points to the nodeID of the root of this node"s parent cluster
+		"upstream": [],					// array of nodeID numbers in this node"s parent cluster (next level up)
+		"downstream": []  			// array of nodeID numbers in this node"s cluster (next level up)
+	},
+	"entry":{
+		"nodeID": 9877,   			// integer
+		"nodeType": "N",  			// "N" stands for eNtry
+		"parentCluster": 45678, 	// points to the nodeID of root
+		"downstream": []  			// array of nodeID numbers
+	},
+	"exit":{
+		"nodeID": 9877,     		// integer
+		"nodeType": "X",  			// "X" stands for eXit
+		"parentCluster": 45678, 	// points to the nodeID of root
+		"upstream": [],   			// array of nodeID numbers
+	},
+	"nodes": [								// array of node objects.
+		{
+			"name": "Integrate O-auth",
+			"description": "Integrate O-auth into the back-end code",
+			"nodeID": 1234,
+			"nodeType": "I", 			// I stands for issue
+			"asignee": 87765,
+			"user": 344352,
+			"abbrev": "OAu",
+			"parentCluster": 1234,
+			"upstream": [2345],
+			"downstream": [5677],
+			"status": "open",			// closed is the other option
+			"labels": [{},{}]			// array of label objects
+		}
+	]
+}
+
+/**
+ * Late realization:
+ * Display state will need to be tracked. I would like to keep it in a
+ * display state object to separate it from the dependency logic.
+ */
