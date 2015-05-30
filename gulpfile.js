@@ -2,7 +2,11 @@
 * @Author: justinwebb
 * @Date:   2015-05-26 15:18:17
 * @Last Modified by:   justinwebb
-* @Last Modified time: 2015-05-29 22:17:11
+<<<<<<< HEAD
+* @Last Modified time: 2015-05-29 22:39:16
+=======
+* @Last Modified time: 2015-05-28 22:08:26
+>>>>>>> 2152024e99a53cb616c7483aa0bd6289bcfcc43a
 */
 
 'use strict';
@@ -15,6 +19,7 @@ var gUtil = require('gulp-util');
 var browserSync = require('browser-sync');
 var sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
+<<<<<<< HEAD
 var del = require('del');
 var copy = require('gulp-copy');
 var eventStream = require('event-stream');
@@ -23,6 +28,11 @@ var changed = require('gulp-changed');
 var inject = require('gulp-inject');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
+=======
+var clean = require('gulp-clean');
+var copy = require('gulp-copy');
+var inject = require('gulp-inject');
+>>>>>>> 2152024e99a53cb616c7483aa0bd6289bcfcc43a
 var jshint = require('gulp-jshint');
 var nodemon = require('gulp-nodemon');
 var config = require('./build-config');
@@ -121,10 +131,46 @@ var runNodemon = function (cb) {
     });
 };
 
+var cleanPreviousBuild = function () {
+  return gulp.src(config.dist)
+    .pipe(clean());
+};
+
+var copySrcFilesToBuild = function () {
+  var options = {prefix: 0};
+  var distFiles = [];
+
+  // load all JavaScript related files in the order they 
+  // should load inside index.html (e.g. vendor files appear
+  // before files from 'client/src')
+  distFiles = config.vendorFiles.js.concat(
+    config.appFiles.js,
+    config.data,
+    config.styles + '/main.css'
+  );
+
+  // Load CSS files
+  // TODO: add CSS to distFiles
+  console.log('copySrcFilesToBuild: ', distFiles);
+  return gulp.src(distFiles)
+    .pipe(copy(config.dist, options));
+};
+
+var attachSrcToIndex = function () {
+  var options = {addRootSlash: false};
+  var startTag = {starttag: '<!-- inject:head:{{ext}} -->'};
+  var jsFiles = config.vendorFiles.js.concat(config.appFiles.js);
+  var cssFiles = [config.styles +'/main.css'];
+
+  gulp.src(config.client +'/index.html')
+    .pipe(inject(gulp.src(cssFiles, {read: false}), options), startTag)
+    .pipe(inject(gulp.src(jsFiles, {read: false}), options))
+    .pipe(gulp.dest(config.dist));
+};
+
 // ---------------------------------------------------------
 // Register tasks
 // ---------------------------------------------------------
-
 gulp.task('clean', cleanPreviousBuild);
 
 gulp.task('sass', compileSassFiles);
