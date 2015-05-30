@@ -1,5 +1,6 @@
 module.exports  = {
-  build   : 'build',
+  dist    : 'dist',
+  assets  : 'dist/assets',
   server  : 'server',
   client  : 'client',
   app     : 'client/app',
