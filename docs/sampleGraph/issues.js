@@ -2,7 +2,7 @@
 * @Author: kuychaco
 * @Date:   2015-05-29 21:57:53
 * @Last Modified by:   kuychaco
-* @Last Modified time: 2015-05-29 22:54:35
+* @Last Modified time: 2015-05-30 00:03:34
 */
 
 'use strict';
@@ -28,6 +28,51 @@ var issue =   {
   "closed_at": null,
   "body": "type:\ * Issue\ \ Upstream:\ * entry\ \ Downstream:\ * Cluster-Repo Selection Screen\ * Make sample graph data"
 };
+
+var issues = [
+  {
+    "id": 82639733, // PRIMARY KEY
+    "url": "https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/7",
+    "labels_url": "https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/7/labels{/name}",
+    "comments_url": "https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/7/comments",
+    "events_url": "https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/7/events",
+    "html_url": "https://github.com/relentlessbreakfast/sampleGraph/issues/7",
+    "number": 7,
+    "title": "Make sample graph data",
+    "user": 1445825,
+    "labels": [6],
+    "state": "open",
+    "locked": false,
+    "assignee": 1445825,
+    "comments": 2,
+    "created_at": "2015-05-30T00:18:26Z",
+    "updated_at": "2015-05-30T00:43:54Z",
+    "closed_at": null,
+    "body": "type:\ * Issue\ \ Upstream:\ * entry\ \ Downstream:\ * Cluster-Repo Selection Screen\ * Make sample graph data"
+  },
+  {
+    "id": 82639324,
+    "url": "https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/4",
+    "labels_url": "https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/4/labels{/name}",
+    "comments_url": "https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/4/comments",
+    "events_url": "https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/4/events",
+    "html_url": "https://github.com/relentlessbreakfast/sampleGraph/issues/4",
+    "number": 4,
+    "title": "Add O-auth",
+    "user": 1445825,
+    "labels": [1],
+    "state": "open",
+    "locked": false,
+    "assignee": 442978,
+    "comments": 0,
+    "created_at": "2015-05-30T00:16:35Z",
+    "updated_at": "2015-05-30T00:44:37Z",
+    "closed_at": null,
+    "body": "Type:\ * issue\ \ Upstream:\ * entry\ \ Downstream:\ * Cluster-Repo Selection Screen\ * Make sample graph data"
+  }
+];
+
+
 
 // GITHUB JSON
 var issues = [
