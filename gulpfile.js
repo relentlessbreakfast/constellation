@@ -2,7 +2,7 @@
 * @Author: justinwebb
 * @Date:   2015-05-26 15:18:17
 * @Last Modified by:   justinwebb
-* @Last Modified time: 2015-05-29 22:45:17
+* @Last Modified time: 2015-05-30 08:32:02
 */
 
 'use strict';
@@ -16,18 +16,16 @@ var browserSync = require('browser-sync');
 var sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
 var del = require('del');
-var copy = require('gulp-clean');
-var copy = require('gulp-copy');
-var eventStream = require('event-stream');
-var streamSeries = require('stream-series');
-var changed = require('gulp-changed');
 var inject = require('gulp-inject');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var jshint = require('gulp-jshint');
+var streamSeries = require('stream-series');
 var nodemon = require('gulp-nodemon');
+var html2js = require('gulp-html2js');
 var config = require('./build-config');
 var browserSyncReload = browserSync.reload;
+var changed = require('gulp-changed');
 
 // ---------------------------------------------------------
 // Setup task configurations
@@ -56,6 +54,7 @@ var compileSassFiles = function (cb) {
 
 var transformSourceToDistFiles = function (cb) {
   var startTag = {starttag: '<!-- inject:head:{{ext}} -->'};
+  var cssDest = config.assets +'/styles/main.css';
   var cssOptions = {
     addRootSlash: false,
     ignorePath: ['dist', 'client']
@@ -78,7 +77,7 @@ var transformSourceToDistFiles = function (cb) {
 
   // Inject CSS and JS into index.html
   gulp.src(config.client +'/index.html')
-    .pipe(inject(gulp.src(config.assets +'/styles/main.css', {read: false}), cssOptions), startTag)
+    .pipe(inject(gulp.src(cssDest, {read: false}), cssOptions), startTag)
     .pipe(inject(streamSeries(vendorStream, appStream), jsOptions))
     .pipe(gulp.dest(config.dist));
 
