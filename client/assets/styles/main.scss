@@ -1,22 +1,26 @@
-// Import overridden Bootstrap variables BEFORE their definition in the vendor files
+// Import overridden Bootstrap variables BEFORE their 
+// definition in the vendor files
 @import 'library/variables';
 @import 'library/mixins';
 
-
-// Add core Bootstrap styles. Comment and uncomment functionality inside 'bootstrap.scss' as required to keep 'main.css'
-// as small as possible.
+// Add core Bootstrap styles. Comment and uncomment 
+// functionality inside framework code as required to keep 
+// 'main.css' as small as possible.
 // @import 'font-awesome';
 
 // Styles shared between custom components
 // @import 'snippets/**';
 
-// Skins may exist in several locations throughout the application.  They may override existing Bootstrap
-// directives or represent styles for custom application modules
+// Skins may exist in several locations throughout the 
+// application.  They may override existing framework styles
+// directives or represent styles for custom application 
+// modules
 // @import 'skins/manifest.gen';
 
-// Sections code includes page-specific and layout-related styles
+// Sections code includes page-specific and layout-related 
+// styles
 
 
 body {
-  color: green;
+  color: #00f;
 }
