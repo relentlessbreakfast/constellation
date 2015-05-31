@@ -2,7 +2,7 @@
 * @Author: justinwebb
 * @Date:   2015-05-26 15:18:17
 * @Last Modified by:   justinwebb
-* @Last Modified time: 2015-05-30 08:32:02
+* @Last Modified time: 2015-05-31 08:50:40
 */
 
 'use strict';
@@ -25,6 +25,7 @@ var nodemon = require('gulp-nodemon');
 var html2js = require('gulp-html2js');
 var config = require('./build-config');
 var browserSyncReload = browserSync.reload;
+var ngAnnotate = require('gulp-ng-annotate');
 var changed = require('gulp-changed');
 
 // ---------------------------------------------------------
@@ -71,6 +72,7 @@ var transformSourceToDistFiles = function (cb) {
    
   // Concatenate AND minify app sources 
   var appStream = gulp.src(config.appFiles.js)
+    .pipe(ngAnnotate())
     .pipe(concat('src/constellation-app.js'))
     .pipe(uglify())
     .pipe(gulp.dest(config.dist));
@@ -117,9 +119,9 @@ gulp.task('build', ['clean', 'sass', 'dist']);
 
 gulp.task('nodemon', runNodemon);
 
-gulp.task('watch-js', ['dist'], browserSyncReload);
+gulp.task('update-js', ['dist'], browserSyncReload);
 
-gulp.task('watch-html', ['dist'], function () {
+gulp.task('update-html', ['dist'], function () {
   setTimeout(browserSyncReload, 500);
 });
 
@@ -135,8 +137,8 @@ gulp.task('serve', ['build', 'nodemon'], function () {
   });
 
   gulp.watch(config.appFiles.scss, ['sass']);
-  gulp.watch(config.appFiles.js, ['watch-js']);
-  gulp.watch(config.appFiles.html, ['watch-html']);
+  gulp.watch(config.appFiles.js, ['update-js']);
+  gulp.watch(config.appFiles.html, ['update-html']);
 });
 
 gulp.task('default', ['serve']);
