@@ -2,7 +2,7 @@
 * @Author: justinwebb
 * @Date:   2015-05-26 15:18:17
 * @Last Modified by:   justinwebb
-* @Last Modified time: 2015-05-31 19:29:55
+* @Last Modified time: 2015-05-31 19:52:08
 */
 
 'use strict';
@@ -81,9 +81,11 @@ var transformSourceToDistFiles = function (cb) {
          
         // Concatenate AND minify app sources 
         var app = gulp.src(config.appFiles.js)
-          .pipe(ngAnnotate())
+          .pipe(sourcemaps.init())
           .pipe(concat(config.src +'/constellation-app.js'))
+          .pipe(ngAnnotate())
           .pipe(uglify())
+          .pipe(sourcemaps.write())
           .pipe(gulp.dest(config.dist));
 
         var templates = gulp.src(config.appFiles.atpl)

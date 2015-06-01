@@ -2,25 +2,35 @@
 * @Author: justinwebb
 * @Date:   2015-05-22 19:51:08
 * @Last Modified by:   justinwebb
-* @Last Modified time: 2015-05-30 16:31:38
+* @Last Modified time: 2015-05-31 19:53:53
 */
 
 'use strict';
 (function (angular) {
 
+  var AppConfig = function ($stateProvider, $urlRouterProvider) {
+    $stateProvider.state('root', {
+      url: '/',
+      controller: AppCtrl
+    });
+
+    $urlRouterProvider.otherwise('/');
+  };
+  
   var AppCtrl = function ($scope) {
     $scope.foo = 'bar';
   };
-
 
   angular
     .module('cd-app', [
       'ngAnimate',
       'ui.router',
       
-      'cd-app.login'
+      'cd-app.login',
+      'app-templates'
       
     ])
+    .config(AppConfig)
     .controller('appCtrl', AppCtrl);
 
 })(angular);
