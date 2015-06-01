@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/relentlessbreakfast/constellation",
   "dependencies": {
+    "fs": "0.0.2",
+    "github": "^0.2.4",
     "pg": "^4.3.0"
   },
   "devDependencies": {
