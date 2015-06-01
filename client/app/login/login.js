@@ -13,7 +13,6 @@
       controller: LoginCtrl
     });
   };
-
   angular.
     module('cd-app.login', [
       'ngAnimate',
