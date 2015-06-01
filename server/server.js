@@ -1,8 +1,8 @@
 /* 
 * @Author: justinwebb
 * @Date:   2015-05-28 22:46:32
-* @Last Modified by:   justinwebb
-* @Last Modified time: 2015-05-31 10:09:11
+* @Last Modified by:   kuychaco
+* @Last Modified time: 2015-06-01 11:53:10
 */
 
 'use strict';
@@ -11,6 +11,7 @@ var app = express();
 var server = require('http').createServer(app);
 var config = require('./server-config');
 var utils = require('../lib/utils');
+var db = require('./database/db');
 
 app.use(express.static(config.dist));
 
