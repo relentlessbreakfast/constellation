@@ -2,7 +2,7 @@
 * @Author: justinwebb
 * @Date:   2015-05-26 15:18:17
 * @Last Modified by:   justinwebb
-* @Last Modified time: 2015-05-31 19:52:08
+* @Last Modified time: 2015-05-31 20:50:50
 */
 
 'use strict';
@@ -90,6 +90,7 @@ var transformSourceToDistFiles = function (cb) {
 
         var templates = gulp.src(config.appFiles.atpl)
           .pipe(html2js({
+            base: 'client/app',
             outputModuleName: 'app-templates',
             useStrict: true
           }))
@@ -164,6 +165,7 @@ gulp.task('serve', ['build', 'nodemon'], function () {
   gulp.watch(config.appFiles.scss, ['sass']);
   gulp.watch(config.appFiles.js, ['update-js']);
   gulp.watch(config.appFiles.html, ['update-html']);
+  gulp.watch(config.appFiles.atpl, ['update-html']);
 });
 
 gulp.task('default', ['serve']);

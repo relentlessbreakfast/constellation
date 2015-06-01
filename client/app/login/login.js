@@ -9,7 +9,7 @@
   var LoginConfig = function ($stateProvider) {
     $stateProvider.state('login', {
       url: '/login',
-      templateUrl: 'client/app/login/login.tpl.html',
+      templateUrl: 'login/login.tpl.html',
       controller: LoginCtrl
     });
   };
