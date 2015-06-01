@@ -2,7 +2,7 @@
 * @Author: justinwebb
 * @Date:   2015-05-26 15:18:17
 * @Last Modified by:   justinwebb
-* @Last Modified time: 2015-05-31 11:06:25
+* @Last Modified time: 2015-05-31 19:29:55
 */
 
 'use strict';
@@ -75,21 +75,29 @@ var transformSourceToDistFiles = function (cb) {
     fs.stat(cssDest, function (err) {
       if (!err) {
         // Concatenate vendor scripnots 
-        var vendorStream = gulp.src(config.vendorFiles.js)
-          .pipe(concat('src/vendor.js'))
+        var vendor = gulp.src(config.vendorFiles.js)
+          .pipe(concat(config.src +'/vendor.js'))
           .pipe(gulp.dest(config.dist));
          
         // Concatenate AND minify app sources 
-        var appStream = gulp.src(config.appFiles.js)
+        var app = gulp.src(config.appFiles.js)
           .pipe(ngAnnotate())
-          .pipe(concat('src/constellation-app.js'))
+          .pipe(concat(config.src +'/constellation-app.js'))
           .pipe(uglify())
+          .pipe(gulp.dest(config.dist));
+
+        var templates = gulp.src(config.appFiles.atpl)
+          .pipe(html2js({
+            outputModuleName: 'app-templates',
+            useStrict: true
+          }))
+          .pipe(concat(config.src +'/constellation-templates.js'))
           .pipe(gulp.dest(config.dist));
 
         // Inject CSS and JS into index.html
         gulp.src(config.client +'/index.html')
           .pipe(inject(gulp.src(cssDest, {read: false}), cssOptions), startTag)
-          .pipe(inject(streamSeries(vendorStream, appStream), jsOptions))
+          .pipe(inject(streamSeries(vendor, app, templates), jsOptions))
           .pipe(gulp.dest(config.dist));
 
         // Exit polling function and task

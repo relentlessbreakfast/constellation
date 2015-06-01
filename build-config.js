@@ -1,6 +1,7 @@
 module.exports  = {
   dist    : 'dist',
   assets  : 'dist/assets',
+  src     : 'src',
   server  : 'server',
   client  : 'client',
   app     : 'client/app',
@@ -10,8 +11,8 @@ module.exports  = {
   styles  : 'client/assets/styles',
   appFiles : {
 
-    // Source excluding test files
-    js: [ 'client/app/**/*.js', '!client/app/**/*.spec.js'],
+    // Source excluding test and template files
+    js: [ 'client/app/**/*.js', '!client/app/**/*.spec.js' ],
 
     // Templates
     atpl: [ 'client/app/**/*.tpl.html' ],
