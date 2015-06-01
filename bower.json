@@ -1,0 +1,24 @@
+{
+  "name": "constellation",
+  "version": "0.0.0",
+  "homepage": "https://github.com/relentlessbreakfast/constellation",
+  "authors": [
+    "Justin Webb <jw@justinwebb.io>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-mocks": "~1.4.0",
+    "angular-ui-router": "~0.2.15",
+    "font-awesome": "~4.3.0",
+    "angular": "~1.4.0",
+    "angular-animate": "~1.4.0"
+  }
+}
