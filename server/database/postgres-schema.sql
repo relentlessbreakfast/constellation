@@ -2,11 +2,11 @@
 * @Author: kuychaco
 * @Date:   2015-05-30 15:14:34
 * @Last Modified by:   kuychaco
-* @Last Modified time: 2015-05-30 17:12:03
+* @Last Modified time: 2015-06-01 12:01:52
 */
 
 
-CREATE EXTENSION hstore;
+CREATE EXTENSION IF NOT EXISTS hstore;
 
 -- ---
 -- Table 'users'
