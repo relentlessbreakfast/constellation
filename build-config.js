@@ -21,7 +21,7 @@ module.exports  = {
     html: [ 'client/index.html' ],
 
     // Module styles
-    scss: [ 'client/app/**/*.scss', 'client/assets/styles/**/*.scss' ]
+    scss: [ 'client/assets/styles/**/*.scss' ]
   },
   vendorFiles  : {
     js: [

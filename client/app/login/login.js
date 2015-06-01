@@ -20,6 +20,7 @@
       'ui.router'
     ])
     .config(LoginConfig)
+    .value('testFunc', 5)
     .controller('loginCtrl', LoginCtrl);
 
 })(angular);

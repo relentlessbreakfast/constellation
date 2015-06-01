@@ -2,7 +2,7 @@
 * @Author: justinwebb
 * @Date:   2015-05-26 15:18:17
 * @Last Modified by:   justinwebb
-* @Last Modified time: 2015-05-31 20:50:50
+* @Last Modified time: 2015-06-01 11:12:43
 */
 
 'use strict';
@@ -27,6 +27,7 @@ var html2js = require('gulp-html2js');
 var config = require('./build-config');
 var browserSyncReload = browserSync.reload;
 var ngAnnotate = require('gulp-ng-annotate');
+var shell = require('gulp-shell');
 var changed = require('gulp-changed');
 
 // ---------------------------------------------------------
@@ -39,6 +40,17 @@ var cleanPreviousBuild = function (cb) {
 };
 
 var compileSassFiles = function (cb) {
+
+  // gulp.src('client/app/**/*.scss')
+  //   .on('error', sass.logError)
+  //   .pipe(sourcemaps.init())
+  //   .pipe(sass({
+  //       includePaths: [config.importPath.fontawesomeSass],
+  //       sourcemap: true
+  //     }))
+  //   .pipe(sourcemaps.write())
+  //   .pipe(gulp.dest(config.assets +'/styles/skins/manifest.gen'));
+
   gulp.src(config.appFiles.scss)
     .on('error', sass.logError)
     .pipe(sourcemaps.init())
@@ -135,6 +147,10 @@ var runNodemon = function (cb) {
 // ---------------------------------------------------------
 // Register tasks
 // ---------------------------------------------------------
+gulp.task('test', shell.task([
+  'npm test'
+]));
+
 gulp.task('clean', cleanPreviousBuild);
 
 gulp.task('sass', compileSassFiles);
