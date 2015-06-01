@@ -39,3 +39,5 @@ vendor/
 .DS_Store
 *.sublime-workspace
 
+# Scratch notes
+scratch/
