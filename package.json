@@ -16,7 +16,9 @@
     "url": "https://github.com/relentlessbreakfast/constellation/issues"
   },
   "homepage": "https://github.com/relentlessbreakfast/constellation",
-  "dependencies": {},
+  "dependencies": {
+    "pg": "^4.3.0"
+  },
   "devDependencies": {
     "browser-sync": "^2.7.5",
     "del": "^1.2.0",
