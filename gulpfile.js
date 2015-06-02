@@ -2,7 +2,7 @@
 * @Author: justinwebb
 * @Date:   2015-05-26 15:18:17
 * @Last Modified by:   justinwebb
-* @Last Modified time: 2015-06-01 11:29:52
+* @Last Modified time: 2015-06-01 16:10:55
 */
 
 'use strict';
@@ -148,7 +148,7 @@ var runNodemon = function (cb) {
 // Register tasks
 // ---------------------------------------------------------
 gulp.task('test', shell.task([
-  'npm test'
+  'karma start karma.confg.js'
 ]));
 
 gulp.task('clean', cleanPreviousBuild);
