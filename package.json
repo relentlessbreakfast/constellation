@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/relentlessbreakfast/constellation",
   "dependencies": {
+    "bluebird": "^2.9.27",
     "fs": "0.0.2",
     "github": "^0.2.4",
     "pg": "^4.3.0"
