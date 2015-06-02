@@ -2,7 +2,7 @@
 * @Author: kuychaco
 * @Date:   2015-05-29 22:37:34
 * @Last Modified by:   kuychaco
-* @Last Modified time: 2015-05-29 23:35:01
+* @Last Modified time: 2015-06-02 14:54:06
 */
 
 'use strict';
@@ -16,8 +16,7 @@ var nodes = [
     "cluster_id": 1, // foreign key ID from CLUSTERS table
     "issue_id": NULL, // foreign key ID from ISSUES table
     "upstream_nodes": [], // foreign key ID from NODES table
-    "downstream_nodes": [], // foreign key ID from NODES table
-    "all_upstream": {}
+    "downstream_nodes": [] // foreign key ID from NODES table
   },
   {
     "id": 2,// PRIMARY KEY
@@ -26,8 +25,7 @@ var nodes = [
     "cluster_id": NULL, // foreign key ID from CLUSTERS table
     "issue_id": NULL, // foreign key ID from ISSUES table
     "upstream_nodes": NULL, // foreign key ID from NODES table
-    "downstream_nodes": [4,6], // foreign key ID from NODES table
-    "all_upstream": {}
+    "downstream_nodes": [4,6] // foreign key ID from NODES table
   },
   {
     "id": 3,// PRIMARY KEY
@@ -36,8 +34,7 @@ var nodes = [
     "cluster_id": NULL, // foreign key ID from CLUSTERS table
     "issue_id": NULL, // foreign key ID from ISSUES table
     "upstream_nodes": [5,7], // foreign key ID from NODES table
-    "downstream_nodes": [], // foreign key ID from NODES table
-    "all_upstream": {}
+    "downstream_nodes": [] // foreign key ID from NODES table
   },
   {
     "id": 4,// PRIMARY KEY
@@ -46,8 +43,7 @@ var nodes = [
     "cluster_id": NULL, // foreign key ID from CLUSTERS table
     "issue_id": 82639324, // foreign key ID from ISSUES table
     "upstream_nodes": [2], // foreign key ID from NODES table
-    "downstream_nodes": [5,7], // foreign key ID from NODES table
-    "all_upstream": {}
+    "downstream_nodes": [5,7] // foreign key ID from NODES table
   },
   {
     "id": 5,// PRIMARY KEY
@@ -56,8 +52,7 @@ var nodes = [
     "cluster_id": 3, // foreign key ID from CLUSTERS table
     "issue_id": NULL, // foreign key ID from ISSUES table
     "upstream_nodes": [4,6], // foreign key ID from NODES table
-    "downstream_nodes": [3], // foreign key ID from NODES table
-    "all_upstream": {}
+    "downstream_nodes": [3] // foreign key ID from NODES table
   },
   {
     "id": 6,// PRIMARY KEY
@@ -66,8 +61,7 @@ var nodes = [
     "cluster_id": 2, // foreign key ID from CLUSTERS table
     "issue_id": NULL, // foreign key ID from ISSUES table
     "upstream_nodes": [2], // foreign key ID from NODES table
-    "downstream_nodes": [5,7], // foreign key ID from NODES table
-    "all_upstream": {}
+    "downstream_nodes": [5,7] // foreign key ID from NODES table
   },
   {
     "id": 7,// PRIMARY KEY
@@ -77,7 +71,6 @@ var nodes = [
     "issue_id": 82639733, // foreign key ID from ISSUES table
     "upstream_nodes": [4,6], // foreign key ID from NODES table
     "downstream_nodes": [3], // foreign key ID from NODES table
-    "all_upstream": {}
   }
 ];
 
