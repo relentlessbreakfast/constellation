@@ -10,6 +10,15 @@ var WrappedGraph = function(graphObj) {
 
 /* * * * * Add/Remove Node * * * * */
 
+/**
+ * deleteNode 
+ * stores the upstream and downstream arrays from the node to be
+ * deleted, unlinks that node from its upstream and downstream
+ * nodes, and deletes the node from the graph object. Then, the
+ * upstream and downstream nodes are linked.
+ * @param  {int} nodeId [a nodeId correspond to a key in the graph object]
+ * @return {undefined}  [used to mutate the graph obj; no return value.]
+ */
 WrappedGraph.prototype.deleteNode = function(nodeId) {
 	// store upstream and downstream arrays
 	var upstream = this.graph[nodeId].upstream || [];
@@ -31,9 +40,18 @@ WrappedGraph.prototype.deleteNode = function(nodeId) {
 	});
 };
 
+// Note: createNode has yet to be written; waiting for node class def.
+
 /* * * * * Add/Remove link * * * * */
 
-
+/**
+ * linkNodes
+ * links one upstream node to a downstream node by adding each node's 
+ * id to the other's correspondin array.
+ * @param  {int}  upNodeId  [a nodeId correspond to a key in the graph object]
+ * @param  {int} downNodeId [a nodeId correspond to a key in the graph object]
+ * @return {undefined}      [used to mutate the graph obj; no return value.]
+ */
 WrappedGraph.prototype.linkNodes = function(upNodeId, downNodeId) {
 	// adds appropriate nodeIds to upstream and downstream arrays
 	this.graph[upNodeId].downstream.push(downNodeId);
@@ -42,6 +60,14 @@ WrappedGraph.prototype.linkNodes = function(upNodeId, downNodeId) {
 	transitiveReduction(downNodeId, upNodeId);
 };
 
+/**
+ * unlinkNodes
+ * removes the node references linking two nodes from each node's 
+ * corresponding array.
+ * @param  {int} upNodeId   [upstream node's id]
+ * @param  {int} downNodeId [downstream node's id]
+ * @return {undefined]}     [used to mutate the graph obj; no return value.]
+ */
 WrappedGraph.prototype.unlinkNodes = function(upNodeId, downNodeId) {
 	// remove downNodeId from upNodeId's downstream array
 	this.graph[upNodeId].downstream.forEach(function(nodeId, i, arr) {
