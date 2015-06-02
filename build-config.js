@@ -21,7 +21,14 @@ module.exports  = {
     html: [ 'client/index.html' ],
 
     // Module styles
-    scss: [ 'client/assets/styles/**/*.scss' ]
+    scss: [ 'client/assets/styles/**/*.scss' ],
+
+    testFrontend: [
+      'dist/src/vendor.js',
+      'vendor/angular-mocks/angular-mocks.js',
+      'dist/src/constellation-app.js',
+      'client/app/**/*.spec.js'
+    ]
   },
   vendorFiles  : {
     js: [
