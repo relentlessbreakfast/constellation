@@ -32,7 +32,7 @@ module.exports  = {
       'vendor/d3/d3.min.js',
       'vendor/graphlib/dist/graphlib.core.min.js',
       'vendor/dagre/dist/dagre.core.min.js',
-      'vendor/dagre-d3/dist/dagre-d3.core.min.js'
+      'vendor/dagre-d3/dist/dagre-d3.core.min.js',
     ],
     css: [
       'vendor/animate.css/animate.min.css'

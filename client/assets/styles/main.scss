@@ -26,4 +26,40 @@ body {
 }
 
 
+.graph {
+  color: $brand-secondary;
+}
+
+
+.node {
+  stroke: #333;
+  fill: #fff;
+}
+
+.edgePath path {
+  stroke: #333;
+  fill: #333;
+  stroke-width: 0.7px;
+}
+
+#canvas {
+  width : 650px;
+  height : inherit;
+  fill : #e9eceb;
+}
+
+.Exit {
+  fill:#c7ffef;
+}
+
+.Entry {
+  fill:#c7ffef;
+}
+
+
+
+
+
+
+
 
