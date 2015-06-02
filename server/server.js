@@ -2,7 +2,7 @@
 * @Author: justinwebb
 * @Date:   2015-05-28 22:46:32
 * @Last Modified by:   kuychaco
-* @Last Modified time: 2015-06-01 11:53:10
+* @Last Modified time: 2015-06-01 16:58:45
 */
 
 'use strict';
@@ -21,4 +21,5 @@ server.listen(config.port, function () {
   var project = utils.grandParentDir(__dirname, true);
   console.log(project + ' is online at http://localhost:'+port, host, port);
   // console.log(project + ' is online at http://%s:%s', host, port);
+  console.log('Created client to', db.database, 'database');
 });
