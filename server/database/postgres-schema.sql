@@ -2,9 +2,10 @@
 * @Author: kuychaco
 * @Date:   2015-05-30 15:14:34
 * @Last Modified by:   kuychaco
-* @Last Modified time: 2015-06-01 12:01:52
+* @Last Modified time: 2015-06-01 16:38:50
 */
 
+-- TODO: Refactor to CREATE TABLE IF NOT EXISTS IF NOT EXISTS after schema is decided
 
 CREATE EXTENSION IF NOT EXISTS hstore;
 
@@ -13,9 +14,9 @@ CREATE EXTENSION IF NOT EXISTS hstore;
 --   Foreign keys: repo_list elements (not enforced)
 -- ---
 
-DROP TABLE IF EXISTS users;
+-- DROP TABLE IF EXISTS users;
 
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
   id integer, -- 7910250,  // PRIMARY KEY
   login text, -- "kuychaco",
   avatar_url text, -- "https://avatars.githubusercontent.com/u/7910250?v=3",
@@ -37,9 +38,9 @@ CREATE TABLE users (
 --   Foreign keys: none
 -- ---
 
-DROP TABLE IF EXISTS repos;
+-- DROP TABLE IF EXISTS repos;
 
-CREATE TABLE repos (
+CREATE TABLE IF NOT EXISTS repos (
   id serial, -- 1,  // PRIMARY KEY
   user_or_org text, -- "relentlessbreakfast",
   name text, -- "sampleGraph"
@@ -52,9 +53,9 @@ CREATE TABLE repos (
 --   Foreign keys: repo_id
 -- ---
 
-DROP TABLE IF EXISTS labels;
+-- DROP TABLE IF EXISTS labels;
 
-CREATE TABLE labels (
+CREATE TABLE IF NOT EXISTS labels (
   id serial, -- 1  // PRIMARY KEY
   url text, -- "https://api.github.com/repos/relentlessbreakfast/sampleGraph/labels/bug",
   name text, -- "bug",
@@ -69,9 +70,9 @@ CREATE TABLE labels (
 --   Foreign keys: creator
 -- ---
 
-DROP TABLE IF EXISTS comments;
+-- DROP TABLE IF EXISTS comments;
 
-CREATE TABLE comments (
+CREATE TABLE IF NOT EXISTS comments (
   id integer, -- 106990292,  // PRIMARY KEY
   url text, -- "https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/comments/106990292",
   html_url text, -- "https://github.com/relentlessbreakfast/sampleGraph/issues/7#issuecomment-106990292",
@@ -91,9 +92,9 @@ CREATE TABLE comments (
 
 -- TODO: HANDLE COMMENTS
 
-DROP TABLE IF EXISTS issues;
+-- DROP TABLE IF EXISTS issues;
 
-CREATE TABLE issues (
+CREATE TABLE IF NOT EXISTS issues (
   id integer, -- 82639733, // PRIMARY KEY
   url text, -- "https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/7",
   labels_url text, -- "https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/7/labels{/name}",
@@ -122,9 +123,9 @@ CREATE TABLE issues (
 --   Foreign keys: endponts elements, creator
 -- ---
 
-DROP TABLE IF EXISTS clusters;
+-- DROP TABLE IF EXISTS clusters;
 
-CREATE TABLE clusters (
+CREATE TABLE IF NOT EXISTS clusters (
   id serial, -- 1,  // PRIMARY KEY
   abbrev text, -- "ROOT",  // must be less than 32 chars
   name text, -- "Project Root",
@@ -143,9 +144,9 @@ CREATE TABLE clusters (
 -- ---
 
 -- TODO: refactor all_upstream to hstore data type
-DROP TABLE IF EXISTS nodes;
+-- DROP TABLE IF EXISTS nodes;
 
-CREATE TABLE nodes (
+CREATE TABLE IF NOT EXISTS nodes (
   id serial, -- 1, // PRIMARY KEY
   type text, -- "cluster",
   parent_cluster integer, -- NULL, // foreign key ID from NODES table
