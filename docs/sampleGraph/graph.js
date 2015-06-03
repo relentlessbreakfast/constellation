@@ -2,7 +2,7 @@
 * @Author: kuychaco
 * @Date:   2015-05-29 23:55:56
 * @Last Modified by:   kuychaco
-* @Last Modified time: 2015-05-31 13:34:45
+* @Last Modified time: 2015-06-02 18:51:27
 */
 
 'use strict';
@@ -13,7 +13,7 @@ var graph = {
   1: {
     "id": 1, // PRIMARY KEY
     "type": "cluster",
-    "parent_cluster": NULL, // foreign key ID from NODES table
+    "parent_cluster": null, // foreign key ID from NODES table
     "cluster_id": {
       "id": 1,  // PRIMARY KEY
       "abbrev": "ROOT",  // must be less than 32 chars
@@ -22,7 +22,7 @@ var graph = {
       "endpoints": [2, 3],  // these foreign key IDs for entries in NODES table
       "creator": 1445825  // foreign key ID for entry in USERS table
     }, // foreign key ID from CLUSTERS table
-    "issue_id": NULL, // foreign key ID from ISSUES table
+    "issue_id": null, // foreign key ID from ISSUES table
     "upstream_nodes": [], // foreign key ID from NODES table
     "downstream_nodes": [] // foreign key ID from NODES table
   },
@@ -30,17 +30,17 @@ var graph = {
     "id": 2,// PRIMARY KEY
     "type": "entry",
     "parent_cluster": 1, // foreign key ID from NODES table
-    "cluster_id": NULL, // foreign key ID from CLUSTERS table
-    "issue_id": NULL, // foreign key ID from ISSUES table
-    "upstream_nodes": NULL, // foreign key ID from NODES table
+    "cluster_id": null, // foreign key ID from CLUSTERS table
+    "issue_id": null, // foreign key ID from ISSUES table
+    "upstream_nodes": null, // foreign key ID from NODES table
     "downstream_nodes": [4,6] // foreign key ID from NODES table
   },
   3: {
     "id": 3,// PRIMARY KEY
     "type": "exit",
     "parent_cluster": 1, // foreign key ID from NODES table
-    "cluster_id": NULL, // foreign key ID from CLUSTERS table
-    "issue_id": NULL, // foreign key ID from ISSUES table
+    "cluster_id": null, // foreign key ID from CLUSTERS table
+    "issue_id": null, // foreign key ID from ISSUES table
     "upstream_nodes": [5,7], // foreign key ID from NODES table
     "downstream_nodes": [] // foreign key ID from NODES table
   },
@@ -48,7 +48,7 @@ var graph = {
     "id": 4,// PRIMARY KEY
     "type": "issue",
     "parent_cluster": 1, // foreign key ID from NODES table
-    "cluster_id": NULL, // foreign key ID from CLUSTERS table
+    "cluster_id": null, // foreign key ID from CLUSTERS table
     "issue_id": {
       "id": 82639324,
       "url": "https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/4",
@@ -84,7 +84,7 @@ var graph = {
       "endpoints": [13, 14],  // these foreign key IDs for entries in NODES table
       "creator": 1445825  // foreign key ID for entry in USERS table
     }, // foreign key ID from CLUSTERS table
-    "issue_id": NULL, // foreign key ID from ISSUES table
+    "issue_id": null, // foreign key ID from ISSUES table
     "upstream_nodes": [4,6], // foreign key ID from NODES table
     "downstream_nodes": [3] // foreign key ID from NODES table
   },
@@ -100,7 +100,7 @@ var graph = {
       "endpoints": [11, 12],  // these foreign key IDs for entries in NODES table
       "creator": 1445825  // foreign key ID for entry in USERS table
     }, // foreign key ID from CLUSTERS table
-    "issue_id": NULL, // foreign key ID from ISSUES table
+    "issue_id": null, // foreign key ID from ISSUES table
     "upstream_nodes": [2], // foreign key ID from NODES table
     "downstream_nodes": [5,7] // foreign key ID from NODES table
   },
@@ -108,7 +108,7 @@ var graph = {
     "id": 7,// PRIMARY KEY
     "type": "issue",
     "parent_cluster": 1, // foreign key ID from NODES table
-    "cluster_id": NULL, // foreign key ID from CLUSTERS table
+    "cluster_id": null, // foreign key ID from CLUSTERS table
     "issue_id": {
       "id": 82639733, // PRIMARY KEY
       "url": "https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/7",
@@ -130,6 +130,6 @@ var graph = {
       "body": "type:\ * Issue\ \ Upstream:\ * entry\ \ Downstream:\ * Cluster-Repo Selection Screen\ * Make sample graph data"
     }, // foreign key ID from ISSUES table
     "upstream_nodes": [4,6], // foreign key ID from NODES table
-    "downstream_nodes": [3, // foreign key ID from NODES table
+    "downstream_nodes": [3] // foreign key ID from NODES table
   }
 };
