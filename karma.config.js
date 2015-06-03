@@ -17,10 +17,9 @@ module.exports = function(config) {
     files: [
         'https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.18/require.js',
         'dist/src/vendor.js',
-        // 'vendor/angular-mocks/angular-mocks.js',
+        'vendor/angular-mocks/angular-mocks.js',
         'dist/src/constellation-app.js',
-        // 'client/app/**/*.spec.js',
-        'server/**/*.spec.js'
+        'client/app/**/*.spec.js'
     ],
 
 
