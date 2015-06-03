@@ -35,7 +35,11 @@ module.exports  = {
       'vendor/angular/angular.js',
       'vendor/angular-ui-router/release/angular-ui-router.js',
       'vendor/angular-animate/angular-animate.js',
-      'vendor/lodash/lodash.js'
+      'vendor/lodash/dist/lodash.min.js',
+      'vendor/d3/d3.min.js',
+      'vendor/graphlib/dist/graphlib.core.min.js',
+      'vendor/dagre/dist/dagre.core.min.js',
+      'vendor/dagre-d3/dist/dagre-d3.core.min.js',
     ],
     css: [
       'vendor/animate.css/animate.min.css'

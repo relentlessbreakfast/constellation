@@ -1,8 +1,8 @@
 /* 
 * @Author: justinwebb
 * @Date:   2015-05-22 19:51:08
-* @Last Modified by:   justinwebb
-* @Last Modified time: 2015-06-01 11:30:01
+* @Last Modified by:   ChalrieHwang
+* @Last Modified time: 2015-06-01 20:23:04
 */
 
 'use strict';
@@ -25,8 +25,9 @@
     .module('cd-app', [
       'ngAnimate',
       'ui.router',
-
+      
       'cd-app.login',
+      'cd-app.graph',
       'app-templates'
       
     ])
