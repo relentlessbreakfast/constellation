@@ -2,7 +2,7 @@
 * @Author: kuychaco
 * @Date:   2015-05-30 15:14:34
 * @Last Modified by:   kuychaco
-* @Last Modified time: 2015-06-01 16:38:50
+* @Last Modified time: 2015-06-02 19:19:26
 */
 
 -- TODO: Refactor to CREATE TABLE IF NOT EXISTS IF NOT EXISTS after schema is decided
