@@ -2,7 +2,8 @@
 * @Author: Austin Liu
 * @Date:   2015-06-01 17:41:31
 * @Last Modified by:   kuychaco
-* @Last Modified time: 2015-06-02 18:54:59
+* @Last Modified time: 2015-06-02 18:59:17
+
 */
 
 // 'use strict';
@@ -148,8 +149,8 @@ var WrappedGraph = function(graphObj) {
 WrappedGraph.prototype.deleteNode = function(nodeId) {
   var wrappedGraph = this;
   // store upstream and downstream arrays
-  var upstream = this.graph[nodeId].upstream_nodes || [];
-  var downstream = this.graph[nodeId].downstream_nodes || [];
+  var upstream = this.graph[nodeId].upstream_nodes.slice() || [];
+  var downstream = this.graph[nodeId].downstream_nodes.slice() || [];
   // break links to nodeId
   upstream.forEach(function(upNodeId) {
     wrappedGraph.unlinkNodes(upNodeId, nodeId);
@@ -160,11 +161,9 @@ WrappedGraph.prototype.deleteNode = function(nodeId) {
   // remove node from graph object
   delete wrappedGraph.graph[nodeId];
   // create links between upstream and downstream nodes
-  console.log('sdfsdf',upstream);
   upstream.forEach(function(upNodeId) {
     downstream.forEach(function(downNodeId) {
       // linkNodes calls transitive reduction
-      console.log('dsfdfd',upNodeId, downNodeId);
       wrappedGraph.linkNodes(upNodeId, downNodeId);
     });
   });
@@ -329,11 +328,7 @@ describe('Graph Class', function() {
       describe('delete node', function() {
 
         beforeEach(function() {
-          console.log(wrappedGraph.graph[4].downstream_nodes);
-
           wrappedGraph.deleteNode(5);
-          console.log(wrappedGraph.graph[4].downstream_nodes);
-
         });
 
         it('should break link from 3/4 to 5', function () {
@@ -342,12 +337,8 @@ describe('Graph Class', function() {
           expect(wrappedGraph.graph[5]).toBeUndefined();
         });
 
-
         it('transfer link from 3 to 4', function () {
-          console.log('s',wrappedGraph.graph[4].downstream_nodes);
-
           wrappedGraph.deleteNode(7);
-          console.log(wrappedGraph.graph[4].downstream_nodes);
           expect(wrappedGraph.graph[4].downstream_nodes).toContain(3);
           expect(wrappedGraph.graph[3].upstream_nodes).toContain(4);
         });
@@ -357,7 +348,5 @@ describe('Graph Class', function() {
 
   });
 
-  describe('a controller', function() {
 
-  });
 });
