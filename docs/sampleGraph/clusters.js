@@ -2,7 +2,7 @@
 * @Author: kuychaco
 * @Date:   2015-05-29 22:08:30
 * @Last Modified by:   kuychaco
-* @Last Modified time: 2015-05-29 23:29:36
+* @Last Modified time: 2015-06-02 14:55:44
 */
 
 'use strict';
@@ -14,8 +14,7 @@ var cluster_root = {
   "name": "Project Root",
   "description": "Cluster of entire project",
   "endpoints": [2, 3],  // these foreign key IDs for entries in NODES table
-  "creator": 1445825,  // foreign key ID for entry in USERS table
-  "deleted": []
+  "creator": 1445825  // foreign key ID for entry in USERS table
 };
 
 var clusters = [
@@ -25,27 +24,24 @@ var clusters = [
     "name": "Project Root",
     "description": "Cluster of entire project",
     "endpoints": [2, 3],  // these foreign key IDs for entries in NODES table
-    "creator": 1445825,  // foreign key ID for entry in USERS table
-    "deleted": []
-  },
+    "creator": 1445825  // foreign key ID for entry in USERS table
+    },
   {
     "id": 2,  // PRIMARY KEY
     "abbrev": "DB",  // must be less than 32 chars
     "name": "Cluster-Database Schema",
     "description": "Cluster of database schema related tasks",
     "endpoints": [11, 12],  // these foreign key IDs for entries in NODES table
-    "creator": 1445825,  // foreign key ID for entry in USERS table
-    "deleted": []
-  },
+    "creator": 1445825  // foreign key ID for entry in USERS table
+    },
   {
     "id": 3,  // PRIMARY KEY
     "abbrev": "Repo selection",  // must be less than 32 chars
     "name": "Cluster-Repo Selection Screen",
     "description": "Cluster of repo selection related tasks",
     "endpoints": [13, 14],  // these foreign key IDs for entries in NODES table
-    "creator": 1445825,  // foreign key ID for entry in USERS table
-    "deleted": []
-  }
+    "creator": 1445825  // foreign key ID for entry in USERS table
+    }
 ];
 
 

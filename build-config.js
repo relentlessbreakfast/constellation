@@ -3,12 +3,14 @@ module.exports  = {
   assets  : 'dist/assets',
   src     : 'src',
   server  : 'server',
+  db      : 'server/database',
   client  : 'client',
   app     : 'client/app',
   data    : 'client/assets/data',
   images  : 'client/assets/images',
   fonts   : 'client/assets/fonts',
   styles  : 'client/assets/styles',
+  sampleData: 'docs/sampleGraph',
   appFiles : {
 
     // Source excluding test and template files

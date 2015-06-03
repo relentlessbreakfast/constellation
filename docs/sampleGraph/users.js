@@ -2,7 +2,7 @@
 * @Author: kuychaco
 * @Date:   2015-05-29 21:58:43
 * @Last Modified by:   kuychaco
-* @Last Modified time: 2015-05-29 22:30:47
+* @Last Modified time: 2015-06-01 15:50:26
 */
 
 'use strict';
@@ -24,7 +24,7 @@ var user = {
 };
 
 // GITHUB JSON
-var users = [
+var users_gh = [
   {
   "login": "kuychaco",
   "id": 7910250,
@@ -154,3 +154,6 @@ var users = [
   "updated_at": "2015-05-29T18:55:17Z"
   }
 ];
+
+module.exports.user = user;
+module.exports.users_gh = users_gh;
