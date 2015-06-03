@@ -1,8 +1,8 @@
 /* 
 * @Author: ChalrieHwang
 * @Date:   2015-06-01 17:45:29
-* @Last Modified by:   ChalrieHwang
-* @Last Modified time: 2015-06-02 15:43:40
+* @Last Modified by:   justinwebb
+* @Last Modified time: 2015-06-03 16:10:59
 */
 
 'use strict';
@@ -16,8 +16,8 @@
     });
   };
 
-  var GraphCtrl = function($scope){
-    
+  var GraphCtrl = function($scope, D3Service){
+    var d3 = D3Service.getD3();
 
     /**
      * Define function for creating the graph canvas object
@@ -106,129 +106,129 @@
     $scope.data = [
       {
         nodeID : 0,
-        abbrev : "Entry",
-        nodeType : "Entry",
-        name : "Cunstruct Database",
-        description : "Build database with monggose",
-        asignee: ["Tony","Tom"],
-        user : "Tony",
+        abbrev : 'Entry',
+        nodeType : 'Entry',
+        name : 'Cunstruct Database',
+        description : 'Build database with monggose',
+        asignee: ['Tony','Tom'],
+        user : 'Tony',
         parentCluster : null,
         upstreams : [],
         downstreams : [5,6,8],
-        status : "open",
-        labels : "bug"
+        status : 'open',
+        labels : 'bug'
       },  
       {
         nodeID : 1,
-        abbrev : "Exit",
-        nodeType : "Exit",
-        name : "Cunstruct Database",
-        description : "Build database with monggose",
-        asignee: ["Tony","Tom"],
-        user : "Tony",
+        abbrev : 'Exit',
+        nodeType : 'Exit',
+        name : 'Cunstruct Database',
+        description : 'Build database with monggose',
+        asignee: ['Tony','Tom'],
+        user : 'Tony',
         parentCluster : null,
         upstreams : [3,4],
         downstreams : [],
-        status : "open",
-        labels : "bug"
+        status : 'open',
+        labels : 'bug'
       },
       {
         nodeID : 2,
-        abbrev : "2",
-        nodeType : "Issue",
-        name : "Cunstruct Database",
-        description : "Build database with monggose",
-        asignee: ["Tony","Tom"],
-        user : "Tony",
+        abbrev : '2',
+        nodeType : 'Issue',
+        name : 'Cunstruct Database',
+        description : 'Build database with monggose',
+        asignee: ['Tony','Tom'],
+        user : 'Tony',
         parentCluster : null,
         upstreams : [6,8],
         downstreams : [3],
-        status : "open",
-        labels : "bug"
+        status : 'open',
+        labels : 'bug'
       },
       {
         nodeID : 3,
-        abbrev : "3",
-        nodeType : "Issue",
-        name : "Build Server API",
-        description : "Build server with Express",
-        asignee: ["Tom"],
-        user : "Tony",
+        abbrev : '3',
+        nodeType : 'Issue',
+        name : 'Build Server API',
+        description : 'Build server with Express',
+        asignee: ['Tom'],
+        user : 'Tony',
         parentCluster : null,
         upstreams : [2,7],
         downstreams : [1],
-        status : "open",
-        labels : "bug"
+        status : 'open',
+        labels : 'bug'
       },
       {
         nodeID : 4,
-        abbrev : "4",
-        nodeType : "Issue",
-        name : "Build Client API",
-        description : "Build client app with Angular",
-        asignee: ["Brad"],
-        user : "Tony",
+        abbrev : '4',
+        nodeType : 'Issue',
+        name : 'Build Client API',
+        description : 'Build client app with Angular',
+        asignee: ['Brad'],
+        user : 'Tony',
         parentCluster : null,
         upstreams : [5,8],
         downstreams : [1],
-        status : "open",
-        labels : "bug"
+        status : 'open',
+        labels : 'bug'
       },
       {
         nodeID : 5,
-        abbrev : "5",
-        nodeType : "Issue",
-        name : "Build Client API",
-        description : "Build client app with Angular",
-        asignee: ["Brad"],
-        user : "Tony",
+        abbrev : '5',
+        nodeType : 'Issue',
+        name : 'Build Client API',
+        description : 'Build client app with Angular',
+        asignee: ['Brad'],
+        user : 'Tony',
         parentCluster : null,
         upstreams : [0],
         downstreams : [4],
-        status : "open",
-        labels : "bug"
+        status : 'open',
+        labels : 'bug'
       }, 
       {
         nodeID : 6,
-        abbrev : "6",
-        nodeType : "Issue",
-        name : "Build Client API",
-        description : "Build client app with Angular",
-        asignee: ["Brad"],
-        user : "Tony",
+        abbrev : '6',
+        nodeType : 'Issue',
+        name : 'Build Client API',
+        description : 'Build client app with Angular',
+        asignee: ['Brad'],
+        user : 'Tony',
         parentCluster : null,
         upstreams : [0],
         downstreams : [2,7],
-        status : "open",
-        labels : "bug"
+        status : 'open',
+        labels : 'bug'
       },
       {
         nodeID : 7,
-        abbrev : "7",
-        nodeType : "Issue",
-        name : "Build Client API",
-        description : "Build client app with Angular",
-        asignee: ["Brad"],
-        user : "Tony",
+        abbrev : '7',
+        nodeType : 'Issue',
+        name : 'Build Client API',
+        description : 'Build client app with Angular',
+        asignee: ['Brad'],
+        user : 'Tony',
         parentCluster : null,
         upstreams : [6],
         downstreams : [3],
-        status : "open",
-        labels : "bug"
+        status : 'open',
+        labels : 'bug'
       },
       {
         nodeID : 8,
-        abbrev : "8",
-        nodeType : "Issue",
-        name : "Build Client API",
-        description : "Build client app with Angular",
-        asignee: ["Brad"],
-        user : "Tony",
+        abbrev : '8',
+        nodeType : 'Issue',
+        name : 'Build Client API',
+        description : 'Build client app with Angular',
+        asignee: ['Brad'],
+        user : 'Tony',
         parentCluster : null,
         upstreams : [0],
         downstreams : [2,4],
-        status : "open",
-        labels : "bug"
+        status : 'open',
+        labels : 'bug'
       }
     ];
 
@@ -248,7 +248,9 @@
 // ---------------------------------------------------------
   angular.module('cd-app.graph', [
   	'ngAnimate',
-  	'ui.router'
+  	'ui.router',
+
+    'cd-app.common'
   ])
   .config(GraphConfig)
   .controller('graphCtrl', GraphCtrl);
