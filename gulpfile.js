@@ -2,7 +2,7 @@
 * @Author: justinwebb
 * @Date:   2015-05-26 15:18:17
 * @Last Modified by:   justinwebb
-* @Last Modified time: 2015-06-04 12:02:13
+* @Last Modified time: 2015-06-06 17:49:10
 */
 
 'use strict';
@@ -40,16 +40,6 @@ var cleanPreviousBuild = function (cb) {
 };
 
 var compileSassFiles = function (cb) {
-
-  // gulp.src('client/app/**/*.scss')
-  //   .on('error', sass.logError)
-  //   .pipe(sourcemaps.init())
-  //   .pipe(sass({
-  //       includePaths: [config.importPath.fontawesomeSass],
-  //       sourcemap: true
-  //     }))
-  //   .pipe(sourcemaps.write())
-  //   .pipe(gulp.dest(config.assets +'/styles/skins/manifest.gen'));
 
   gulp.src(config.appFiles.scss)
     .on('error', sass.logError)
@@ -147,8 +137,12 @@ var runNodemon = function (cb) {
 // ---------------------------------------------------------
 // Register tasks
 // ---------------------------------------------------------
-gulp.task('test', shell.task([
+gulp.task('testfront', shell.task([
   'karma start karma.confg.js'
+]));
+
+gulp.task('testback', shell.task([
+  'mocha server'
 ]));
 
 gulp.task('clean', cleanPreviousBuild);
