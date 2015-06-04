@@ -2,7 +2,7 @@
 * @Author: ChalrieHwang
 * @Date:   2015-06-01 17:45:29
 * @Last Modified by:   ChalrieHwang
-* @Last Modified time: 2015-06-03 18:54:01
+* @Last Modified time: 2015-06-03 23:41:00
 */
 
 'use strict';
@@ -36,7 +36,6 @@
     /**
      * Define function for rendering nodes on the graph
      * @param  {d3} canvas d3 graph object
-     * @return {[type]}        [description]
      */
     $scope.renderGraph = function(canvas){
       var render = new dagreD3.render();
@@ -69,13 +68,12 @@
      * Define function to create node in graph object
      * @param  {d3} canvas  d3 graph object to collect nodes
      * @param  {json} jsonObj node data from server
-     * @return {[type]}         [description]
      */
     $scope.createIssueNode = function(jsonObj){
       var id = jsonObj.id;
       var label;
       if(jsonObj.type === 'issue'){
-        label = '#' + jsonObj.issue_id.id;
+        label = '#' + jsonObj.issue_id.number;
       } else {
         label = jsonObj.type;
       }
@@ -101,7 +99,6 @@
      * Define function to create clusterNode in graph object
      * @param  {d3} canvas  d3 graph object to collect nodes
      * @param  {json} jsonObj node data from server
-     * @return {[type]}         [description]
      */
     $scope.createClusterNode = function(jsonObj){
       var id = jsonObj.id;
@@ -124,7 +121,6 @@
      * Define function to setup all edges of the node
      * @param  {d3} canvas d3 graph object
      * @param  {number} id     The id of node
-     * @return {[type]}        [description]
      */
     $scope.createEdge = function(id){
       if(id){
@@ -136,7 +132,6 @@
 
     //Testing Data
     $scope.data = {
-      entry: 2,
       parent_cluster: {
         "id": 1, // PRIMARY KEY
         "type": "cluster",
@@ -261,28 +256,36 @@
       }
     };
     
-    $scope.buildGraph = function(){
-      $scope.g = $scope.createCanvas();
-      _.each($scope.data, function(obj, key){
-        var tp = obj.type;
-        if(tp === 'issue' || tp === 'entry' || tp === 'exit'){
-          $scope.createIssueNode(obj);
-        } else if (tp === 'cluster' && key !== 'parent_cluster'){
-          $scope.createClusterNode(obj);
-        }
-      });
-      _.each($scope.data, function(obj, key){
-        var tp = obj.type;
-        if(tp === 'issue' || tp ==='entry' || tp === 'exit'){
-          $scope.createEdge(obj.id);
-        } else if (tp === 'cluster' && key !== 'parent_cluster'){
-          $scope.createEdge(obj.id);
-        } 
-      });
+     /**
+     * Define function to draw the final graph
+     */
+    $scope.buildGraph = function(data){
+      if($scope.g !== undefined){
+        $scope.g = $scope.createCanvas();
+        _.each(data, function(obj, key){
+          var tp = obj.type;
+          if(tp === 'issue' || tp === 'entry' || tp === 'exit'){
+            $scope.createIssueNode(obj);
+          } else if (tp === 'cluster' && key !== 'parent_cluster'){
+            $scope.createClusterNode(obj);
+          }
+        });
+        _.each(data, function(obj, key){
+          var tp = obj.type;
+          if(tp === 'issue' || tp ==='entry' || tp === 'exit'){
+            $scope.createEdge(obj.id);
+          } else if (tp === 'cluster' && key !== 'parent_cluster'){
+            $scope.createEdge(obj.id);
+          } 
+        });
+      } else {
+        $scope.g = $scope.createCanvas();
+        $scope.createClusterNode(data.parent_cluster);
+      }
       $scope.renderGraph($scope.g);
     };
 
-    $scope.buildGraph();
+    $scope.buildGraph($scope.data);
   };
 
 
