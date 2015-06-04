@@ -2,7 +2,7 @@
 * @Author: Austin Liu
 * @Date:   2015-06-01 17:41:31
 * @Last Modified by:   justinwebb
-* @Last Modified time: 2015-06-03 21:47:29
+* @Last Modified time: 2015-06-03 21:54:49
 
 */
 
@@ -31,6 +31,7 @@ describe('Graph Class', function() {
   var sampleGraph;
   var graph;
 
+  beforeEach(module('cd-app'));
   beforeEach(module('cd-app.common'));
   beforeEach(inject(function ($q, _GraphService_) {
    GraphService = _GraphService_;
@@ -40,6 +41,7 @@ describe('Graph Class', function() {
   describe('when instantiated', function() {
     var wrappedGraph;
     beforeEach(function() {
+      graph = GraphService.getStubProjectClusterData();
       wrappedGraph = GraphService.getWrapper(graph);
     });
 
@@ -61,6 +63,8 @@ describe('Graph Class', function() {
   describe('transitive reduction', function() {
 
     beforeEach(function() {
+      graph = GraphService.getStubProjectClusterData();
+      wrappedGraph = GraphService.getWrapper(graph);
       wrappedGraph.linkNodes(6,4);
     });
 
