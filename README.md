@@ -4,7 +4,7 @@
 
 ## Team
 
-  - __Product Owner__: Austin Lui
+  - __Product Owner__: Austin Liu
   - __Scrum Master__: Justin Webb
   - __Frontend Development Lead__: Charlie Hwang 
   - __Backend Development Lead__: Katrina Uychaco 
