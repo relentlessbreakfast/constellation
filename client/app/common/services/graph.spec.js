@@ -2,7 +2,7 @@
 * @Author: Austin Liu
 * @Date:   2015-06-01 17:41:31
 * @Last Modified by:   justinwebb
-* @Last Modified time: 2015-06-03 21:54:49
+* @Last Modified time: 2015-06-04 12:11:36
 
 */
 
@@ -31,7 +31,7 @@ describe('Graph Class', function() {
   var sampleGraph;
   var graph;
 
-  beforeEach(module('cd-app'));
+  // beforeEach(module('cd-app'));
   beforeEach(module('cd-app.common'));
   beforeEach(inject(function ($q, _GraphService_) {
    GraphService = _GraphService_;

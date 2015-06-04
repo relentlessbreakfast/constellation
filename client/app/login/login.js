@@ -16,7 +16,9 @@
   angular.
     module('cd-app.login', [
       'ngAnimate',
-      'ui.router'
+      'ui.router',
+
+      'cd-app.common'
     ])
     .config(LoginConfig)
     .value('testFunc', 5)
