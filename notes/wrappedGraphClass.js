@@ -2,10 +2,11 @@
 * @Author: kuychaco
 * @Date:   2015-06-02 15:06:02
 * @Last Modified by:   kuychaco
-* @Last Modified time: 2015-06-02 19:08:27
 */
 
 'use strict';
+
+
 
 
 /* * * * * GRAPH CLASS * * * * */
@@ -74,7 +75,7 @@ WrappedGraph.prototype.linkNodes = function(upNodeId, downNodeId) {
 
 /**
  * unlinkNodes
- * removes the node references linking two nodes from each node's 
+ * removes the node references linking two nodes from each node's
  * corresponding array.
  * @param  {int} upNodeId   [upstream node's id]
  * @param  {int} downNodeId [downstream node's id]
@@ -96,7 +97,7 @@ WrappedGraph.prototype.unlinkNodes = function(upNodeId, downNodeId) {
 };
 
 
-/* * * * * Transitive Reduction * * * * * 
+/* * * * * Transitive Reduction * * * * *
 Given a particular node and a new dependency (new upstream node)
 */
 
