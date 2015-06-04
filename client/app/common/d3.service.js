@@ -5,6 +5,9 @@
     return {
       getD3 : function () {
         return $window.d3;
+      },
+      getDagreD3 : function() {
+        return $window.dagreD3;
       }
     };
   };
