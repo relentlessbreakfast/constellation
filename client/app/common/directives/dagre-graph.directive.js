@@ -1,8 +1,8 @@
 /* 
 * @Author: justinwebb
 * @Date:   2015-06-03 15:30:09
-* @Last Modified by:   ChalrieHwang
-* @Last Modified time: 2015-06-04 01:52:29
+* @Last Modified by:   cwhwang1986
+* @Last Modified time: 2015-06-04 09:05:27
 */
 
 'use strict';
@@ -40,7 +40,7 @@
       controller: GraphPanelCtrl,
       template:  [
         '<div class="graph">',
-        '<svg id="canvas" ng-mouseover="mouseOver($event)" ng-click="onGraphClick($event)"><g/></svg>',
+        '<svg id="canvas" ng-mouseover="mouseOver($event)" ng-dblclick="onGraphClick($event)"><g/></svg>',
         '</div>'
       ].join('')
     };
