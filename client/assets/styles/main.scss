@@ -48,12 +48,23 @@ body {
   fill : #e9eceb;
 }
 
-.Exit {
-  fill:#c7ffef;
+.exit {
+  fill : #c7ffef;
 }
 
-.Entry {
-  fill:#c7ffef;
+.entry {
+  fill : #c7ffef;
+}
+
+.cluster {
+  stroke : "red";
+  fill : #6be7fe;
+  stroke-width : "2";
+  stroke-linecap : "round";
+}
+
+.issue {
+  fill : #2fbf78;
 }
 
 
