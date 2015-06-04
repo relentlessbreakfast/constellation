@@ -2,7 +2,7 @@
 * @Author: kuychaco
 * @Date:   2015-06-03 11:34:51
 * @Last Modified by:   justinwebb
-* @Last Modified time: 2015-06-03 21:59:10
+* @Last Modified time: 2015-06-04 12:11:38
 */
 
 'use strict';
@@ -11,7 +11,7 @@ describe('get graph', function() {
   var $httpBackend;
   var graphGetRequestHandler;
 
-  beforeEach(module('cd-app'));
+  // beforeEach(module('cd-app'));
   beforeEach(module('cd-app.common'));
   beforeEach(inject(function($injector, _GraphService_) {
     graphService = _GraphService_;

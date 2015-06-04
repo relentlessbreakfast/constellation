@@ -1,8 +1,8 @@
 /* 
 * @Author: justinwebb
 * @Date:   2015-05-22 19:51:08
-* @Last Modified by:   ChalrieHwang
-* @Last Modified time: 2015-06-01 20:23:04
+* @Last Modified by:   justinwebb
+* @Last Modified time: 2015-06-04 11:56:16
 */
 
 'use strict';
@@ -26,6 +26,7 @@
       'ngAnimate',
       'ui.router',
       
+      'cd-app.common',
       'cd-app.login',
       'cd-app.graph',
       'app-templates'
