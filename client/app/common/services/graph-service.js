@@ -52,35 +52,39 @@
     // catalog object w/ all upstream nodeIds as keys
     var catalog = {};
     var wrappedGraph = this;
-    // recurse up to entry node and add nodeIds to catalog
-    var recurse = function (nodeId) {
-      wrappedGraph.graph[nodeId].upstream_nodes && wrappedGraph.graph[nodeId].upstream_nodes.forEach(function(upNodeId) {
-        catalog[upNodeId] = true;
-        recurse(upNodeId);
-      });
+    var recursiveGather = function (nodeId) {
+      if (wrappedGraph.graph[nodeId].upstream_nodes) {
+        wrappedGraph.graph[nodeId].upstream_nodes.forEach(function(upNodeId) {
+          catalog[upNodeId] = true;
+          recursiveGather(upNodeId);
+        }); 
+      }
     };
-    recurse(nodeId);
-
+    recursiveGather(nodeId);
     return catalog;
   };
 
   // 
   WrappedGraph.prototype.purgeUplinksFromANode = function(nodeId, catalogObj) {
     var wrappedGraph = this;
-    this.graph[nodeId].upstream_nodes && this.graph[nodeId].upstream_nodes.forEach(function(upNodeId) {
-      if (catalogObj.hasOwnProperty(upNodeId)) {
-        wrappedGraph.unlinkNodes(upNodeId, nodeId);
-      }
-    });
+    if (wrappedGraph.graph[nodeId].upstream_nodes) {
+      wrappedGraph.graph[nodeId].upstream_nodes.forEach(function(upNodeId) {
+        if (catalogObj.hasOwnProperty(upNodeId)) {
+          wrappedGraph.unlinkNodes(upNodeId, nodeId);
+        }
+      });
+    }
   };
 
   // 
   WrappedGraph.prototype.purgeUplinksBelowANode = function(nodeId, catalogObj) {
     var wrappedGraph = this;
-    this.graph[nodeId].downstream_nodes && this.graph[nodeId].downstream_nodes.forEach(function(downNodeId) {
-      wrappedGraph.purgeUplinksFromANode(downNodeId, catalogObj);
-      wrappedGraph.purgeUplinksBelowANode(downNodeId, catalogObj);
-    });
+    if (wrappedGraph.graph[nodeId].downstream_nodes) {
+      wrappedGraph.graph[nodeId].downstream_nodes.forEach(function(downNodeId) {
+        wrappedGraph.purgeUplinksFromANode(downNodeId, catalogObj);
+        wrappedGraph.purgeUplinksBelowANode(downNodeId, catalogObj);
+      }); 
+    }
   };
 
   /** Given a particular node and a new dependency (new upstream node) **/
@@ -132,12 +136,13 @@
        * @param  {int} cluster_id
        * @return {undefined} [data outputs to graphObj in service object]
        */
-      getGraph: function(cluster_id, cb) {
+      getGraph: function(cluster_id) {
         var deferred = $q.defer();
 
         var serviceObj = this;
         cluster_id = (cluster_id === undefined) ? 1 : cluster_id;
         $http.get('/cluster/'+cluster_id)
+
           .success(function(data, status, headers) {
             console.log('successful get:', status);
             var graph = JSON.parse(data);
@@ -145,6 +150,7 @@
             serviceObj.graphObj = wrappedGraph;
             deferred.resolve(wrappedGraph);
           })
+
           .error(function(data, status, headers) {
             console.log('error on get:', status);
           });
@@ -152,15 +158,19 @@
         return deferred.promise;
 
       },
+
       graphClass: WrappedGraph,
-      postGraph: function(cb) {
+
+      postGraph: function() {
         var deferred = $q.defer();
         var graphObj = this.graphObj;
         $http.post('/cluster/'+graphObj.parent_cluster.id, graphObj)
+
           .success(function(response, status, headers) {
             console.log('successful post:', status);
             deferred.resolve('successful post:', status);
           })
+
           .error(function(data, status, headers) {
             console.log('error on post:', status);
           });
