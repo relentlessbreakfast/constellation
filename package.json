@@ -4,7 +4,7 @@
   "description": "> Cut though the confusion",
   "main": "gulpfile.js",
   "scripts": {
-    "test": "karma start karma.confg.js"
+    "test": "karma start karma.config.js"
   },
   "repository": {
     "type": "git",
