@@ -48,8 +48,6 @@ module.exports  = {
       'client/app/**/*.spec.js'
     ],
     back : [
-      'dist/src/vendor.js',
-      'dist/src/constellation-app.js',
       'server/**/*.spec.js'
     ]
   },

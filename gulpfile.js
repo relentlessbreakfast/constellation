@@ -2,7 +2,7 @@
 * @Author: justinwebb
 * @Date:   2015-05-26 15:18:17
 * @Last Modified by:   justinwebb
-* @Last Modified time: 2015-06-06 17:53:34
+* @Last Modified time: 2015-06-06 17:54:00
 */
 
 'use strict';
@@ -22,6 +22,7 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var jshint = require('gulp-jshint');
 var karma = require('gulp-karma');
+var mocha = require('gulp-mocha');
 var streamSeries = require('stream-series');
 var nodemon = require('gulp-nodemon');
 var html2js = require('gulp-html2js');
@@ -137,17 +138,20 @@ var runNodemon = function (cb) {
 // ---------------------------------------------------------
 // Register tasks
 // ---------------------------------------------------------
-gulp.task('testback', shell.task([
-  'mocha server/*'
-]));
+gulp.task('testback', function () {
+  return gulp.src(config.testFiles.back)
+    .pipe(mocha({
+      reporter: 'spec'
+    }));
+});
 
 gulp.task('testfront', function () {
   return gulp.src(config.testFiles.front)
-          .on('error', function (err) {throw err;})
-          .pipe(karma({
-            configFile: 'karma.config.js',
-            action: 'run'
-          }));
+    .on('error', function (err) {throw err;})
+    .pipe(karma({
+      configFile: 'karma.config.js',
+      action: 'watch'
+    }));
 });
 
 gulp.task('clean', cleanPreviousBuild);
