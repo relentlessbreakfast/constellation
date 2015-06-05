@@ -2,7 +2,7 @@
 * @Author: justinwebb
 * @Date:   2015-05-26 15:18:17
 * @Last Modified by:   justinwebb
-* @Last Modified time: 2015-06-06 17:52:57
+* @Last Modified time: 2015-06-06 17:53:34
 */
 
 'use strict';
@@ -21,7 +21,7 @@ var inject = require('gulp-inject');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var jshint = require('gulp-jshint');
-var mocha = require('gulp-mocha');
+var karma = require('gulp-karma');
 var streamSeries = require('stream-series');
 var nodemon = require('gulp-nodemon');
 var html2js = require('gulp-html2js');
@@ -41,7 +41,6 @@ var cleanPreviousBuild = function (cb) {
 };
 
 var compileSassFiles = function (cb) {
-
   gulp.src(config.appFiles.scss)
     .on('error', sass.logError)
     .pipe(sourcemaps.init())
@@ -135,25 +134,21 @@ var runNodemon = function (cb) {
     });
 };
 
-var runMochaTests = function () {
-  return gulp.src(config.testFiles.back, {read: false})
-    .pipe(mocha({
-      reporter: 'spec'
-    }));
-};
-
 // ---------------------------------------------------------
 // Register tasks
 // ---------------------------------------------------------
-gulp.task('testfront', shell.task([
-  'karma start karma.confg.js'
+gulp.task('testback', shell.task([
+  'mocha server/*'
 ]));
 
-// gulp.task('testback', shell.task([
-//   'mocha server'
-// ]));
-
-gulp.task('testback', runMochaTests);
+gulp.task('testfront', function () {
+  return gulp.src(config.testFiles.front)
+          .on('error', function (err) {throw err;})
+          .pipe(karma({
+            configFile: 'karma.config.js',
+            action: 'run'
+          }));
+});
 
 gulp.task('clean', cleanPreviousBuild);
 

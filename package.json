@@ -4,7 +4,8 @@
   "description": "> Cut though the confusion",
   "main": "gulpfile.js",
   "scripts": {
-    "testfront": "karma start karma.config.js"
+    "testfront": "karma start karma.config.js",
+    "testback": "mocha server/*"
   },
   "repository": {
     "type": "git",
@@ -35,6 +36,7 @@
     "gulp-html2js": "^0.2.0",
     "gulp-inject": "^1.2.0",
     "gulp-jshint": "^1.11.0",
+    "gulp-karma": "0.0.4",
     "gulp-mocha": "^2.1.0",
     "gulp-mocha-tdd": "^0.4.2",
     "gulp-ng-annotate": "^1.0.0",
