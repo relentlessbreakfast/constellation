@@ -2,7 +2,7 @@
 * @Author: justinwebb
 * @Date:   2015-05-26 15:18:17
 * @Last Modified by:   justinwebb
-* @Last Modified time: 2015-06-06 17:54:00
+* @Last Modified time: 2015-06-06 17:54:18
 */
 
 'use strict';
@@ -21,6 +21,7 @@ var inject = require('gulp-inject');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var jshint = require('gulp-jshint');
+var stylish = require('jshint-stylish');
 var karma = require('gulp-karma');
 var mocha = require('gulp-mocha');
 var streamSeries = require('stream-series');
@@ -84,6 +85,9 @@ var transformSourceToDistFiles = function (cb) {
          
         // Concatenate AND minify app sources 
         var app = gulp.src(config.appFiles.js)
+          .pipe(jshint())
+          .pipe(jshint.reporter(stylish))
+          .pipe(jshint.reporter('fail'))
           .pipe(sourcemaps.init())
           .pipe(concat(config.src +'/constellation-app.js'))
           .pipe(ngAnnotate())
@@ -140,6 +144,9 @@ var runNodemon = function (cb) {
 // ---------------------------------------------------------
 gulp.task('testback', function () {
   return gulp.src(config.testFiles.back)
+    .on('error', function (err) {throw err;})
+    .pipe(jshint())
+    .pipe(jshint.reporter('jshint-stylish'))
     .pipe(mocha({
       reporter: 'spec'
     }));
@@ -153,6 +160,10 @@ gulp.task('testfront', function () {
       action: 'watch'
     }));
 });
+
+gulp.task('dbstart', shell.task([
+  'postgres -D /usr/local/var/postgres'
+]));
 
 gulp.task('clean', cleanPreviousBuild);
 

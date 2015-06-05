@@ -2,17 +2,17 @@
 * @Author: justinwebb
 * @Date:   2015-06-03 15:30:09
 * @Last Modified by:   justinwebb
-* @Last Modified time: 2015-06-03 16:11:41
+* @Last Modified time: 2015-06-05 15:25:15
 */
 
 'use strict';
 (function (angular) {
 
-  var GraphPanelCtrl = function ($scope) {
-
+  var GraphPanelCtrl = function () {
+    
   };
 
-  var link = function ($scope, elem, attr) {
+  var link = function ($scope, elem) {
     console.log('GraphPanelDirective: ', elem);
   };
 

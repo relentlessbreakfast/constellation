@@ -5,29 +5,25 @@
 */
 
 'use strict';
-
-var config = require('../../build-config');
-
 var pg = require('pg');
-
-var Promise = require('bluebird');
+var bluebird = require('bluebird');
 var fs = require('fs');
-// var readFile = Promise.promisify(require('fs').readFile);
+var config = require('../build-config');
 
 // create constellation database
-// var conString = "postgres://root:root@localhost/constellation";
-var conString = "postgres://localhost:5432/constellation";
+// var cnx = "postgres://root:root@localhost/constellation";
+var cnx = process.env.DATABASE_URL || 'postgres://localhost:5432/constellation';
+var schemaUrl = config.db +'/postgres-schema.sql';
 // TODO: explore client pooling ###########
-// connect a single client to a postgres instance and use to interact with the database
+// connect a single client to a postgres instance and use to
+// interact with the database
 
 /* * * * * PROMISIFIED USING JOIN * * * * */
-var client = Promise.promisifyAll(new pg.Client(conString));
-
+var client = bluebird.promisifyAll(new pg.Client(cnx));
 var connectP = client.connectAsync();
-var readFileP = Promise.promisify(fs.readFile)(config.db+'/postgres-schema.sql', 'utf8');
+var readFileP = bluebird.promisify(fs.readFile)(schemaUrl, 'utf8');
 
-Promise.join(connectP, readFileP,
-  function(dbInfo, schema) {
+bluebird.join(connectP, readFileP, function(dbInfo, schema) {
     return client.queryAsync(schema);
   })
   .then(function() {
@@ -41,6 +37,4 @@ Promise.join(connectP, readFileP,
     client.endAsync();
   });
 /* * * * * * * * * * * * * * * * * * * * */
-
-module.exports.client = client;
 
