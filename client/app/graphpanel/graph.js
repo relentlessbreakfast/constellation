@@ -2,7 +2,7 @@
 * @Author: ChalrieHwang
 * @Date:   2015-06-01 17:45:29
 * @Last Modified by:   ChalrieHwang
-* @Last Modified time: 2015-06-03 23:41:00
+* @Last Modified time: 2015-06-05 09:27:44
 */
 
 'use strict';
@@ -84,6 +84,7 @@
         shape: 'circle'
       });
       $scope.g.node(id).parentCluster = jsonObj.parent_cluster;
+      $scope.g.node(id).clusterId = jsonObj.cluster_id;
       $scope.g.node(id).upstreams = jsonObj.upstream_nodes; 
       $scope.g.node(id).downstreams = jsonObj.downstream_nodes; 
       if(nodeType === 'issue'){
