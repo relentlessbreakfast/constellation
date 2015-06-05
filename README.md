@@ -40,6 +40,19 @@ npm install
 bower install
 ```
 
+For postgres database setup:
+
+```sh
+which psql  # verify PostgreSQL is installed
+createdb constellation # create database for application
+```
+
+To interact with database from the command line:
+
+```sh
+psql constellation
+```
+
 ### Tasks
 
 From within the root directory:
