@@ -1,7 +1,7 @@
 /*
 * @Author: kuychaco
 * @Date:   2015-05-28 15:33:28
-* @Last Modified by:   justinwebb
+* @Last Modified by:   kuychaco
 */
 
 'use strict';
@@ -42,4 +42,5 @@ var dbClient = function () {
 };
 
 module.exports = dbClient();
+
 
