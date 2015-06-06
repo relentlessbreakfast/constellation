@@ -37,4 +37,3 @@ bluebird.join(connectP, readFileP, function(dbInfo, schema) {
     client.endAsync();
   });
 /* * * * * * * * * * * * * * * * * * * * */
-

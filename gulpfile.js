@@ -2,7 +2,7 @@
 * @Author: justinwebb
 * @Date:   2015-05-26 15:18:17
 * @Last Modified by:   justinwebb
-* @Last Modified time: 2015-06-06 17:54:18
+* @Last Modified time: 2015-06-06 17:55:06
 */
 
 'use strict';
@@ -139,6 +139,13 @@ var runNodemon = function (cb) {
     });
 };
 
+var onNodeProcessError = function () {
+  process.exit(1);
+};
+var onNodeProcessEnd = function () {
+  process.exit();
+};
+
 // ---------------------------------------------------------
 // Register tasks
 // ---------------------------------------------------------
@@ -161,9 +168,33 @@ gulp.task('testfront', function () {
     }));
 });
 
-gulp.task('dbstart', shell.task([
-  'postgres -D /usr/local/var/postgres'
-]));
+gulp.task('dbstatus', function () {
+  return gulp.src('')
+    .pipe(shell([
+      'pg_ctl -D /usr/local/var/postgres status',
+    ]))
+    .on('error', onNodeProcessError)
+    .on('end', onNodeProcessEnd);
+});
+
+gulp.task('dbstart', function () {
+  return gulp.src('')
+    .pipe(shell([
+      'pg_ctl -D /usr/local/var/postgres',
+      ' -l /usr/local/var/postgres/server.log start',
+    ].join('')))
+    .on('error', onNodeProcessError)
+    .on('end', onNodeProcessEnd);
+});
+
+gulp.task('dbstop', function () {
+  return gulp.src('')
+    .pipe(shell([
+      'pg_ctl -D /usr/local/var/postgres stop -s -m fast',
+    ]))
+    .on('error', onNodeProcessError)
+    .on('end', onNodeProcessEnd);
+});
 
 gulp.task('clean', cleanPreviousBuild);
 
