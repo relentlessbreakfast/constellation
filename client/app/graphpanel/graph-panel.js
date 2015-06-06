@@ -2,7 +2,7 @@
 * @Author: ChalrieHwang
 * @Date:   2015-06-01 17:45:29
 * @Last Modified by:   ChalrieHwang
-* @Last Modified time: 2015-06-05 19:37:17
+* @Last Modified time: 2015-06-06 10:02:42
 */
 
 'use strict';
@@ -29,8 +29,11 @@
             inner.attr('transform', 'translate(' + d3.event.translate + ')'+'scale(' + d3.event.scale + ')');
           });
       svg.call(zoom);
+      d3.select('svg').on('dblclick.zoom', null);
       return zoom;
     };
+    $scope.onZoom();
+    console.log('setZoom');
   };
 // var initialScale = 1.5;
 //       var width = canvas.graph().width * initialScale;

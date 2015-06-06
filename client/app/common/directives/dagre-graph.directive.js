@@ -2,7 +2,7 @@
 * @Author: justinwebb
 * @Date:   2015-06-03 15:30:09
 * @Last Modified by:   ChalrieHwang
-* @Last Modified time: 2015-06-06 09:39:21
+* @Last Modified time: 2015-06-06 09:57:04
 */
 
 'use strict';
@@ -206,6 +206,7 @@
     $scope.$watchCollection('data', function(newVal){
       $scope.buildGraph(newVal);
     });
+    console.log('build graph');
   };
 
 
@@ -353,7 +354,7 @@
       'downstream_nodes': [3] // foreign key ID from NODES table
     }
   };
-  
+
 // ---------------------------------------------------------
 // Entry Point
 // ---------------------------------------------------------
