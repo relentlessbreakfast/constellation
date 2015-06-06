@@ -35,5 +35,7 @@
         "expect": false,
         "pending": false,
         "spyOn": false
+        "_": false
+
     }
 }

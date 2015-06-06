@@ -1,8 +1,8 @@
 /* 
 * @Author: justinwebb
 * @Date:   2015-05-22 19:51:08
-* @Last Modified by:   justinwebb
-* @Last Modified time: 2015-06-06 17:54:41
+* @Last Modified by:   ChalrieHwang
+* @Last Modified time: 2015-06-08 11:14:26
 */
 
 'use strict';
@@ -28,7 +28,7 @@
 
       'cd-app.common',
       'cd-app.login',
-      'cd-app.graph',
+      'cd-app.graph-panel',
       'app-templates'
     ])
     .config(AppConfig)
