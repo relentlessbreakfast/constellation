@@ -2,7 +2,7 @@
 * @Author: justinwebb
 * @Date:   2015-05-26 15:18:17
 * @Last Modified by:   justinwebb
-* @Last Modified time: 2015-06-06 17:55:06
+* @Last Modified time: 2015-06-06 17:55:43
 */
 
 'use strict';
@@ -31,7 +31,6 @@ var config = require('./build-config');
 var browserSyncReload = browserSync.reload;
 var ngAnnotate = require('gulp-ng-annotate');
 var shell = require('gulp-shell');
-var changed = require('gulp-changed');
 
 // ---------------------------------------------------------
 // Setup task configurations
@@ -149,6 +148,8 @@ var onNodeProcessEnd = function () {
 // ---------------------------------------------------------
 // Register tasks
 // ---------------------------------------------------------
+
+// --------------------- Testing -------------------------//
 gulp.task('testback', function () {
   return gulp.src(config.testFiles.back)
     .on('error', function (err) {throw err;})
@@ -168,6 +169,7 @@ gulp.task('testfront', function () {
     }));
 });
 
+// ------------------ PostgreSQL -------------------------//
 gulp.task('dbstatus', function () {
   return gulp.src('')
     .pipe(shell([
@@ -196,6 +198,8 @@ gulp.task('dbstop', function () {
     .on('end', onNodeProcessEnd);
 });
 
+
+// --------------- Contiguous Integration ---------------//
 gulp.task('clean', cleanPreviousBuild);
 
 gulp.task('sass', compileSassFiles);
