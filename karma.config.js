@@ -24,6 +24,7 @@ module.exports = function(config) {
 
     // list of files to exclude
     exclude: [
+        'client/app/login/*.spec.js'
     ],
 
 
@@ -38,6 +39,12 @@ module.exports = function(config) {
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
     reporters: ['progress'],
 
+    // COMMENTED OUT THIS BLOCK FOR NODE UPGRADE
+    // plugins: [
+    //     'karma-jasmine',
+    //     'karma-phantomjs-launcher'
+    // ],
+    plugins: ['karma-jasmine', 'karma-phantomjs-launcher'],
 
     // web server port
     port: 9876,

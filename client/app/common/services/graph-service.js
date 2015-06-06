@@ -1,7 +1,7 @@
 /*
 * @Author: kuychaco
 * @Date:   2015-06-03 10:37:28
-* @Last Modified by:   justinwebb
+* @Last Modified by:   Austin Liu
 */
 
 'use strict';
@@ -14,9 +14,11 @@
 // ---------------------------------------------------------
 
   // input is parsed graph JSON
-  var WrappedGraph = function(graphObj) {
+  var WrappedGraph = function(graphJson) {
+    // INSERTION to pass test––
+    // expect(typeof wrappedGraph.graph).toBe('object');
+    var graphObj = JSON.parse(graphJson); 
     this.graph = graphObj;
-
   };
   
   // Subclass example: 

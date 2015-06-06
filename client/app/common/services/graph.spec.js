@@ -1,8 +1,8 @@
 /*
 * @Author: Austin Liu
 * @Date:   2015-06-01 17:41:31
-* @Last Modified by:   justinwebb
-* @Last Modified time: 2015-06-04 12:11:36
+* @Last Modified by:   Austin Liu
+* @Last Modified time: 2015-06-05 14:01:29
 
 */
 
@@ -61,7 +61,8 @@ describe('Graph Class', function() {
   });
 
   describe('transitive reduction', function() {
-
+    var wrappedGraph;
+    
     beforeEach(function() {
       graph = GraphService.getStubProjectClusterData();
       wrappedGraph = GraphService.getWrapper(graph);

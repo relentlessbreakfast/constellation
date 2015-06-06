@@ -1,8 +1,8 @@
 /* 
 * @Author: ChalrieHwang
 * @Date:   2015-06-01 17:45:29
-* @Last Modified by:   justinwebb
-* @Last Modified time: 2015-06-03 16:10:59
+* @Last Modified by:   Austin Liu
+* @Last Modified time: 2015-06-05 14:21:05
 */
 
 'use strict';
@@ -16,7 +16,7 @@
     });
   };
 
-  var GraphCtrl = function($scope, D3Service){
+  var GraphCtrl = function($scope, D3Service, GraphService){ //
     var d3 = D3Service.getD3();
 
     /**
