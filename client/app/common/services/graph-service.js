@@ -145,7 +145,7 @@
         cluster_id = (cluster_id === undefined) ? 1 : cluster_id;
         $http.get('/cluster/'+cluster_id)
 
-          .success(function(data, status, headers) {
+          .success(function(data, status) {
             console.log('successful get:', status);
             var graph = JSON.parse(data);
             var wrappedGraph = new WrappedGraph(graph);
@@ -153,7 +153,7 @@
             deferred.resolve(wrappedGraph);
           })
 
-          .error(function(data, status, headers) {
+          .error(function(data, status) {
             console.log('error on get:', status);
           });
 
@@ -170,12 +170,12 @@
         var graphObj = this.graphObj;
         $http.post('/cluster/'+graphObj.parent_cluster.id, graphObj)
 
-          .success(function(response, status, headers) {
+          .success(function(response, status) {
             console.log('successful post:', status);
             deferred.resolve('successful post:', status);
           })
 
-          .error(function(data, status, headers) {
+          .error(function(data, status) {
             console.log('error on post:', status);
           });
 

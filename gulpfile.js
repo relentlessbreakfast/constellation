@@ -2,7 +2,7 @@
 * @Author: justinwebb
 * @Date:   2015-05-26 15:18:17
 * @Last Modified by:   justinwebb
-* @Last Modified time: 2015-06-04 12:02:13
+* @Last Modified time: 2015-06-06 17:55:43
 */
 
 'use strict';
@@ -21,6 +21,9 @@ var inject = require('gulp-inject');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var jshint = require('gulp-jshint');
+var stylish = require('jshint-stylish');
+var karma = require('gulp-karma');
+var mocha = require('gulp-mocha');
 var streamSeries = require('stream-series');
 var nodemon = require('gulp-nodemon');
 var html2js = require('gulp-html2js');
@@ -28,7 +31,6 @@ var config = require('./build-config');
 var browserSyncReload = browserSync.reload;
 var ngAnnotate = require('gulp-ng-annotate');
 var shell = require('gulp-shell');
-var changed = require('gulp-changed');
 
 // ---------------------------------------------------------
 // Setup task configurations
@@ -40,17 +42,6 @@ var cleanPreviousBuild = function (cb) {
 };
 
 var compileSassFiles = function (cb) {
-
-  // gulp.src('client/app/**/*.scss')
-  //   .on('error', sass.logError)
-  //   .pipe(sourcemaps.init())
-  //   .pipe(sass({
-  //       includePaths: [config.importPath.fontawesomeSass],
-  //       sourcemap: true
-  //     }))
-  //   .pipe(sourcemaps.write())
-  //   .pipe(gulp.dest(config.assets +'/styles/skins/manifest.gen'));
-
   gulp.src(config.appFiles.scss)
     .on('error', sass.logError)
     .pipe(sourcemaps.init())
@@ -93,6 +84,9 @@ var transformSourceToDistFiles = function (cb) {
          
         // Concatenate AND minify app sources 
         var app = gulp.src(config.appFiles.js)
+          .pipe(jshint())
+          .pipe(jshint.reporter(stylish))
+          .pipe(jshint.reporter('fail'))
           .pipe(sourcemaps.init())
           .pipe(concat(config.src +'/constellation-app.js'))
           .pipe(ngAnnotate())
@@ -144,13 +138,68 @@ var runNodemon = function (cb) {
     });
 };
 
+var onNodeProcessError = function () {
+  process.exit(1);
+};
+var onNodeProcessEnd = function () {
+  process.exit();
+};
+
 // ---------------------------------------------------------
 // Register tasks
 // ---------------------------------------------------------
-gulp.task('test', shell.task([
-  'karma start karma.confg.js'
-]));
 
+// --------------------- Testing -------------------------//
+gulp.task('testback', function () {
+  return gulp.src(config.testFiles.back)
+    .on('error', function (err) {throw err;})
+    .pipe(jshint())
+    .pipe(jshint.reporter('jshint-stylish'))
+    .pipe(mocha({
+      reporter: 'spec'
+    }));
+});
+
+gulp.task('testfront', function () {
+  return gulp.src(config.testFiles.front)
+    .on('error', function (err) {throw err;})
+    .pipe(karma({
+      configFile: 'karma.config.js',
+      action: 'watch'
+    }));
+});
+
+// ------------------ PostgreSQL -------------------------//
+gulp.task('dbstatus', function () {
+  return gulp.src('')
+    .pipe(shell([
+      'pg_ctl -D /usr/local/var/postgres status',
+    ]))
+    .on('error', onNodeProcessError)
+    .on('end', onNodeProcessEnd);
+});
+
+gulp.task('dbstart', function () {
+  return gulp.src('')
+    .pipe(shell([
+      'pg_ctl -D /usr/local/var/postgres',
+      ' -l /usr/local/var/postgres/server.log start',
+    ].join('')))
+    .on('error', onNodeProcessError)
+    .on('end', onNodeProcessEnd);
+});
+
+gulp.task('dbstop', function () {
+  return gulp.src('')
+    .pipe(shell([
+      'pg_ctl -D /usr/local/var/postgres stop -s -m fast',
+    ]))
+    .on('error', onNodeProcessError)
+    .on('end', onNodeProcessEnd);
+});
+
+
+// --------------- Contiguous Integration ---------------//
 gulp.task('clean', cleanPreviousBuild);
 
 gulp.task('sass', compileSassFiles);

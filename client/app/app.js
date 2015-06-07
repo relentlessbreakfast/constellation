@@ -2,7 +2,7 @@
 * @Author: justinwebb
 * @Date:   2015-05-22 19:51:08
 * @Last Modified by:   justinwebb
-* @Last Modified time: 2015-06-04 11:56:16
+* @Last Modified time: 2015-06-06 17:54:41
 */
 
 'use strict';
@@ -25,12 +25,11 @@
     .module('cd-app', [
       'ngAnimate',
       'ui.router',
-      
+
       'cd-app.common',
       'cd-app.login',
       'cd-app.graph',
       'app-templates'
-      
     ])
     .config(AppConfig)
     .controller('appCtrl', AppCtrl);

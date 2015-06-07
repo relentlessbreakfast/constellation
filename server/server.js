@@ -1,7 +1,7 @@
 /* 
 * @Author: justinwebb
 * @Date:   2015-05-28 22:46:32
-* @Last Modified by:   kuychaco
+* @Last Modified by:   justinwebb
 */
 
 'use strict';
@@ -20,12 +20,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(config.dist));
 
+db();
+app.use(express.static(config.dist));
 server.listen(config.port, function () {
   var host = server.address().address;
   var port = server.address().port;
   var project = utils.grandParentDir(__dirname, true);
   console.log(project + ' is online at http://localhost:'+port, host, port);
   // console.log(project + ' is online at http://%s:%s', host, port);
+
   console.log('Created client to', db.database, 'database');
 });
 

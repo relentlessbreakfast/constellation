@@ -1,36 +1,56 @@
 /*
 * @Author: kuychaco
 * @Date:   2015-06-01 12:36:59
-* @Last Modified by:   kuychaco
-* @Last Modified time: 2015-06-01 17:05:11
+* @Last Modified by:   justinwebb
+* @Last Modified time: 2015-06-04 20:06:35
 */
 
 'use strict';
-var config = require('../../build-config');
 
-var user = require(config.sampleData + '/users').user;
-var dbClient = require(config.db + '/db');
 
-describe('insert user', function() {
 
-  console.log(user);
-  // dbClient.queryAsync()
+describe('db.spec', function () {
 
-  // var testFunc;
-  // beforeEach(module('cd-app.login'));
-  // beforeEach(inject(function (_testFunc_) {
-  //   testFunc = _testFunc_;
-  // }));
+  var fs;
+  var config;
+  var dbClient;
+  var user;
+  
+  beforeEach(function () {
+    fs = require('fs');
+    config = require('../../build-config');
+    dbClient = require(config.db + '/db');
+    user = null;
 
-  // it('should equal 2', function () {
-  //   expect(testFunc).toBe(4);
-  // });
+    fs.readFile(config.sampleData +'/users.js', function (err, files) {
+      if (err) throw err;
+      user = files;
+    });
+    
+  });
 
-  // describe('a service', function() {
-
-  // });
-
-  // describe('a controller', function() {
-
-  // });
+  it('exists', function () {
+    console.log('db.spec: ', user);
+    expect(user).to.be.a('object');
+  });
 });
+
+
+// describe('insert user', function() {
+
+//   console.log(user);
+//   dbClient.queryAsync()
+
+
+//   it('should equal 2', function () {
+//     expect(testFunc).toBe(4);
+//   });
+
+//   describe('a service', function() {
+
+//   });
+
+//   describe('a controller', function() {
+
+//   });
+// });

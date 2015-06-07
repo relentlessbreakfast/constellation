@@ -23,14 +23,7 @@ module.exports  = {
     html: [ 'client/index.html' ],
 
     // Module styles
-    scss: [ 'client/assets/styles/**/*.scss' ],
-
-    testFrontend: [
-      'dist/src/vendor.js',
-      'vendor/angular-mocks/angular-mocks.js',
-      'dist/src/constellation-app.js',
-      'client/app/**/*.spec.js'
-    ]
+    scss: [ 'client/assets/styles/**/*.scss' ]
   },
   vendorFiles  : {
     js: [
@@ -45,6 +38,17 @@ module.exports  = {
     ],
     css: [
       'vendor/animate.css/animate.min.css'
+    ]
+  },
+  testFiles: {
+    front: [
+      'dist/src/vendor.js',
+      'vendor/angular-mocks/angular-mocks.js',
+      'dist/src/constellation-app.js',
+      'client/app/**/*.spec.js'
+    ],
+    back : [
+      'server/**/*.spec.js'
     ]
   },
   importPath: {
