@@ -2,7 +2,7 @@
 * @Author: justinwebb
 * @Date:   2015-06-03 15:30:09
 * @Last Modified by:   ChalrieHwang
-* @Last Modified time: 2015-06-06 09:57:04
+* @Last Modified time: 2015-06-06 15:46:33
 */
 
 'use strict';
@@ -43,7 +43,6 @@
       if(nodeClasses.indexOf(nodeClass) !== -1){
         if(nodeClass === 'cluster'){
           var clusterId = $scope.g.node(nodeId).clusterId;
-          console.log(clusterId);
           promise = GraphService.getGraph(clusterId);
         } else {
           var parentId = $scope.g.node(nodeId).parentCluster;
@@ -54,7 +53,6 @@
         }
         if(promise){
           promise.then(function(result){
-            console.log('result',result);
               if(result){
                 $scope.data = GraphService.graphObj;
               }
@@ -198,15 +196,20 @@
       d3.selectAll('circle').attr('r',40);
       //Add the parent node object to graph object
       createClusterNode(data[parentId]);
+      var svg = d3.select('svg');
+      var inner = svg.select('g');
+      $scope.$parent.size = [inner[0][0].getBBox().width, 
+        inner[0][0].getBBox().height];
     };
 
     $scope.data = dummy;
 
-    //Watch the data changes and re-render the graph
+    /**
+     * Watch the data changes and re-render the graph
+     */
     $scope.$watchCollection('data', function(newVal){
       $scope.buildGraph(newVal);
     });
-    console.log('build graph');
   };
 
 
