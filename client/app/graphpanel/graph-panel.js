@@ -1,12 +1,12 @@
 /* 
 * @Author: ChalrieHwang
 * @Date:   2015-06-01 17:45:29
-* @Last Modified by:   ChalrieHwang
-* @Last Modified time: 2015-06-06 16:53:56
+* @Last Modified by:   cwhwang1986
+* @Last Modified time: 2015-06-07 00:21:47
 */
 
 'use strict';
-(function(angular, window){
+(function(angular){
 
   var GraphConfig = function($stateProvider){
     $stateProvider.state('graph',{
@@ -16,24 +16,24 @@
     });
   };
 
-  var GraphPanelCtrl = function($scope, D3Service){
+  var GraphPanelCtrl = function($scope, D3Service, $window){
     var d3 = D3Service.getD3();
     var svg = d3.select('svg');
     var inner = svg.select('g');
-    var xOffset = [window.innerWidth * 0.45, 40];
+    var xOffset = [$window.innerWidth * 0.45, 40];
     var shrinkRate = 1;
 
-    $scope.windowWidth = window.innerWidth;
-    $scope.windowHeight = window.innerHeight;
+    $scope.windowWidth = $window.innerWidth;
+    $scope.windowHeight = $window.innerHeight;
     $scope.size = [0, 0];
     $scope.idealHeight = $scope.windowHeight * 0.85;
 
     /**
      * Attach event listener to window size
      */
-    window.addEventListener('resize', function(){
-      $scope.windowWidth = window.innerWidth;
-      $scope.windowHeight = window.innerHeight;
+    $window.addEventListener('resize', function(){
+      $scope.windowWidth = $window.innerWidth;
+      $scope.windowHeight = $window.innerHeight;
       $scope.idealHeight = $scope.windowHeight * 0.85;
     }, true);
     
@@ -72,15 +72,8 @@
           xOffset = [0.5 * (newVal - $scope.size[0]) - 6, 40];
           inner.attr('transform', 'translate(' + xOffset + ')'+'scale(' + shrinkRate + ')');
         } 
-        // inner.attr('transform', 'translate(' + xOffset + ')'+'scale(' + shrinkRate + ')');
       }
     });
-
-    // var graphWidth = document.getElementsByClassName('output')[0].getBBox().width;
-    // var graphHeight = document.getElementsByClassName('output')[0].getBBox().height;
-    // var graphXoffset = document.getElementsByClassName('output')[0].getBBox().x;
-    // var graphYoffset = document.getElementsByClassName('output')[0].getBBox().y;
-
 
     $scope.onZoom()
       .translate([xOffset, 40])
@@ -100,7 +93,7 @@
   ])
   .config(GraphConfig)
   .controller('graphPanelCtrl', GraphPanelCtrl);
-})(angular, window);	
+})(angular);	
 
 
 

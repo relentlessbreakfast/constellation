@@ -156,7 +156,7 @@
             'cluster_id': null, // foreign key ID from CLUSTERS table
             'issue_id': null, // foreign key ID from ISSUES table
             'upstream_nodes': null, // foreign key ID from NODES table
-            'downstream_nodes': [13] // foreign key ID from NODES table
+            'downstream_nodes': [13,43,44,45] // foreign key ID from NODES table
           },
           12: {
             'id': 12,// PRIMARY KEY
@@ -164,7 +164,7 @@
             'parent_cluster': 5, // foreign key ID from NODES table
             'cluster_id': null, // foreign key ID from CLUSTERS table
             'issue_id': null, // foreign key ID from ISSUES table
-            'upstream_nodes': [15], // foreign key ID from NODES table
+            'upstream_nodes': [15,43,44,45], // foreign key ID from NODES table
             'downstream_nodes': [] // foreign key ID from NODES table
           },
           13: {
@@ -237,6 +237,174 @@
               'body': 'type:\ * Issue\ \ Upstream:\ * entry\ \ Downstream:\ * Cluster-Repo Selection Screen\ * Make sample graph data'
             }, // foreign key ID from ISSUES table
             'upstream_nodes': [16], // foreign key ID from NODES table
+            'downstream_nodes': [40] // foreign key ID from NODES table
+          },          
+          40: {
+            'id': 40,// PRIMARY KEY
+            'type': 'issue',
+            'parent_cluster': 5, // foreign key ID from NODES table
+            'cluster_id': null, // foreign key ID from CLUSTERS table
+            'issue_id': {
+              'id': 82639733, // PRIMARY KEY
+              'url': 'https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/7',
+              'labels_url': 'https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/7/labels{/name}',
+              'comments_url': 'https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/7/comments',
+              'events_url': 'https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/7/events',
+              'html_url': 'https://github.com/relentlessbreakfast/sampleGraph/issues/7',
+              'number': 40,
+              'title': 'Make sample graph data',
+              'user': 1445825,
+              'labels': [6],
+              'state': 'open',
+              'locked': false,
+              'assignee': 1445825,
+              'comments': 2,
+              'created_at': '2015-05-30T00:18:26Z',
+              'updated_at': '2015-05-30T00:43:54Z',
+              'closed_at': null,
+              'body': 'type:\ * Issue\ \ Upstream:\ * entry\ \ Downstream:\ * Cluster-Repo Selection Screen\ * Make sample graph data'
+            }, // foreign key ID from ISSUES table
+            'upstream_nodes': [15], // foreign key ID from NODES table
+            'downstream_nodes': [41] // foreign key ID from NODES table
+          },
+          41: {
+            'id': 41,// PRIMARY KEY
+            'type': 'issue',
+            'parent_cluster': 5, // foreign key ID from NODES table
+            'cluster_id': null, // foreign key ID from CLUSTERS table
+            'issue_id': {
+              'id': 82639733, // PRIMARY KEY
+              'url': 'https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/7',
+              'labels_url': 'https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/7/labels{/name}',
+              'comments_url': 'https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/7/comments',
+              'events_url': 'https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/7/events',
+              'html_url': 'https://github.com/relentlessbreakfast/sampleGraph/issues/7',
+              'number': 41,
+              'title': 'Make sample graph data',
+              'user': 1445825,
+              'labels': [6],
+              'state': 'open',
+              'locked': false,
+              'assignee': 1445825,
+              'comments': 2,
+              'created_at': '2015-05-30T00:18:26Z',
+              'updated_at': '2015-05-30T00:43:54Z',
+              'closed_at': null,
+              'body': 'type:\ * Issue\ \ Upstream:\ * entry\ \ Downstream:\ * Cluster-Repo Selection Screen\ * Make sample graph data'
+            }, // foreign key ID from ISSUES table
+            'upstream_nodes': [40], // foreign key ID from NODES table
+            'downstream_nodes': [42] // foreign key ID from NODES table
+          },
+          42: {
+            'id': 42,// PRIMARY KEY
+            'type': 'issue',
+            'parent_cluster': 5, // foreign key ID from NODES table
+            'cluster_id': null, // foreign key ID from CLUSTERS table
+            'issue_id': {
+              'id': 82639733, // PRIMARY KEY
+              'url': 'https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/7',
+              'labels_url': 'https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/7/labels{/name}',
+              'comments_url': 'https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/7/comments',
+              'events_url': 'https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/7/events',
+              'html_url': 'https://github.com/relentlessbreakfast/sampleGraph/issues/7',
+              'number': 42,
+              'title': 'Make sample graph data',
+              'user': 1445825,
+              'labels': [6],
+              'state': 'open',
+              'locked': false,
+              'assignee': 1445825,
+              'comments': 2,
+              'created_at': '2015-05-30T00:18:26Z',
+              'updated_at': '2015-05-30T00:43:54Z',
+              'closed_at': null,
+              'body': 'type:\ * Issue\ \ Upstream:\ * entry\ \ Downstream:\ * Cluster-Repo Selection Screen\ * Make sample graph data'
+            }, // foreign key ID from ISSUES table
+            'upstream_nodes': [41], // foreign key ID from NODES table
+            'downstream_nodes': [12] // foreign key ID from NODES table
+          },
+          43: {
+            'id': 43,// PRIMARY KEY
+            'type': 'issue',
+            'parent_cluster': 5, // foreign key ID from NODES table
+            'cluster_id': null, // foreign key ID from CLUSTERS table
+            'issue_id': {
+              'id': 82639733, // PRIMARY KEY
+              'url': 'https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/7',
+              'labels_url': 'https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/7/labels{/name}',
+              'comments_url': 'https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/7/comments',
+              'events_url': 'https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/7/events',
+              'html_url': 'https://github.com/relentlessbreakfast/sampleGraph/issues/7',
+              'number': 43,
+              'title': 'Make sample graph data',
+              'user': 1445825,
+              'labels': [6],
+              'state': 'open',
+              'locked': false,
+              'assignee': 1445825,
+              'comments': 2,
+              'created_at': '2015-05-30T00:18:26Z',
+              'updated_at': '2015-05-30T00:43:54Z',
+              'closed_at': null,
+              'body': 'type:\ * Issue\ \ Upstream:\ * entry\ \ Downstream:\ * Cluster-Repo Selection Screen\ * Make sample graph data'
+            }, // foreign key ID from ISSUES table
+            'upstream_nodes': [11], // foreign key ID from NODES table
+            'downstream_nodes': [12] // foreign key ID from NODES table
+          },
+          44: {
+            'id': 44,// PRIMARY KEY
+            'type': 'issue',
+            'parent_cluster': 5, // foreign key ID from NODES table
+            'cluster_id': null, // foreign key ID from CLUSTERS table
+            'issue_id': {
+              'id': 82639733, // PRIMARY KEY
+              'url': 'https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/7',
+              'labels_url': 'https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/7/labels{/name}',
+              'comments_url': 'https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/7/comments',
+              'events_url': 'https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/7/events',
+              'html_url': 'https://github.com/relentlessbreakfast/sampleGraph/issues/7',
+              'number': 44,
+              'title': 'Make sample graph data',
+              'user': 1445825,
+              'labels': [6],
+              'state': 'open',
+              'locked': false,
+              'assignee': 1445825,
+              'comments': 2,
+              'created_at': '2015-05-30T00:18:26Z',
+              'updated_at': '2015-05-30T00:43:54Z',
+              'closed_at': null,
+              'body': 'type:\ * Issue\ \ Upstream:\ * entry\ \ Downstream:\ * Cluster-Repo Selection Screen\ * Make sample graph data'
+            }, // foreign key ID from ISSUES table
+            'upstream_nodes': [11], // foreign key ID from NODES table
+            'downstream_nodes': [12] // foreign key ID from NODES table
+          },
+          45: {
+            'id': 45,// PRIMARY KEY
+            'type': 'issue',
+            'parent_cluster': 5, // foreign key ID from NODES table
+            'cluster_id': null, // foreign key ID from CLUSTERS table
+            'issue_id': {
+              'id': 82639733, // PRIMARY KEY
+              'url': 'https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/7',
+              'labels_url': 'https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/7/labels{/name}',
+              'comments_url': 'https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/7/comments',
+              'events_url': 'https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/7/events',
+              'html_url': 'https://github.com/relentlessbreakfast/sampleGraph/issues/7',
+              'number': 45,
+              'title': 'Make sample graph data',
+              'user': 1445825,
+              'labels': [6],
+              'state': 'open',
+              'locked': false,
+              'assignee': 1445825,
+              'comments': 2,
+              'created_at': '2015-05-30T00:18:26Z',
+              'updated_at': '2015-05-30T00:43:54Z',
+              'closed_at': null,
+              'body': 'type:\ * Issue\ \ Upstream:\ * entry\ \ Downstream:\ * Cluster-Repo Selection Screen\ * Make sample graph data'
+            }, // foreign key ID from ISSUES table
+            'upstream_nodes': [11], // foreign key ID from NODES table
             'downstream_nodes': [12] // foreign key ID from NODES table
           }
         };   
