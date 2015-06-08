@@ -27,10 +27,14 @@
 
   //
   WrappedGraph.prototype.deleteNode = function(nodeId) {
+    console.log('deteNode being called on nodeId:', nodeId);
     var wrappedGraph = this;
     // store upstream and downstream arrays
     var upstream = this.graph[nodeId].upstream_nodes.slice() || [];
     var downstream = this.graph[nodeId].downstream_nodes.slice() || [];
+
+    console.log('wrappedGraph.graph.deleted is: ', wrappedGraph.graph.deleted);
+    wrappedGraph.graph.deleted.push(nodeId);
     // break links to nodeId
     upstream.forEach(function(upNodeId) {
       wrappedGraph.unlinkNodes(upNodeId, nodeId);
@@ -47,6 +51,9 @@
         wrappedGraph.linkNodes(upNodeId, downNodeId);
       });
     });
+    console.log('__________________end deleteNode');
+    // carry out transitive reduction one more time
+    
   };
 
   // 
@@ -99,6 +106,7 @@
     catalog[newUpNodeId] = true;
     // remove nodeId from all downstream nodes
     this.purgeUplinksBelowANode(nodeId, catalog);
+    
   };
 
   //
@@ -185,6 +193,7 @@
       getStubProjectClusterData: function () {
         var dummy = {
           entry: 2,
+          deleted: [],
           parent_cluster: {
               'id': 1, // PRIMARY KEY
               'type': 'cluster',
@@ -317,6 +326,7 @@
 
         var cluster5 = JSON.stringify({
           entry: 2,
+          deleted: [],
           parent_cluster: {
             'id': 5, // PRIMARY KEY
             'type': 'cluster',
