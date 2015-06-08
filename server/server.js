@@ -8,19 +8,19 @@
 var express = require('express');
 var app = express();
 var server = require('http').createServer(app);
-var router = require('./routes');
+var router = require('./routes/routes');
 var config = require('./server-config');
 var utils = require('../lib/utils');
 var db = require('./database/db');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 
+
 // app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(config.dist));
 
-db();
 app.use(express.static(config.dist));
 server.listen(config.port, function () {
   var host = server.address().address;
@@ -29,6 +29,7 @@ server.listen(config.port, function () {
   console.log(project + ' is online at http://localhost:'+port, host, port);
   // console.log(project + ' is online at http://%s:%s', host, port);
 
+  // db();
   console.log('Created client to', db.database, 'database');
 });
 
