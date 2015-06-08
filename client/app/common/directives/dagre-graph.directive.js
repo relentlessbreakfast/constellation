@@ -1,8 +1,8 @@
 /* 
 * @Author: justinwebb
 * @Date:   2015-06-03 15:30:09
-* @Last Modified by:   ChalrieHwang
-* @Last Modified time: 2015-06-06 15:46:33
+* @Last Modified by:   cwhwang1986
+* @Last Modified time: 2015-06-07 17:49:43
 */
 
 'use strict';
@@ -25,10 +25,7 @@
           nodeClass,
           abbrev,
           promise;
-      if(clickObjType === 'path'){
-        var upNodeId = $event.target.__data__.v;
-        var downNodeId = $event.target.__data__.w;
-      } else if (clickObjType === 'circle'){
+      if (clickObjType === 'circle'){
         nodeId = $event.target.__data__;
         nodeClass = $scope.g.node(nodeId).class;
         abbrev = $scope.g.node(nodeId).label;
@@ -36,9 +33,7 @@
         nodeId = $event.path[4].__data__;
         nodeClass = $scope.g.node(nodeId).class;
         abbrev = $scope.g.node(nodeId).label;
-      } else {
-        
-      }
+      } 
       //click cluster
       if(nodeClasses.indexOf(nodeClass) !== -1){
         if(nodeClass === 'cluster'){
@@ -97,6 +92,22 @@
     };
 
     /**
+     * Define function for resizing the label showing on the node
+     */
+    var reSizeText = function(label){
+      var labelName = label.slice(0,9);
+      var len = labelName.length;
+      if(len === 3){
+        labelName = '   ' + labelName; 
+      } else if (len <= 5){
+        labelName = '  ' + labelName; 
+      } else if (len <= 7){
+        labelName = ' ' + labelName; 
+      } 
+      return labelName;
+    };
+
+    /**
      * Define function to create node in graph object
      * @param  {d3} canvas  d3 graph object to collect nodes
      * @param  {json} jsonObj node data from server
@@ -105,13 +116,17 @@
       var id = jsonObj.id;
       var label;
       if(jsonObj.type === 'issue'){
-        label = '#' + jsonObj.issue_id.number;
+        label = '# ' + jsonObj.issue_id.number;
+      } else if(jsonObj.type === 'entry'){
+        label = 'Start';
       } else {
-        label = jsonObj.type;
+        label = 'Stop';
       }
+      var charSpace = 4.15625;
       var nodeType = jsonObj.type;
+      var text = '         ';
       $scope.g.setNode(id, {
-        label: label, 
+        label: text, 
         class: nodeType,
         shape: 'circle'
       });
@@ -119,6 +134,7 @@
       $scope.g.node(id).clusterId = jsonObj.cluster_id;
       $scope.g.node(id).upstreams = jsonObj.upstream_nodes; 
       $scope.g.node(id).downstreams = jsonObj.downstream_nodes; 
+      $scope.g.node(id).labelName = label;
       if(nodeType === 'issue'){
         $scope.g.node(id).description = jsonObj.issue_id.title;
         $scope.g.node(id).asignee = jsonObj.issue_id.assignee;
@@ -137,8 +153,9 @@
       var id = jsonObj.id;
       var label = jsonObj.cluster_id.abbrev;
       var nodeType = jsonObj.type;
+      var text = '         ';
       $scope.g.setNode(id, {
-        label: label, 
+        label: text, 
         class: nodeType,
         shape: 'circle'
       });
@@ -149,6 +166,7 @@
       $scope.g.node(id).upstreams = jsonObj.upstream_nodes; 
       $scope.g.node(id).downstreams = jsonObj.downstream_nodes; 
       $scope.g.node(id).endpoints = jsonObj.cluster_id.endpoints;
+      $scope.g.node(id).labelName = label;
     };
 
     /**
@@ -192,8 +210,24 @@
       });
       //Draw the graph
       renderGraph($scope.g);
+      //Remove empty tag
+      d3.select('.edgeLabels').remove();
       //reset the circle radius
-      d3.selectAll('circle').attr('r',40);
+      d3.selectAll('circle').attr('r',50);
+      //Add label to each node
+      var tspan = d3.selectAll('tspan')[0];
+      tspan.forEach(function(text){
+        var id = Number(text.__data__);
+        var label = $scope.g.node(id).labelName;
+        text.innerHTML = reSizeText(label);
+        //Offset the label to center of the node
+        if(label.length % 2 === 0){
+          var transformTag = text.parentNode.parentNode;
+          var x = Number(transformTag.transform.animVal[0].matrix.e) + 4.8;
+          var y = transformTag.transform.animVal[0].matrix.f; 
+          transformTag.setAttribute('transform','translate('+x+','+y+')');
+        }
+      });
       //Add the parent node object to graph object
       createClusterNode(data[parentId]);
       var svg = d3.select('svg');
@@ -256,7 +290,7 @@
       'cluster_id': null, // foreign key ID from CLUSTERS table
       'issue_id': null, // foreign key ID from ISSUES table
       'upstream_nodes': null, // foreign key ID from NODES table
-      'downstream_nodes': [4,6] // foreign key ID from NODES table
+      'downstream_nodes': [44,6] // foreign key ID from NODES table
     },
     3: {
       'id': 3,// PRIMARY KEY
@@ -267,8 +301,8 @@
       'upstream_nodes': [5,7], // foreign key ID from NODES table
       'downstream_nodes': [] // foreign key ID from NODES table
     },
-    4: {
-      'id': 4,// PRIMARY KEY
+    44: {
+      'id': 44,// PRIMARY KEY
       'type': 'issue',
       'parent_cluster': 1, // foreign key ID from NODES table
       'cluster_id': null, // foreign key ID from CLUSTERS table
@@ -279,7 +313,7 @@
         'comments_url': 'https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/4/comments',
         'events_url': 'https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/4/events',
         'html_url': 'https://github.com/relentlessbreakfast/sampleGraph/issues/4',
-        'number': 4,
+        'number': 44,
         'title': 'Add O-auth',
         'user': 1445825,
         'labels': [1],
@@ -301,14 +335,14 @@
       'parent_cluster': 1, // foreign key ID from NODES table
       'cluster_id': {
       'id': 5,  // PRIMARY KEY
-      'abbrev': 'CSS',  // must be less than 32 chars
+      'abbrev': ' CSS ',  // must be less than 32 chars
       'name': 'Cluster-Repo Selection Screen',
       'description': 'Cluster of repo selection related tasks',
       'endpoints': [13, 14],  // these foreign key IDs for entries in NODES table
       'creator': 1445825  // foreign key ID for entry in USERS table
       }, // foreign key ID from CLUSTERS table
       'issue_id': null, // foreign key ID from ISSUES table
-      'upstream_nodes': [4,6], // foreign key ID from NODES table
+      'upstream_nodes': [44,6], // foreign key ID from NODES table
       'downstream_nodes': [3] // foreign key ID from NODES table
     },
     6: {
@@ -353,7 +387,7 @@
       'body': 'type:\ * Issue\ \ Upstream:\ * entry\ \ Downstream:\ * Cluster-Repo Selection Screen\ * Make sample graph data'
       }, // foreign key ID from ISSUES table
 
-      'upstream_nodes': [4,6], // foreign key ID from NODES table
+      'upstream_nodes': [44,6], // foreign key ID from NODES table
       'downstream_nodes': [3] // foreign key ID from NODES table
     }
   };
