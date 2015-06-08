@@ -11,7 +11,6 @@
       }
     };
   };
-
   angular
     .module('cd-app.common')
     .factory('D3Service', D3Service);

@@ -28,7 +28,7 @@
   //
   WrappedGraph.prototype.deleteNode = function(nodeId) {
     var wrappedGraph = this;
-    var result = false;
+    var result = 'complete';
     // store upstream and downstream arrays
     var upstream = this.graph[nodeId].upstream_nodes.slice() || [];
     var downstream = this.graph[nodeId].downstream_nodes.slice() || [];
@@ -48,7 +48,6 @@
         wrappedGraph.linkNodes(upNodeId, downNodeId);
       });
     });
-    result = true;
     return result;
   };
 
@@ -59,7 +58,6 @@
     var wrappedGraph = this;
     var recursiveGather = function (nodeId) {
       if (wrappedGraph.graph[nodeId].upstream_nodes) {
-        console.log('issue here', wrappedGraph.graph[nodeId]);
         wrappedGraph.graph[nodeId].upstream_nodes.forEach(function(upNodeId) {
           catalog[upNodeId] = true;
           recursiveGather(upNodeId);
@@ -117,7 +115,6 @@
   //
   WrappedGraph.prototype.unlinkNodes = function(upNodeId, downNodeId) {
     // remove downNodeId from upNodeId's downstream array
-    console.log('Hello');
     this.graph[upNodeId].downstream_nodes.forEach(function(nodeId, i, arr) {
       if (nodeId === downNodeId) {
         arr.splice(i,1);
@@ -768,7 +765,6 @@
         var graphObj = this.graphObj;
         var deferred = $q.defer();
           graphObj.deleteNode(nodeId);
-        console.log('service', nodeId);
         deferred.resolve('OK');
         return deferred.promise;
       },
@@ -784,13 +780,11 @@
       getGraph: function(cluster_id) {
         var deferred = $q.defer();
         var serviceObj = this;
-        console.log('getGraph', this);
         var data;
         // cluster_id = (cluster_id === undefined) ? 1 : cluster_id;
         // $http.get('/cluster/' + cluster_id)
 
         //   .success(function(data, status, headers) {
-        //     console.log('successful get:', status);
         //     var graph = JSON.parse(data);
         //     var wrappedGraph = new WrappedGraph(graph);
         //     serviceObj.graphObj = wrappedGraph;
@@ -798,8 +792,6 @@
         //   })
 
         //   .error(function(data, status, headers) {
-        //     console.log('error on get:', status);
-        //     console.log(deferred.promise);  
         //   });
         if(cluster_id === 1){
           data = dummy;
@@ -825,7 +817,6 @@
         $http.post('/cluster/'+graphObj.parent_cluster.id, graphObj)
 
           .success(function(response, status) {
-            console.log('successful post:', status);
             deferred.resolve('successful post:', status);
           })
 
