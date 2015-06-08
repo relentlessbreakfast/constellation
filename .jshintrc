@@ -22,7 +22,6 @@
         "angular": false,
         "d3": false,
         "dagreD3": false,
-
         // Karma, Mocha
         "describe": false,
         "xdescribe": false,
@@ -34,8 +33,9 @@
         "afterEach": false,
         "expect": false,
         "pending": false,
-        "spyOn": false
-        "_": false
+        "spyOn": false,
+        "_": false,
+        "document": false
 
     }
 }
