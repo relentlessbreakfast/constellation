@@ -18,14 +18,10 @@
   },
   "homepage": "https://github.com/relentlessbreakfast/constellation",
   "dependencies": {
-<<<<<<< HEAD
     "bluebird": "^2.9.27",
     "fs": "0.0.2",
     "github": "^0.2.4",
     "morgan": "^1.5.3",
-=======
-    "bluebird": "^2.9.27",    "github": "^0.2.4",
->>>>>>> (refactor) Add jshint and remove Promises to resolve DB error
     "pg": "^4.3.0"
   },
   "devDependencies": {
