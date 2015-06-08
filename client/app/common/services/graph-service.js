@@ -1,7 +1,11 @@
 /*
 * @Author: kuychaco
 * @Date:   2015-06-03 10:37:28
-* @Last Modified by:   Austin Liu
+<<<<<<< HEAD
+* @Last Modified by:   ChalrieHwang
+=======
+* @Last Modified by:   cwhwang1986
+>>>>>>> (feat) Implement path deletion function
 */
 
 'use strict';
@@ -116,14 +120,15 @@
   //
   WrappedGraph.prototype.unlinkNodes = function(upNodeId, downNodeId) {
     // remove downNodeId from upNodeId's downstream array
-    this.graph[upNodeId].downstream_nodes.forEach(function(nodeId, i, arr) {
-      if (nodeId === downNodeId) {
+    var graphObj = this.graph;
+    graphObj[upNodeId].downstream_nodes.forEach(function(nodeId, i, arr) {
+      if (nodeId === Number(downNodeId)) {
         arr.splice(i,1);
       }
     });
     // remove upNodeId from downNodeId's upstream array
-    this.graph[downNodeId].upstream_nodes.forEach(function(nodeId, i, arr) {
-      if (nodeId === upNodeId) {
+    graphObj[downNodeId].upstream_nodes.forEach(function(nodeId, i, arr) {
+      if (nodeId === Number(upNodeId)) {
         arr.splice(i,1);
       }
     });
@@ -318,18 +323,31 @@
             'downstream_nodes': [3] // foreign key ID from NODES table
           }
         };
-
         return JSON.stringify(dummy);
       },  
-
+       
+      /**
+       * Delete node and Run transitive reduction check
+       * @param  {int} cluster_id
+       */
       deleteNode: function(nodeId){
         var graphObj = this.graphObj;
         var deferred = $q.defer();
         graphObj.deleteNode(nodeId);
         deferred.resolve('OK');
         return deferred.promise;
-      }
+      },
 
+      /**
+       * Delete edge and Run transitive reduction check
+       */
+      deleteEdge: function(upNodeId, downNodeId){
+        var graphObj = this.graphObj;
+        var deferred = $q.defer();
+        graphObj.unlinkNodes(upNodeId, downNodeId);
+        deferred.resolve('OK');
+        return deferred.promise;
+      },
     };
   };
 
