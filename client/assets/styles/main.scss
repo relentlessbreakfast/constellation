@@ -51,8 +51,24 @@ div {
 
 .path {
   stroke: white;
-  stroke-width: 2.3px;
+  stroke-width: 4px;
   stroke-linecap: "butt";
+}
+
+.path:hover {
+  stroke: red;
+  fill: red;
+  stroke-width: 8px;
+  stroke-linecap: "butt"; 
+  cursor: pointer;
+}
+
+.edgePath:hover {
+  stroke: red;
+  fill: red;
+  stroke-width: 2px;
+  cursor: pointer;
+  stroke-linecap: "butt"; 
 }
 
 #canvas {
