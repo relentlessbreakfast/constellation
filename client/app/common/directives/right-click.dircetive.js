@@ -1,8 +1,8 @@
 /* 
 * @Author: ChalrieHwang
 * @Date:   2015-06-05 17:38:31
-* @Last Modified by:   cwhwang1986
-* @Last Modified time: 2015-06-08 10:31:30
+* @Last Modified by:   ChalrieHwang
+* @Last Modified time: 2015-06-08 11:36:12
 */
 
   // if(clickObjType === 'path'){
@@ -22,7 +22,7 @@
 // });
 
 'use strict';
-(function (angular, _) {
+(function (angular) {
 
 // ---------------------------------------------------------
 // RightClickDirective - Right click deletion
@@ -32,7 +32,7 @@
 
   };
 
-  var link = function($scope, element, attr){
+  var link = function($scope, element){
     element.bind('contextmenu', function($event){
       $event.preventDefault();
 
@@ -41,7 +41,9 @@
       var nodeId,
           nodeClass,
           abbrev,
-          promise;
+          promise,
+          upNodeId,
+          downNodeId;
       if (clickObjType === 'circle'){
         nodeId = $event.target.__data__;
         nodeClass = $scope.g.node(nodeId).class;
@@ -51,8 +53,8 @@
         nodeClass = $scope.g.node(nodeId).class;
         abbrev = $scope.g.node(nodeId).label;
       } else if (clickObjType === 'path'){
-        var upNodeId = $event.target.__data__.v;
-        var downNodeId = $event.target.__data__.w;
+        upNodeId = $event.target.__data__.v;
+        downNodeId = $event.target.__data__.w;
       } 
       //Click circle
       if(nodeClasses.indexOf(nodeClass) !== -1){
@@ -106,4 +108,4 @@
     .module('cd-app.common')
     .directive('ngRightClick', RighClickDirective);
 
-})(angular, _);
+})(angular);
