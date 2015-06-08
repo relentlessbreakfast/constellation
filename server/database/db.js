@@ -23,7 +23,7 @@ controller.loadSchemaAsync()
 // Create project root clusters and nodes
 .then(function(result) {
   console.log(result);
-  return controller.createProjectBaseAsync();
+  return controller.createProjectBaseAsync(data.clusters);
 })
 // Add issues to database
 .then(function(result) {
