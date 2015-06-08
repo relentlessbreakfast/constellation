@@ -124,13 +124,15 @@ CREATE TABLE IF NOT EXISTS issues (
 
 -- DROP TABLE IF EXISTS clusters;
 
-CREATE TABLE IF NOT EXISTS clusters_entries_exits (
+CREATE TABLE IF NOT EXISTS clusters (
   id serial, -- 1,  // PRIMARY KEY
   abbrev text, -- "ROOT",  // must be less than 32 chars
   name text, -- "Project Root",
   description text, -- "Cluster of entire project",
   endpoints integer ARRAY, -- [2, 3],  // these foreign key IDs for entries in NODES table
   creator integer REFERENCES users (id), -- 1445825,  // foreign key ID for entry in USERS table
+  children_count integer,
+  children_complete integer,
   -- deleted integer ARRAY, -- []
   PRIMARY KEY (id)
 );
@@ -146,10 +148,10 @@ CREATE TABLE IF NOT EXISTS clusters_entries_exits (
 -- DROP TABLE IF EXISTS nodes;
 
 CREATE TABLE IF NOT EXISTS nodes (
-  id integer, -- 1, // PRIMARY KEY
+  id serial, -- 1, // PRIMARY KEY
   type text, -- "cluster",
   parent_cluster integer, -- NULL, // foreign key ID from NODES table
-  cluster_id integer REFERENCES clusters_entries_exits (id), -- 1, // foreign key ID from CLUSTERS table
+  cluster_id integer REFERENCES clusters (id), -- 1, // foreign key ID from CLUSTERS table
   issue_id integer REFERENCES issues (id), -- NULL, // foreign key ID from ISSUES table
   upstream_nodes integer, -- [], // foreign key ID from NODES table
   downstream_nodes integer, -- [], // foreign key ID from NODES table
