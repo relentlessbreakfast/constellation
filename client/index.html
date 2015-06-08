@@ -4,12 +4,28 @@
     <meta charset="utf-8">
     <!-- inject:css -->
     <!-- endinject -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic," + 
+      "400italic,600italic,700italic,400,300,600,700" 
+      rel='stylesheet' type='text/css'>
   </head>
   <body ng-controller="appCtrl">
-    <h1>This is the root.</h1>
     <div ui-view></div>
-
     <!-- inject:js -->
     <!-- endinject -->
+   <script type="text/javascript">
+     var WebFontConfig = {
+       google: { families: [ 'Cousine:400,700:latin' ] }
+     };
+     (function() {
+      'use strict';
+       var wf = document.createElement('script');
+       wf.src = ('https:' === document.location.protocol ? 'https' : 'http') +
+         '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+       wf.type = 'text/javascript';
+       wf.async = 'true';
+       var s = document.getElementsByTagName('script')[0];
+       s.parentNode.insertBefore(wf, s);
+     })(); </script>
+    </script>
   </body>
 </html>
