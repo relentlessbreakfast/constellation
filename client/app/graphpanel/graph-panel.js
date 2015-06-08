@@ -1,8 +1,8 @@
 /* 
 * @Author: ChalrieHwang
 * @Date:   2015-06-01 17:45:29
-* @Last Modified by:   cwhwang1986
-* @Last Modified time: 2015-06-07 19:37:23
+* @Last Modified by:   ChalrieHwang
+* @Last Modified time: 2015-06-08 11:46:48
 */
 
 'use strict';
@@ -78,6 +78,7 @@
     $scope.onZoom()
       .translate([xOffset, 60])
       .scale(1);
+
 
   };
 

@@ -2,7 +2,7 @@
 * @Author: ChalrieHwang
 * @Date:   2015-06-05 17:38:31
 * @Last Modified by:   ChalrieHwang
-* @Last Modified time: 2015-06-08 11:36:12
+* @Last Modified time: 2015-06-08 11:57:01
 */
 
   // if(clickObjType === 'path'){
@@ -62,7 +62,6 @@
           var clusterId = $scope.g.node(nodeId).clusterId;
           promise = $scope.graph.deleteNode(clusterId);
         } else if (nodeClass === 'issue'){
-          console.log('hit issue');
           promise = $scope.graph.deleteNode(nodeId);
         }
       }
@@ -73,7 +72,6 @@
         promise.then(function(result){
             if(result){
               $scope.data = $scope.graph.graphObj.graph;
-              console.log('data', $scope.data);
               $scope.buildGraph($scope.data);
             }
           }, function(err){

@@ -1,7 +1,7 @@
 /*
 * @Author: kuychaco
 * @Date:   2015-06-03 10:37:28
-* @Last Modified by:   cwhwang1986
+* @Last Modified by:   ChalrieHwang
 */
 
 'use strict';
@@ -17,9 +17,10 @@
   var WrappedGraph = function(graphJson) {
     // INSERTION to pass test––
     // expect(typeof wrappedGraph.graph).toBe('object');
-    var graphObj = JSON.parse(graphJson); 
-    this.graph = graphObj;
+    // var graphObj = JSON.parse(graphJson); 
+    this.graph = graphJson;
   };
+
   
   // Subclass example: 
   // WrappedGraph.prototype = Object.create('Superclass'.prototype);
@@ -757,21 +758,17 @@
         'downstream_nodes': [21] // foreign key ID from NODES table
       }
     };
-
+    var graphObj = new WrappedGraph(dummy);
     return {
-      graphObj: new WrappedGraph(dummy),
+      graphObj: graphObj,
 
       deleteNode: function(nodeId){
         var graphObj = this.graphObj;
         var deferred = $q.defer();
-          graphObj.deleteNode(nodeId);
+        graphObj.deleteNode(nodeId);
         deferred.resolve('OK');
         return deferred.promise;
       },
-       
-
-
-
       /**
        * get graph from server
        * @param  {int} cluster_id
@@ -807,10 +804,6 @@
         return deferred.promise;
       },
 
-      getWrapper: function (json) {
-        return new WrappedGraph(json);
-      },
-
       postGraph: function() {
         var deferred = $q.defer();
         var graphObj = this.graphObj;
@@ -823,11 +816,8 @@
           .error(function(data, status) {
             console.log('error on post:', status);
           });
-
         return deferred.promise;
       }
-
-    
     };
   };
 
