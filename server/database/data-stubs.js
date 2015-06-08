@@ -2,7 +2,7 @@
 * @Author: kuychaco
 * @Date:   2015-06-07 14:42:36
 * @Last Modified by:   kuychaco
-* @Last Modified time: 2015-06-07 16:23:24
+* @Last Modified time: 2015-06-08 15:06:26
 */
 
 'use strict';
@@ -979,8 +979,101 @@ var graph2 = {
   }
 };
 
+var clusters = [
+  {
+    abbrev: 'ROOT',
+    name: 'Project Root',
+    description: 'Cluster of entire project',
+    creator: 7910250,
+    children_count: 5,
+    children_complete: 0
+  },
+  {
+    abbrev: 'Auth',
+    name: 'Authentication',
+    description: 'Set up authentication',
+    creator: 7910250,
+    children_count: 5,
+    children_complete: 0
+  },
+  {
+    abbrev: 'DB',
+    name: 'Database',
+    description: 'Set up database',
+    creator: 7910250,
+    children_count: 5,
+    children_complete: 0
+  },
+  {
+    abbrev: 'ExAPI',
+    name: 'Github API',
+    description: 'Pull info from Github API',
+    creator: 7910250,
+    children_count: 5,
+    children_complete: 0
+  },
+  {
+    abbrev: 'View Plan',
+    name: 'Plan out User Interface',
+    description: 'Mock up user interface',
+    creator: 7910250,
+    children_count: 5,
+    children_complete: 0
+  },
+  {
+    abbrev: 'Model',
+    name: 'Design data model',
+    description: 'Set up app models',
+    creator: 7910250,
+    children_count: 5,
+    children_complete: 0
+  },
+  {
+    abbrev: 'Contr',
+    name: 'Data controller',
+    description: 'Set up data controller',
+    creator: 7910250,
+    children_count: 5,
+    children_complete: 0
+  },
+  {
+    abbrev: 'View',
+    name: 'Implement angular front end',
+    description: 'Create angular front end',
+    creator: 7910250,
+    children_count: 5,
+    children_complete: 0
+  },
+  {
+    abbrev: 'Styling',
+    name: 'Polish the UI',
+    description: 'CSS makeover',
+    creator: 7910250,
+    children_count: 5,
+    children_complete: 0
+  },
+  {
+    abbrev: 'Integ',
+    name: 'Integration',
+    description: 'Combine all parts',
+    creator: 7910250,
+    children_count: 5,
+    children_complete: 0
+  },
+  {
+    abbrev: 'Deploy',
+    name: 'Deploy the application',
+    description: 'Deploy the application',
+    creator: 7910250,
+    children_count: 5,
+    children_complete: 0
+  }
+];
+
+
 module.exports.users = users;
 module.exports.issues = issues;
 module.exports.labels = labels;
 module.exports.graph1 = graph1;
 module.exports.graph2 = graph2;
+module.exports.clusters = clusters;
