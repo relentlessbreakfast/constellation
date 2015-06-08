@@ -2,7 +2,7 @@
 * @Author: ChalrieHwang
 * @Date:   2015-06-05 17:38:31
 * @Last Modified by:   cwhwang1986
-* @Last Modified time: 2015-06-08 13:19:39
+* @Last Modified time: 2015-06-08 13:52:26
 */
 
 'use strict';
@@ -46,9 +46,11 @@
           promise = $scope.graph.deleteNode(nodeId);
         }
       }
+      //Click Path
       if(clickObjType === 'path'){
         promise = $scope.graph.deleteEdge(upNodeId, downNodeId);
-      }     
+      }
+           
       if(promise){
         promise.then(function(result){
             if(result){
@@ -59,7 +61,6 @@
             console.log('error', err);
           });
       }
-
     });
   };
 

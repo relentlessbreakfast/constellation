@@ -26,8 +26,26 @@ body {
   width: inherit;
   height: inherit;
   margin: 0px; 
-  padding:0px;
-  background-image: url("http://deepskycolors.com/pics/astro/2011/11/mb_2011-11_Aries.jpg"); 
+  padding: 0px;
+  background: url('/assets/stars.jpg');
+  // background-image: url("http://deepskycolors.com/pics/astro/2011/11/mb_2011-11_Aries.jpg"); 
+}
+
+div.top{
+  margin: 0px;
+  padding: 10px 0px 0px 10px;
+  height: 40px;
+  color: white;
+  background-color: black;
+  font-family: 'Cousine', monospace;
+  font-size: 30px;
+}
+
+
+div.line {
+  background-color: #ffa500;
+  display: block;
+  height: 2px;
 }
 
 .ng-scope:before {
@@ -38,9 +56,17 @@ div {
   width: inherit;
 }
 
+div.information {
+  float: right;
+  font-family: 'Cousine', monospace;
+  font-size: 30px;
+  color: white;
+}
+
 .graph {
   color: $brand-secondary;
-  width: inherit;
+  width: 60%;
+  float: left;
 }
 
 

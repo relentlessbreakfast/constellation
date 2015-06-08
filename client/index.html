@@ -9,23 +9,29 @@
       rel='stylesheet' type='text/css'>
   </head>
   <body ng-controller="appCtrl">
+    <div class="top">
+      Constellation
+    </div>
+    <div class="line">
+      
+    </div>
     <div ui-view></div>
     <!-- inject:js -->
     <!-- endinject -->
-   <script type="text/javascript">
-     var WebFontConfig = {
-       google: { families: [ 'Cousine:400,700:latin' ] }
-     };
+    <script type="text/javascript">
+      var WebFontConfig = {
+        google: { families: [ 'Cousine:400,700:latin' ] }
+      };
      (function() {
-      'use strict';
-       var wf = document.createElement('script');
-       wf.src = ('https:' === document.location.protocol ? 'https' : 'http') +
-         '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
-       wf.type = 'text/javascript';
-       wf.async = 'true';
-       var s = document.getElementsByTagName('script')[0];
-       s.parentNode.insertBefore(wf, s);
-     })(); </script>
+       'use strict';
+        var wf = document.createElement('script');
+        wf.src = ('https:' === document.location.protocol ? 'https' : 'http') +
+          '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+        wf.type = 'text/javascript';
+        wf.async = 'true';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(wf, s);
+      })(); </script>
     </script>
   </body>
 </html>

@@ -2,7 +2,7 @@
 * @Author: kuychaco
 * @Date:   2015-06-03 10:37:28
 <<<<<<< HEAD
-* @Last Modified by:   ChalrieHwang
+* @Last Modified by:   cwhwang1986
 =======
 * @Last Modified by:   cwhwang1986
 >>>>>>> (feat) Implement path deletion function
@@ -326,6 +326,7 @@
         return JSON.stringify(dummy);
       },  
        
+   
       /**
        * Delete node and Run transitive reduction check
        * @param  {int} cluster_id
@@ -347,7 +348,7 @@
         graphObj.unlinkNodes(upNodeId, downNodeId);
         deferred.resolve('OK');
         return deferred.promise;
-      },
+      }
     };
   };
 

@@ -1,8 +1,8 @@
 /* 
 * @Author: ChalrieHwang
 * @Date:   2015-06-01 17:45:29
-* @Last Modified by:   ChalrieHwang
-* @Last Modified time: 2015-06-08 11:46:48
+* @Last Modified by:   cwhwang1986
+* @Last Modified time: 2015-06-08 13:42:28
 */
 
 'use strict';
@@ -20,7 +20,7 @@
     var d3 = D3Service.getD3();
     var svg = d3.select('svg');
     var inner = svg.select('g');
-    var xOffset = [$window.innerWidth * 0.45, 60];
+    var xOffset = [$window.innerWidth * 0.45, 20];
     var shrinkRate = 1;
 
     $scope.windowWidth = $window.innerWidth;
@@ -54,7 +54,7 @@
 
     //Watch the data changes and zoom the graph
     $scope.$watchCollection('size', function(newVal){
-      xOffset = [0.5 * ($scope.windowWidth - newVal[0]) - 6, 60];
+      xOffset = [0.5 * ($scope.windowWidth - newVal[0]) - 6, 20];
       if(newVal[1] > $scope.idealHeight){
         shrinkRate = $scope.idealHeight/newVal[1];
         xOffset[0] = xOffset[0] + 0.5 * (1 - shrinkRate) * newVal[0]; 
@@ -69,14 +69,14 @@
     $scope.$watchCollection('windowWidth', function(newVal){
       if(newVal){
         if(newVal > $scope.size[0] + 20){
-          xOffset = [0.5 * (newVal - $scope.size[0]) - 6, 60];
+          xOffset = [0.5 * (newVal - $scope.size[0]) - 6, 20];
           inner.attr('transform', 'translate(' + xOffset + ')'+'scale(' + shrinkRate + ')');
         } 
       }
     });
 
     $scope.onZoom()
-      .translate([xOffset, 60])
+      .translate([xOffset, 20])
       .scale(1);
 
 
