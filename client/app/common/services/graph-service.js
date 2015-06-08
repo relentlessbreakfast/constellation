@@ -1,7 +1,7 @@
 /*
 * @Author: kuychaco
 * @Date:   2015-06-03 10:37:28
-* @Last Modified by:   ChalrieHwang
+* @Last Modified by:   cwhwang1986
 */
 
 'use strict';
@@ -28,6 +28,7 @@
   //
   WrappedGraph.prototype.deleteNode = function(nodeId) {
     var wrappedGraph = this;
+    var result = false;
     // store upstream and downstream arrays
     var upstream = this.graph[nodeId].upstream_nodes.slice() || [];
     var downstream = this.graph[nodeId].downstream_nodes.slice() || [];
@@ -47,6 +48,8 @@
         wrappedGraph.linkNodes(upNodeId, downNodeId);
       });
     });
+    result = true;
+    return result;
   };
 
   // 
@@ -56,6 +59,7 @@
     var wrappedGraph = this;
     var recursiveGather = function (nodeId) {
       if (wrappedGraph.graph[nodeId].upstream_nodes) {
+        console.log('issue here', wrappedGraph.graph[nodeId]);
         wrappedGraph.graph[nodeId].upstream_nodes.forEach(function(upNodeId) {
           catalog[upNodeId] = true;
           recursiveGather(upNodeId);
@@ -113,6 +117,7 @@
   //
   WrappedGraph.prototype.unlinkNodes = function(upNodeId, downNodeId) {
     // remove downNodeId from upNodeId's downstream array
+    console.log('Hello');
     this.graph[upNodeId].downstream_nodes.forEach(function(nodeId, i, arr) {
       if (nodeId === downNodeId) {
         arr.splice(i,1);
@@ -435,7 +440,7 @@
         'cluster_id': null, // foreign key ID from CLUSTERS table
         'issue_id': null, // foreign key ID from ISSUES table
         'upstream_nodes': null, // foreign key ID from NODES table
-        'downstream_nodes': [4,6] // foreign key ID from NODES table
+        'downstream_nodes': [44,6,55] // foreign key ID from NODES table
       },
       3: {
         'id': 3,// PRIMARY KEY
@@ -446,8 +451,8 @@
         'upstream_nodes': [5,7], // foreign key ID from NODES table
         'downstream_nodes': [] // foreign key ID from NODES table
       },
-      4: {
-        'id': 4,// PRIMARY KEY
+      44: {
+        'id': 44,// PRIMARY KEY
         'type': 'issue',
         'parent_cluster': 1, // foreign key ID from NODES table
         'cluster_id': null, // foreign key ID from CLUSTERS table
@@ -458,7 +463,7 @@
           'comments_url': 'https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/4/comments',
           'events_url': 'https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/4/events',
           'html_url': 'https://github.com/relentlessbreakfast/sampleGraph/issues/4',
-          'number': 4,
+          'number': 44,
           'title': 'Add O-auth',
           'user': 1445825,
           'labels': [1],
@@ -472,7 +477,63 @@
           'body': 'Type:\ * issue\ \ Upstream:\ * entry\ \ Downstream:\ * Cluster-Repo Selection Screen\ * Make sample graph data'
         }, // foreign key ID from ISSUES table
         'upstream_nodes': [2], // foreign key ID from NODES table
-        'downstream_nodes': [5,7] // foreign key ID from NODES table
+        'downstream_nodes': [7] // foreign key ID from NODES table
+      },
+        55: {
+        'id': 55,// PRIMARY KEY
+        'type': 'issue',
+        'parent_cluster': 1, // foreign key ID from NODES table
+        'cluster_id': null, // foreign key ID from CLUSTERS table
+        'issue_id': {
+          'id': 82639324,
+          'url': 'https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/4',
+          'labels_url': 'https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/4/labels{/name}',
+          'comments_url': 'https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/4/comments',
+          'events_url': 'https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/4/events',
+          'html_url': 'https://github.com/relentlessbreakfast/sampleGraph/issues/4',
+          'number': 55,
+          'title': 'Add O-auth',
+          'user': 1445825,
+          'labels': [1],
+          'state': 'open',
+          'locked': false,
+          'assignee': 442978,
+          'comments': 0,
+          'created_at': '2015-05-30T00:16:35Z',
+          'updated_at': '2015-05-30T00:44:37Z',
+          'closed_at': null,
+          'body': 'Type:\ * issue\ \ Upstream:\ * entry\ \ Downstream:\ * Cluster-Repo Selection Screen\ * Make sample graph data'
+        }, // foreign key ID from ISSUES table
+        'upstream_nodes': [2], // foreign key ID from NODES table
+        'downstream_nodes': [66] // foreign key ID from NODES table
+      },
+      66: {
+        'id': 66,// PRIMARY KEY
+        'type': 'issue',
+        'parent_cluster': 1, // foreign key ID from NODES table
+        'cluster_id': null, // foreign key ID from CLUSTERS table
+        'issue_id': {
+          'id': 82639324,
+          'url': 'https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/4',
+          'labels_url': 'https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/4/labels{/name}',
+          'comments_url': 'https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/4/comments',
+          'events_url': 'https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/4/events',
+          'html_url': 'https://github.com/relentlessbreakfast/sampleGraph/issues/4',
+          'number': 66,
+          'title': 'Add O-auth',
+          'user': 1445825,
+          'labels': [1],
+          'state': 'open',
+          'locked': false,
+          'assignee': 442978,
+          'comments': 0,
+          'created_at': '2015-05-30T00:16:35Z',
+          'updated_at': '2015-05-30T00:44:37Z',
+          'closed_at': null,
+          'body': 'Type:\ * issue\ \ Upstream:\ * entry\ \ Downstream:\ * Cluster-Repo Selection Screen\ * Make sample graph data'
+        }, // foreign key ID from ISSUES table
+        'upstream_nodes': [55], // foreign key ID from NODES table
+        'downstream_nodes': [7] // foreign key ID from NODES table
       },
       5: {
         'id': 5,// PRIMARY KEY
@@ -480,14 +541,14 @@
         'parent_cluster': 1, // foreign key ID from NODES table
         'cluster_id': {
         'id': 5,  // PRIMARY KEY
-        'abbrev': 'CSS',  // must be less than 32 chars
+        'abbrev': ' CSS ',  // must be less than 32 chars
         'name': 'Cluster-Repo Selection Screen',
         'description': 'Cluster of repo selection related tasks',
         'endpoints': [13, 14],  // these foreign key IDs for entries in NODES table
         'creator': 1445825  // foreign key ID for entry in USERS table
         }, // foreign key ID from CLUSTERS table
         'issue_id': null, // foreign key ID from ISSUES table
-        'upstream_nodes': [4,6], // foreign key ID from NODES table
+        'upstream_nodes': [44,6], // foreign key ID from NODES table
         'downstream_nodes': [3] // foreign key ID from NODES table
       },
       6: {
@@ -532,11 +593,10 @@
         'body': 'type:\ * Issue\ \ Upstream:\ * entry\ \ Downstream:\ * Cluster-Repo Selection Screen\ * Make sample graph data'
         }, // foreign key ID from ISSUES table
 
-        'upstream_nodes': [4,6], // foreign key ID from NODES table
+        'upstream_nodes': [44,6,66], // foreign key ID from NODES table
         'downstream_nodes': [3] // foreign key ID from NODES table
       }
     };
-
     var dummy3 = {
       entry: 17,
       parent_cluster: 16,
@@ -702,7 +762,20 @@
     };
 
     return {
-      graphObj: null,
+      graphObj: new WrappedGraph(dummy),
+
+      deleteNode: function(nodeId){
+        var graphObj = this.graphObj;
+        var deferred = $q.defer();
+          graphObj.deleteNode(nodeId);
+        console.log('service', nodeId);
+        deferred.resolve('OK');
+        return deferred.promise;
+      },
+       
+
+
+
       /**
        * get graph from server
        * @param  {int} cluster_id
@@ -711,6 +784,7 @@
       getGraph: function(cluster_id) {
         var deferred = $q.defer();
         var serviceObj = this;
+        console.log('getGraph', this);
         var data;
         // cluster_id = (cluster_id === undefined) ? 1 : cluster_id;
         // $http.get('/cluster/' + cluster_id)
@@ -736,7 +810,7 @@
         } else if (cluster_id === 6){
           data = dummy4;
         } 
-        serviceObj.graphObj = data;
+        serviceObj.graphObj = new WrappedGraph(data);
         deferred.resolve('OK');
         return deferred.promise;
       },

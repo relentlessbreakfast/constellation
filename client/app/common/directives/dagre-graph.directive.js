@@ -2,14 +2,14 @@
 * @Author: justinwebb
 * @Date:   2015-06-03 15:30:09
 * @Last Modified by:   cwhwang1986
-* @Last Modified time: 2015-06-07 17:49:43
+* @Last Modified time: 2015-06-08 10:44:44
 */
 
 'use strict';
 (function (angular, _) {
 
 // ---------------------------------------------------------
-// GraphPanelDirective - right click traversion
+// GraphPanelDirective - dblclick traversion
 // ---------------------------------------------------------
   var GraphDirectiveCtrl = function ($scope, D3Service, GraphService) {
     var d3 = D3Service.getD3();
@@ -23,16 +23,13 @@
       var nodeClasses = ['cluster', 'entry', 'exit'];
       var nodeId,
           nodeClass,
-          abbrev,
           promise;
       if (clickObjType === 'circle'){
         nodeId = $event.target.__data__;
         nodeClass = $scope.g.node(nodeId).class;
-        abbrev = $scope.g.node(nodeId).label;
       } else if (clickObjType === 'tspan'){
         nodeId = $event.path[4].__data__;
         nodeClass = $scope.g.node(nodeId).class;
-        abbrev = $scope.g.node(nodeId).label;
       } 
       //click cluster
       if(nodeClasses.indexOf(nodeClass) !== -1){
@@ -49,7 +46,7 @@
         if(promise){
           promise.then(function(result){
               if(result){
-                $scope.data = GraphService.graphObj;
+                $scope.data = GraphService.graphObj.graph;
               }
             }, function(err){
               console.log('error', err);
@@ -58,17 +55,6 @@
       } 
     };
     
-    /**
-     * [mouseOverGraph description]
-     * @param  {[type]} $event [description]
-     * @return {[type]}        [description]
-     */
-    $scope.mouseOverGraph = function($event){
-      var mouseOverObj = $event.target.__data__;
-      if(true){
-      } ;
-    };
-
     /**
      * Define function for creating the graph canvas object
      * @return {d3} d3 graph object
@@ -120,9 +106,8 @@
       } else if(jsonObj.type === 'entry'){
         label = 'Start';
       } else {
-        label = 'Stop';
+        label = 'End';
       }
-      var charSpace = 4.15625;
       var nodeType = jsonObj.type;
       var text = '         ';
       $scope.g.setNode(id, {
@@ -177,7 +162,8 @@
     var createEdge = function(id){
       if(id){
         $scope.g.node(id).downstreams.forEach(function(downstreamID){
-          $scope.g.setEdge(id, downstreamID, {lineInterpolate: 'basis'});
+          $scope.g.setEdge(id, downstreamID, {lineInterpolate: 'basis', 
+            arrowheadStyle: 'fill: #f7f7f7', arrowhead: 'vee'});
         });
       }
     };
@@ -213,7 +199,7 @@
       //Remove empty tag
       d3.select('.edgeLabels').remove();
       //reset the circle radius
-      d3.selectAll('circle').attr('r',50);
+      d3.selectAll('circle').attr('r',40);
       //Add label to each node
       var tspan = d3.selectAll('tspan')[0];
       tspan.forEach(function(text){
@@ -230,8 +216,8 @@
       });
       //Add the parent node object to graph object
       createClusterNode(data[parentId]);
-      var svg = d3.select('svg');
-      var inner = svg.select('g');
+      //Change the graph object size
+      var inner = d3.select('svg g');
       $scope.$parent.size = [inner[0][0].getBBox().width, 
         inner[0][0].getBBox().height];
     };
@@ -257,7 +243,7 @@
       controller: GraphDirectiveCtrl,
       template:  [
         '<div class="graph">',
-        '<svg id="canvas" ng-mouseover="mouseOver($event)" ng-right-click="link" ng-dblclick="onGraphDblClick($event)"><g/></svg>',
+        '<svg id="canvas" ng-right-click ng-dblclick="onGraphDblClick($event)"><g/></svg>',
         '</div>'
       ].join('')
     };
@@ -290,7 +276,7 @@
       'cluster_id': null, // foreign key ID from CLUSTERS table
       'issue_id': null, // foreign key ID from ISSUES table
       'upstream_nodes': null, // foreign key ID from NODES table
-      'downstream_nodes': [44,6] // foreign key ID from NODES table
+      'downstream_nodes': [44,6,55] // foreign key ID from NODES table
     },
     3: {
       'id': 3,// PRIMARY KEY
@@ -327,7 +313,63 @@
         'body': 'Type:\ * issue\ \ Upstream:\ * entry\ \ Downstream:\ * Cluster-Repo Selection Screen\ * Make sample graph data'
       }, // foreign key ID from ISSUES table
       'upstream_nodes': [2], // foreign key ID from NODES table
-      'downstream_nodes': [5,7] // foreign key ID from NODES table
+      'downstream_nodes': [7] // foreign key ID from NODES table
+    },
+      55: {
+      'id': 55,// PRIMARY KEY
+      'type': 'issue',
+      'parent_cluster': 1, // foreign key ID from NODES table
+      'cluster_id': null, // foreign key ID from CLUSTERS table
+      'issue_id': {
+        'id': 82639324,
+        'url': 'https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/4',
+        'labels_url': 'https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/4/labels{/name}',
+        'comments_url': 'https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/4/comments',
+        'events_url': 'https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/4/events',
+        'html_url': 'https://github.com/relentlessbreakfast/sampleGraph/issues/4',
+        'number': 55,
+        'title': 'Add O-auth',
+        'user': 1445825,
+        'labels': [1],
+        'state': 'open',
+        'locked': false,
+        'assignee': 442978,
+        'comments': 0,
+        'created_at': '2015-05-30T00:16:35Z',
+        'updated_at': '2015-05-30T00:44:37Z',
+        'closed_at': null,
+        'body': 'Type:\ * issue\ \ Upstream:\ * entry\ \ Downstream:\ * Cluster-Repo Selection Screen\ * Make sample graph data'
+      }, // foreign key ID from ISSUES table
+      'upstream_nodes': [2], // foreign key ID from NODES table
+      'downstream_nodes': [66] // foreign key ID from NODES table
+    },
+    66: {
+      'id': 66,// PRIMARY KEY
+      'type': 'issue',
+      'parent_cluster': 1, // foreign key ID from NODES table
+      'cluster_id': null, // foreign key ID from CLUSTERS table
+      'issue_id': {
+        'id': 82639324,
+        'url': 'https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/4',
+        'labels_url': 'https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/4/labels{/name}',
+        'comments_url': 'https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/4/comments',
+        'events_url': 'https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/4/events',
+        'html_url': 'https://github.com/relentlessbreakfast/sampleGraph/issues/4',
+        'number': 66,
+        'title': 'Add O-auth',
+        'user': 1445825,
+        'labels': [1],
+        'state': 'open',
+        'locked': false,
+        'assignee': 442978,
+        'comments': 0,
+        'created_at': '2015-05-30T00:16:35Z',
+        'updated_at': '2015-05-30T00:44:37Z',
+        'closed_at': null,
+        'body': 'Type:\ * issue\ \ Upstream:\ * entry\ \ Downstream:\ * Cluster-Repo Selection Screen\ * Make sample graph data'
+      }, // foreign key ID from ISSUES table
+      'upstream_nodes': [55], // foreign key ID from NODES table
+      'downstream_nodes': [7] // foreign key ID from NODES table
     },
     5: {
       'id': 5,// PRIMARY KEY
@@ -387,7 +429,7 @@
       'body': 'type:\ * Issue\ \ Upstream:\ * entry\ \ Downstream:\ * Cluster-Repo Selection Screen\ * Make sample graph data'
       }, // foreign key ID from ISSUES table
 
-      'upstream_nodes': [44,6], // foreign key ID from NODES table
+      'upstream_nodes': [44,6,66], // foreign key ID from NODES table
       'downstream_nodes': [3] // foreign key ID from NODES table
     }
   };
@@ -398,7 +440,6 @@
 
   angular
     .module('cd-app.common')
-    // .directive('ngRightClick', RighClickDirective)
     .directive('dagreGraphPanel', GraphDirective);
 
 })(angular, _);
