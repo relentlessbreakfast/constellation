@@ -2,12 +2,12 @@
 * @Author: kuychaco
 * @Date:   2015-06-03 11:57:45
 * @Last Modified by:   justinwebb
-* @Last Modified time: 2015-06-06 15:56:10
+* @Last Modified time: 2015-06-08 12:23:10
 */
 
 'use strict';
 
-var dbController = require('./database/db-controller');
+var dbController = require('../database/db');
 var express = require('express');
 var router = express.Router();
 var graph;
