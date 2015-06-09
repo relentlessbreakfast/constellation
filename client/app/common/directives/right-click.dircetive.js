@@ -2,7 +2,7 @@
 * @Author: ChalrieHwang
 * @Date:   2015-06-05 17:38:31
 * @Last Modified by:   ChalrieHwang
-* @Last Modified time: 2015-06-09 12:05:28
+* @Last Modified time: 2015-06-09 16:41:38
 */
 
 'use strict';
@@ -13,13 +13,12 @@
 // ---------------------------------------------------------
   var RightClickCtrl = function ($scope, GraphService) {
     $scope.graph = GraphService;
-
+    $scope.show = false;
   };
 
   var link = function($scope, element){
     element.bind('contextmenu', function($event){
       $event.preventDefault();
-
       var clickObjType = $event.path[0].tagName;
       var nodeClasses = ['cluster', 'issue'];
       var nodeId,
@@ -62,7 +61,6 @@
       }
     });
   };
-
   var RighClickDirective = function () {
     return {
       restrict: 'A',

@@ -2,7 +2,7 @@
 * @Author: ChalrieHwang
 * @Date:   2015-06-01 17:45:29
 * @Last Modified by:   cwhwang1986
-* @Last Modified time: 2015-06-08 21:23:47
+* @Last Modified time: 2015-06-09 13:50:43
 */
 
 'use strict';
@@ -59,7 +59,6 @@
 
     //Watch the data changes and zoom the graph
     $scope.$watchCollection('size', function(newVal){
-      console.log('new',newVal);
       xOffset = [0.5 * ($scope.canvasWidth - newVal[0]) - 5, 20];
       if(newVal[1] > $scope.idealHeight){
         shrinkRate = $scope.idealHeight/newVal[1];

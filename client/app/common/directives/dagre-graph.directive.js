@@ -2,7 +2,7 @@
 * @Author: justinwebb
 * @Date:   2015-06-03 15:30:09
 * @Last Modified by:   ChalrieHwang
-* @Last Modified time: 2015-06-09 11:48:57
+* @Last Modified time: 2015-06-09 16:37:44
 */
 
 'use strict';
@@ -77,9 +77,6 @@
         $scope.displayTitle = $scope.data[nodeId].cluster_id.name;
         $scope.displayDescription = $scope.data[nodeId].cluster_id.description;
       }
-      // if(nodeClass !== 'entry' && nodeClass !== 'exit'){
-      //   $scope.dependencyId = 
-      // }  
     };
     
     /**
@@ -254,7 +251,8 @@
       //Add the parent node object to graph object
       createClusterNode(data[parentId]);
       //Change the graph object size
-      var inner = d3.select('svg g');
+      var svg = d3.select('svg');
+      var inner = svg.select('g');
       $scope.$parent.size = [inner[0][0].getBBox().width, 
         inner[0][0].getBBox().height];
     };
@@ -289,16 +287,15 @@
 
 
   var GraphDirective = function () {
-    
     return {
       restrict: 'E',
       scope: {
       },
-      // link: link,
       controller: GraphDirectiveCtrl,
       template:  [
         '<div class="graph">',
-        '<svg id="canvas" ng-click="onClick($event)" ng-right-click ng-dblclick="onGraphDblClick($event)"><g/></svg>',
+        '<svg id="canvas" ng-click="onClick($event)" ng-right-click ng-dblclick="onGraphDblClick($event)"><g/>',
+        '</svg>',
         '</div>',
         '<div class="information">',
         '<div class="name">',
