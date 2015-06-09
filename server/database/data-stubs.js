@@ -1,8 +1,8 @@
 /*
 * @Author: kuychaco
 * @Date:   2015-06-07 14:42:36
-* @Last Modified by:   kuychaco
-* @Last Modified time: 2015-06-08 15:06:26
+* @Last Modified by:   ChalrieHwang
+* @Last Modified time: 2015-06-08 19:41:34
 */
 
 'use strict';
@@ -794,7 +794,7 @@ var graph1 = {
     "type": "cluster",
     "parent_cluster": 1, // foreign key ID from NODES table
     "cluster_id": {
-      "id": 3,  // PRIMARY KEY
+      "id": 5,  // PRIMARY KEY
       "abbrev": "Repo selection",  // must be less than 32 chars
       "name": "Cluster-Repo Selection Screen",
       "description": "Cluster of repo selection related tasks",
@@ -855,6 +855,22 @@ var graph2 = {
   entry: 2,
   parent_cluster: 5,
   deleted: [],
+  5: {
+    "id": 5,// PRIMARY KEY
+    "type": "cluster",
+    "parent_cluster": 1, // foreign key ID from NODES table
+    "cluster_id": {
+      "id": 3,  // PRIMARY KEY
+      "abbrev": "Repo selection",  // must be less than 32 chars
+      "name": "Cluster-Repo Selection Screen",
+      "description": "Cluster of repo selection related tasks",
+      "endpoints": [13, 14],  // these foreign key IDs for entries in NODES table
+      "creator": 1445825  // foreign key ID for entry in USERS table
+    }, // foreign key ID from CLUSTERS table
+    "issue_id": null, // foreign key ID from ISSUES table
+    "upstream_nodes": [4,6], // foreign key ID from NODES table
+    "downstream_nodes": [3] // foreign key ID from NODES table
+  },
   1: {
     "id": 1, // PRIMARY KEY
     "type": "cluster",
@@ -886,7 +902,7 @@ var graph2 = {
     "parent_cluster": 5, // foreign key ID from NODES table
     "cluster_id": null, // foreign key ID from CLUSTERS table
     "issue_id": null, // foreign key ID from ISSUES table
-    "upstream_nodes": [5,7], // foreign key ID from NODES table
+    "upstream_nodes": [8,7], // foreign key ID from NODES table
     "downstream_nodes": [] // foreign key ID from NODES table
   },
   4: {
@@ -915,12 +931,12 @@ var graph2 = {
       "body": "Type:\ * issue\ \ Upstream:\ * entry\ \ Downstream:\ * Cluster-Repo Selection Screen\ * Make sample graph data"
     }, // foreign key ID from ISSUES table
     "upstream_nodes": [2], // foreign key ID from NODES table
-    "downstream_nodes": [5,7] // foreign key ID from NODES table
+    "downstream_nodes": [8,7] // foreign key ID from NODES table
   },
-  5: {
-    "id": 5,// PRIMARY KEY
+  8: {
+    "id": 8,// PRIMARY KEY
     "type": "cluster",
-    "parent_cluster": 1, // foreign key ID from NODES table
+    "parent_cluster": 5, // foreign key ID from NODES table
     "cluster_id": {
       "id": 3,  // PRIMARY KEY
       "abbrev": "Repo selection",  // must be less than 32 chars
@@ -947,7 +963,7 @@ var graph2 = {
     }, // foreign key ID from CLUSTERS table
     "issue_id": null, // foreign key ID from ISSUES table
     "upstream_nodes": [2], // foreign key ID from NODES table
-    "downstream_nodes": [5,7] // foreign key ID from NODES table
+    "downstream_nodes": [8,7] // foreign key ID from NODES table
   },
   7: {
     "id": 7,// PRIMARY KEY
