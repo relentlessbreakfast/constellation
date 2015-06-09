@@ -27,7 +27,8 @@ body {
   height: inherit;
   margin: 0px; 
   padding: 0px;
-  background: url('/assets/stars.jpg');
+  background-color: black;
+  // background-image: url('/assets/stars.jpg');
   // background-image: url("http://deepskycolors.com/pics/astro/2011/11/mb_2011-11_Aries.jpg"); 
 }
 
@@ -60,12 +61,13 @@ div.information {
   float: right;
   font-family: 'Cousine', monospace;
   font-size: 30px;
-  color: white;
+  color: #20b2aa;
+  width: 50%;
 }
 
 .graph {
   color: $brand-secondary;
-  width: 60%;
+  width: 50%;
   float: left;
 }
 
@@ -102,6 +104,12 @@ div.information {
   height: 900px;
   fill: #e9eceb;
   opacity: 1;
+  display: block;
+  margin: auto;
+}
+
+.output {
+  width: inherit;
 }
 
 #zoomGraph {
@@ -189,7 +197,12 @@ text {
   align: center;
 }
 
-
+div.name {
+  width: 100%;
+}
+div.description {
+  width: 100%;
+}
 
 
 
