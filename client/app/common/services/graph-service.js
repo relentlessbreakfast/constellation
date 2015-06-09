@@ -2,10 +2,14 @@
 * @Author: kuychaco
 * @Date:   2015-06-03 10:37:28
 <<<<<<< HEAD
+<<<<<<< HEAD
 * @Last Modified by:   cwhwang1986
 =======
 * @Last Modified by:   cwhwang1986
 >>>>>>> (feat) Implement path deletion function
+=======
+* @Last Modified by:   ChalrieHwang
+>>>>>>> (cleanup) Remove all the dummy data in the service file
 */
 
 'use strict';
@@ -29,12 +33,16 @@
   //
   WrappedGraph.prototype.deleteNode = function(nodeId) {
     var wrappedGraph = this;
-    // var result = 'complete';
     // store upstream and downstream arrays
-    var upstream = this.graph[nodeId].upstream_nodes.slice() || [];
-    var downstream = this.graph[nodeId].downstream_nodes.slice() || [];
-
-    wrappedGraph.graph.deleted.push(nodeId);
+    var upstream = [];
+    var downstream = [];
+    // store upstream and downstream arrays
+    if(this.graph[nodeId].upstream_nodes){
+      upstream = this.graph[nodeId].upstream_nodes.slice();
+    }
+    if(this.graph[nodeId].downstream_nodes){
+      downstream = this.graph[nodeId].downstream_nodes.slice();
+    }
     // break links to nodeId
     upstream.forEach(function(upNodeId) {
       wrappedGraph.unlinkNodes(upNodeId, nodeId);
@@ -52,7 +60,6 @@
       });
     });
     // carry out transitive reduction one more time
-    
   };
 
   // 
@@ -144,9 +151,32 @@
 // Service Definition
 // ---------------------------------------------------------
   var GraphServiceFactory = function($http, $q) {
-
+    
     return {
-      graphObj: null,
+      graphObj: {},
+
+      /**
+       * Delete node and Run transitive reduction check
+       * @param  {int} cluster_id
+       */
+      deleteNode: function(nodeId){
+        var graphObj = this.graphObj;
+        var deferred = $q.defer();
+        graphObj.deleteNode(nodeId);
+        deferred.resolve('OK');
+        return deferred.promise;
+      },
+
+      /**
+       * Delete edge and Run transitive reduction check
+       */
+      deleteEdge: function(upNodeId, downNodeId){
+        var graphObj = this.graphObj;
+        var deferred = $q.defer();
+        graphObj.unlinkNodes(upNodeId, downNodeId);
+        deferred.resolve('OK');
+        return deferred.promise;
+      },
       /**
        * get graph from server
        * @param  {int} cluster_id
@@ -157,20 +187,16 @@
 
         var serviceObj = this;
         cluster_id = (cluster_id === undefined) ? 1 : cluster_id;
-        $http.get('/cluster/'+cluster_id)
-
+        $http.get('http://localhost:3030/api/cluster/' + cluster_id)
           .success(function(data, status) {
-            console.log('successful get:', status);
-            var graph = JSON.parse(data);
-            var wrappedGraph = new WrappedGraph(graph);
+            var wrappedGraph = new WrappedGraph(data);
             serviceObj.graphObj = wrappedGraph;
+            console.log('Success', status);
             deferred.resolve(wrappedGraph);
           })
-
           .error(function(data, status) {
             console.log('error on get:', status);
           });
-
         return deferred.promise;
       },
 
@@ -324,30 +350,6 @@
           }
         };
         return JSON.stringify(dummy);
-      },  
-       
-   
-      /**
-       * Delete node and Run transitive reduction check
-       * @param  {int} cluster_id
-       */
-      deleteNode: function(nodeId){
-        var graphObj = this.graphObj;
-        var deferred = $q.defer();
-        graphObj.deleteNode(nodeId);
-        deferred.resolve('OK');
-        return deferred.promise;
-      },
-
-      /**
-       * Delete edge and Run transitive reduction check
-       */
-      deleteEdge: function(upNodeId, downNodeId){
-        var graphObj = this.graphObj;
-        var deferred = $q.defer();
-        graphObj.unlinkNodes(upNodeId, downNodeId);
-        deferred.resolve('OK');
-        return deferred.promise;
       }
     };
   };
