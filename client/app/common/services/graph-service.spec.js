@@ -1,8 +1,7 @@
 /*
 * @Author: kuychaco
 * @Date:   2015-06-03 11:34:51
-* @Last Modified by:   justinwebb
-* @Last Modified time: 2015-06-04 12:11:38
+* @Last Modified by:   Austin Liu
 */
 
 'use strict';
@@ -21,7 +20,6 @@ describe('get graph', function() {
   }))
 
   xit('should return a cluster JSON when called', function () {
-
     graphService.getGraph(1, function(graph) {
       expect(graph.cluster_id).toBe(1);
     });
