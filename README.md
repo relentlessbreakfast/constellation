@@ -53,6 +53,13 @@ To interact with database from the command line:
 psql constellation
 ```
 
+To reset database in order to test changes made:
+
+```sh
+dropdb constellation; createdb constellation; gulp; gulp
+```
+
+
 ### Tasks
 
 From within the root directory:
