@@ -2,7 +2,7 @@
 * @Author: Austin Liu
 * @Date:   2015-06-01 17:41:31
 * @Last Modified by:   Austin Liu
-* @Last Modified time: 2015-06-08 17:04:55
+* @Last Modified time: 2015-06-08 18:47:09
 
 */
 
@@ -94,15 +94,6 @@ describe('Graph Class', function() {
       beforeEach(function() {
         graph = GraphService._getStubProjectClusterData();  //INSERTION
         wrappedGraph = GraphService._getWrapper(graph); // INSERTION
-        console.log('wrappedGraph.graph is:', wrappedGraph.graph);
-        // console.log('BEFORE EACH ––––––––––––––––––––––––––––');
-        // console.log('wrappedGraph.graph[5].downstream_nodes is', wrappedGraph.graph[5].downstream_nodes);
-        // console.log('wrappedGraph.graph[3].upstream_nodes is', wrappedGraph.graph[3].upstream_nodes);
-        // console.log('========================================');
-        // console.log('wrappedGraph.graph[4].downstream_nodes is', wrappedGraph.graph[4].downstream_nodes);
-        // console.log('wrappedGraph.graph[6].downstream_nodes is', wrappedGraph.graph[6].downstream_nodes);
-        // console.log('wrappedGraph.graph[5].upstream_nodes is', wrappedGraph.graph[5].upstream_nodes);
-        // console.log('––––––––––––––––––––––––––––––––––––––––');
         wrappedGraph.deleteNode(5);
       });
 

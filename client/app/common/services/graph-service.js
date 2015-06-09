@@ -18,21 +18,18 @@
     this.graph = JSON.parse(graphJson);
   };
 
-  
   // Subclass example: 
   // WrappedGraph.prototype = Object.create('Superclass'.prototype);
   WrappedGraph.prototype.constructor = WrappedGraph;
 
   //
   WrappedGraph.prototype.deleteNode = function(nodeId) {
-    console.log('deteNode being called on nodeId:', nodeId);
     var wrappedGraph = this;
     // var result = 'complete';
     // store upstream and downstream arrays
     var upstream = this.graph[nodeId].upstream_nodes.slice() || [];
     var downstream = this.graph[nodeId].downstream_nodes.slice() || [];
 
-    console.log('wrappedGraph.graph.deleted is: ', wrappedGraph.graph.deleted);
     wrappedGraph.graph.deleted.push(nodeId);
     // break links to nodeId
     upstream.forEach(function(upNodeId) {
@@ -50,9 +47,8 @@
         wrappedGraph.linkNodes(upNodeId, downNodeId);
       });
     });
-
-    console.log('__________________end deleteNode');
     // carry out transitive reduction one more time
+    
   };
 
   // 
@@ -133,6 +129,12 @@
     });
   };
 
+  WrappedGraph.prototype.countNodes = function(){
+    var notPartOfGraph = 3;
+    var nodeCount = this.graph.keys.length - notPartOfGraph; 
+    return nodeCount;
+  };
+
 // ---------------------------------------------------------
 // Service Definition
 // ---------------------------------------------------------
@@ -192,22 +194,23 @@
         var dummy = {
           entry: 2,
           deleted: [],
-          parent_cluster: {
-              'id': 1, // PRIMARY KEY
-              'type': 'cluster',
-              'parent_cluster': null, // foreign key ID from NODES table
-              'cluster_id': {
-              'id': 1,  // PRIMARY KEY
-              'abbrev': 'ROOT',  // must be less than 32 chars
-              'name': 'Project Root',
-              'description': 'Cluster of entire project',
-              'endpoints': [2, 3],  // these foreign key IDs for entries in NODES table
-              'creator': 1445825  // foreign key ID for entry in USERS table
-              }, // foreign key ID from CLUSTERS table
-              'issue_id': null, // foreign key ID from ISSUES table
-              'upstream_nodes': [], // foreign key ID from NODES table
-              'downstream_nodes': [] // foreign key ID from NODES table
-            },
+          parent_cluster:1,
+          1: {
+            'id': 1, // PRIMARY KEY
+            'type': 'cluster',
+            'parent_cluster': null, // foreign key ID from NODES table
+            'cluster_id': {
+            'id': 1,  // PRIMARY KEY
+            'abbrev': 'ROOT',  // must be less than 32 chars
+            'name': 'Project Root',
+            'description': 'Cluster of entire project',
+            'endpoints': [2, 3],  // these foreign key IDs for entries in NODES table
+            'creator': 1445825  // foreign key ID for entry in USERS table
+            }, // foreign key ID from CLUSTERS table
+            'issue_id': null, // foreign key ID from ISSUES table
+            'upstream_nodes': [], // foreign key ID from NODES table
+            'downstream_nodes': [] // foreign key ID from NODES table
+          },
             2: {
               'id': 2,// PRIMARY KEY
               'type': 'entry',
