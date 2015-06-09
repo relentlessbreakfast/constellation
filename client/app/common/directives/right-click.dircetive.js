@@ -1,8 +1,8 @@
 /* 
 * @Author: ChalrieHwang
 * @Date:   2015-06-05 17:38:31
-* @Last Modified by:   cwhwang1986
-* @Last Modified time: 2015-06-08 13:52:26
+* @Last Modified by:   ChalrieHwang
+* @Last Modified time: 2015-06-09 12:05:28
 */
 
 'use strict';
@@ -36,12 +36,11 @@
       } else if (clickObjType === 'path'){
         upNodeId = Number($event.target.__data__.v);
         downNodeId = Number($event.target.__data__.w);
-      } 
+      }
       //Click circle
       if(nodeClasses.indexOf(nodeClass) !== -1){
         if(nodeClass === 'cluster'){
-          var clusterId = Number($scope.g.node(nodeId).clusterId);
-          promise = $scope.graph.deleteNode(clusterId);
+          promise = $scope.graph.deleteNode(nodeId);
         } else if (nodeClass === 'issue'){
           promise = $scope.graph.deleteNode(nodeId);
         }
@@ -70,12 +69,6 @@
       controller: RightClickCtrl,
       link: link,
       scope: true
-      // controller: RightClickCtrl
-      // template:  [
-      //   '<div class="graph">',
-      //   '<svg id="canvas" ng-mouseover="mouseOver($event)" ng-right-click="link" ng-dblclick="onGraphDblClick($event)"><g/></svg>',
-      //   '</div>'
-      // ].join('')
     };
   };
 
