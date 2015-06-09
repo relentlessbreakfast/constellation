@@ -1,8 +1,8 @@
 /* 
 * @Author: ChalrieHwang
 * @Date:   2015-06-01 17:45:29
-* @Last Modified by:   ChalrieHwang
-* @Last Modified time: 2015-06-08 20:29:42
+* @Last Modified by:   cwhwang1986
+* @Last Modified time: 2015-06-08 21:23:47
 */
 
 'use strict';
@@ -27,6 +27,7 @@
     $scope.canvasHeight = document.getElementById('canvas').offsetHeight;
     $scope.size = [0, 0];
     $scope.idealHeight = $scope.canvasHeight * 0.85;
+    $scope.idealWidth = $scope.canvasWidth * 0.95;
 
     /**
      * Attach event listener to window size
@@ -58,16 +59,17 @@
 
     //Watch the data changes and zoom the graph
     $scope.$watchCollection('size', function(newVal){
+      console.log('new',newVal);
       xOffset = [0.5 * ($scope.canvasWidth - newVal[0]) - 5, 20];
       if(newVal[1] > $scope.idealHeight){
         shrinkRate = $scope.idealHeight/newVal[1];
         xOffset[0] = xOffset[0] + 0.5 * (1 - shrinkRate) * newVal[0]; 
-      } else {
-        shrinkRate = 1;
+      } else if(newVal[0] > $scope.idealWidth) {
+        shrinkRate = $scope.idealWidth/newVal[0];
+        xOffset[0] = xOffset[0] + 0.5 * (1 - shrinkRate) * newVal[0]; 
       } 
       inner.attr('transform', 'translate(' + xOffset + ')'+'scale(' + shrinkRate + ')');
     });
-
 
 
     $scope.onZoom()
