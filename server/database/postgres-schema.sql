@@ -55,12 +55,12 @@ CREATE TABLE IF NOT EXISTS repos (
 -- DROP TABLE IF EXISTS labels;
 
 CREATE TABLE IF NOT EXISTS labels (
-  id serial, -- 1  // PRIMARY KEY
+  -- id serial, -- 1  // PRIMARY KEY
   url text, -- "https://api.github.com/repos/relentlessbreakfast/sampleGraph/labels/bug",
   name text, -- "bug",
   color text, -- "fc2929",
-  repo_id integer REFERENCES repos (id), -- "1"
-  PRIMARY KEY (id)
+  -- repo_id integer REFERENCES repos (id), -- "1"
+  PRIMARY KEY (name)
 );
 
 
@@ -131,6 +131,8 @@ CREATE TABLE IF NOT EXISTS clusters (
   description text, -- "Cluster of entire project",
   endpoints integer ARRAY, -- [2, 3],  // these foreign key IDs for entries in NODES table
   creator integer REFERENCES users (id), -- 1445825,  // foreign key ID for entry in USERS table
+  children_count integer,
+  children_complete integer,
   -- deleted integer ARRAY, -- []
   PRIMARY KEY (id)
 );
