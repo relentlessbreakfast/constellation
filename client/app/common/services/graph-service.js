@@ -167,7 +167,7 @@
         return deferred.promise;
       },
 
-      getWrapper: function (json) {
+      _getWrapper: function (json) {
         return new WrappedGraph(json);
       },
 
@@ -188,7 +188,7 @@
         return deferred.promise;
       },
 
-      getStubProjectClusterData: function () {
+      _getStubProjectClusterData: function () {
         var dummy = {
           entry: 2,
           deleted: [],

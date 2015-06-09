@@ -2,7 +2,7 @@
 * @Author: Austin Liu
 * @Date:   2015-06-01 17:41:31
 * @Last Modified by:   Austin Liu
-* @Last Modified time: 2015-06-08 11:55:51
+* @Last Modified time: 2015-06-08 17:04:55
 
 */
 
@@ -41,8 +41,8 @@ describe('Graph Class', function() {
   describe('when instantiated', function() {
     var wrappedGraph;
     beforeEach(function() {
-      graph = GraphService.getStubProjectClusterData();
-      wrappedGraph = GraphService.getWrapper(graph);
+      graph = GraphService._getStubProjectClusterData();
+      wrappedGraph = GraphService._getWrapper(graph);
     });
 
     it('should return an object with graph property', function () {
@@ -64,8 +64,8 @@ describe('Graph Class', function() {
     var wrappedGraph;
     
     beforeEach(function() {
-      graph = GraphService.getStubProjectClusterData();
-      wrappedGraph = GraphService.getWrapper(graph);
+      graph = GraphService._getStubProjectClusterData();
+      wrappedGraph = GraphService._getWrapper(graph);
       wrappedGraph.linkNodes(6,4);
     });
 
@@ -92,8 +92,8 @@ describe('Graph Class', function() {
     describe('delete node', function() {
 
       beforeEach(function() {
-        graph = GraphService.getStubProjectClusterData();  //INSERTION
-        wrappedGraph = GraphService.getWrapper(graph); // INSERTION
+        graph = GraphService._getStubProjectClusterData();  //INSERTION
+        wrappedGraph = GraphService._getWrapper(graph); // INSERTION
         console.log('wrappedGraph.graph is:', wrappedGraph.graph);
         // console.log('BEFORE EACH ––––––––––––––––––––––––––––');
         // console.log('wrappedGraph.graph[5].downstream_nodes is', wrappedGraph.graph[5].downstream_nodes);
