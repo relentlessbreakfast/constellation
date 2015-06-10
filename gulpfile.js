@@ -2,7 +2,7 @@
 * @Author: justinwebb
 * @Date:   2015-05-26 15:18:17
 * @Last Modified by:   justinwebb
-* @Last Modified time: 2015-06-09 17:37:06
+* @Last Modified time: 2015-06-09 17:38:33
 */
 
 'use strict';
@@ -39,6 +39,16 @@ var shell = require('gulp-shell');
 var cleanPreviousBuild = function (cb) {
   del([config.dist]);
   cb();
+};
+
+var copyMediaFiles = function () {
+  var media = [
+    '!'+ config.client +'/assets/styles/**/*',
+    config.client +'/assets/**/*'
+  ];
+  console.log('Media', media);
+  return gulp.src(media)
+    .pipe(gulp.dest(config.assets));
 };
 
 var compileSassFiles = function (cb) {
@@ -205,11 +215,13 @@ gulp.task('dbstop', function () {
 // --------------- Contiguous Integration ---------------//
 gulp.task('clean', cleanPreviousBuild);
 
+gulp.task('copy', copyMediaFiles);
+
 gulp.task('sass', compileSassFiles);
 
 gulp.task('dist', ['sass'], transformSourceToDistFiles);
 
-gulp.task('build', ['clean', 'dist']);
+gulp.task('build', ['clean', 'copy', 'dist']);
 
 gulp.task('nodemon', runNodemon);
 
