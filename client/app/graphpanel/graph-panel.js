@@ -2,7 +2,7 @@
 * @Author: ChalrieHwang
 * @Date:   2015-06-01 17:45:29
 * @Last Modified by:   ChalrieHwang
-* @Last Modified time: 2015-06-08 11:46:48
+* @Last Modified time: 2015-06-09 17:40:58
 */
 
 'use strict';
@@ -20,21 +20,31 @@
     var d3 = D3Service.getD3();
     var svg = d3.select('svg');
     var inner = svg.select('g');
-    var xOffset = [$window.innerWidth * 0.45, 60];
+    var xOffset = [$window.innerWidth * 0.45, 20];
     var shrinkRate = 1;
 
-    $scope.windowWidth = $window.innerWidth;
-    $scope.windowHeight = $window.innerHeight;
+    $scope.canvasWidth = document.getElementById('canvas').offsetWidth;
+    $scope.canvasHeight = document.getElementById('canvas').offsetHeight;
     $scope.size = [0, 0];
-    $scope.idealHeight = $scope.windowHeight * 0.85;
+    $scope.idealHeight = $scope.canvasHeight * 0.85;
+    $scope.idealWidth = $scope.canvasWidth * 0.95;
 
     /**
      * Attach event listener to window size
      */
     $window.addEventListener('resize', function(){
-      $scope.windowWidth = $window.innerWidth;
-      $scope.windowHeight = $window.innerHeight;
-      $scope.idealHeight = $scope.windowHeight * 0.85;
+      $scope.canvasWidth = document.getElementById('canvas').offsetWidth;
+      $scope.canvasHeight = document.getElementById('canvas').offsetHeight;
+      if($scope.canvasWidth * 0.95 > $scope.size[0]){
+        xOffset = [0.5 * ($scope.canvasWidth - $scope.size[0]) - 6, 20];
+        inner.attr('transform', 'translate(' + xOffset + ')'+'scale(' + shrinkRate + ')');
+      } else {
+        xOffset = [0.5 * ($scope.canvasWidth - $scope.size[0]) - 6, 20];
+        var idealGraphWidth = $scope.canvasWidth * 0.95;
+        shrinkRate = (1 - ($scope.size[0] - idealGraphWidth)/$scope.size[0]);
+        xOffset[0] = xOffset[0] + 0.5 * (1 - shrinkRate) * $scope.size[0];
+        inner.attr('transform', 'translate(' + xOffset + ')'+'scale(' + shrinkRate + ')');
+      } 
     }, true);
     
 
@@ -52,31 +62,22 @@
       return zoom;
     };
 
-    //Watch the data changes and zoom the graph
+    //Watch the graph width changes and zoom the graph
     $scope.$watchCollection('size', function(newVal){
-      xOffset = [0.5 * ($scope.windowWidth - newVal[0]) - 6, 60];
+      xOffset = [0.5 * ($scope.canvasWidth - newVal[0]) - 5, 20];
       if(newVal[1] > $scope.idealHeight){
         shrinkRate = $scope.idealHeight/newVal[1];
         xOffset[0] = xOffset[0] + 0.5 * (1 - shrinkRate) * newVal[0]; 
-      } else {
-        shrinkRate = 1;
+      } else if(newVal[0] > $scope.idealWidth) {
+        shrinkRate = $scope.idealWidth/newVal[0];
+        xOffset[0] = xOffset[0] + 0.5 * (1 - shrinkRate) * newVal[0]; 
       } 
       inner.attr('transform', 'translate(' + xOffset + ')'+'scale(' + shrinkRate + ')');
-      // inner.attr('transform', 'translate(' + xOffset + ')'+'scale(' + 1 + ')');
     });
 
-    //Watch the window changes and move the graph
-    $scope.$watchCollection('windowWidth', function(newVal){
-      if(newVal){
-        if(newVal > $scope.size[0] + 20){
-          xOffset = [0.5 * (newVal - $scope.size[0]) - 6, 60];
-          inner.attr('transform', 'translate(' + xOffset + ')'+'scale(' + shrinkRate + ')');
-        } 
-      }
-    });
 
     $scope.onZoom()
-      .translate([xOffset, 60])
+      .translate([xOffset, 20])
       .scale(1);
 
 

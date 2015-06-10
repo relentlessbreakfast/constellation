@@ -22,12 +22,30 @@
 
 
 body {
+  font-family: 'open sans', sans-serif; 
   color: #00f;
   width: inherit;
   height: inherit;
   margin: 0px; 
-  padding:0px;
-  background-image: url("http://deepskycolors.com/pics/astro/2011/11/mb_2011-11_Aries.jpg"); 
+  padding: 0px;
+  // background-color: black;
+  background-image: url(../images/stars.jpg);
+}
+
+div.top{
+  margin: 0px;
+  padding: 10px 0px 0px 10px;
+  height: 40px;
+  color: white;
+  background-color: black;
+  font-size: 30px;
+}
+
+
+div.line {
+  background-color: #ffa500;
+  display: block;
+  height: 2px;
 }
 
 .ng-scope:before {
@@ -38,9 +56,17 @@ div {
   width: inherit;
 }
 
+div.information {
+  float: right;
+  font-size: 30px;
+  color: #20b2aa;
+  width: 50%;
+}
+
 .graph {
   color: $brand-secondary;
-  width: inherit;
+  width: 50%;
+  float: left;
 }
 
 
@@ -51,8 +77,24 @@ div {
 
 .path {
   stroke: white;
-  stroke-width: 2.3px;
+  stroke-width: 4px;
   stroke-linecap: "butt";
+}
+
+.path:hover {
+  stroke: red;
+  fill: red;
+  stroke-width: 8px;
+  stroke-linecap: "butt"; 
+  cursor: pointer;
+}
+
+.edgePath:hover {
+  stroke: red;
+  fill: red;
+  stroke-width: 2px;
+  cursor: pointer;
+  stroke-linecap: "butt"; 
 }
 
 #canvas {
@@ -60,6 +102,12 @@ div {
   height: 900px;
   fill: #e9eceb;
   opacity: 1;
+  display: block;
+  margin: auto;
+}
+
+.output {
+  width: inherit;
 }
 
 #zoomGraph {
@@ -76,7 +124,7 @@ div {
 .exit:hover {
   opacity: 1;
   stroke: #d1b6f1;
-  stroke-width: 10px;
+  stroke-width: 12px;
   stroke-opacity: 0.7;
   cursor:pointer;
 }
@@ -92,7 +140,7 @@ div {
 .entry:hover {
   opacity: 1;
   stroke: #d1b6f1;
-  stroke-width: 10px;
+  stroke-width: 12px;
   stroke-opacity: 0.7;
   cursor:pointer;
 }
@@ -109,7 +157,7 @@ div {
 .node.cluster:hover {
   opacity: 1;
   stroke: #ffa500;
-  stroke-width: 10px;
+  stroke-width: 12px;
   stroke-opacity: 0.7;
   cursor: pointer;
 }
@@ -122,6 +170,14 @@ div {
   stroke-opacity: 0.7;
 }
 
+.issue:hover {
+  opacity: 1;
+  fill: white;
+  stroke: #fff68f;
+  stroke-width: 12px;
+  stroke-opacity: 0.7;
+  cursor: pointer;
+}
 text:hover {
   stroke-width: 1px;
   stroke: #534741;
@@ -139,7 +195,12 @@ text {
   align: center;
 }
 
-
+div.name {
+  width: 100%;
+}
+div.description {
+  width: 100%;
+}
 
 
 

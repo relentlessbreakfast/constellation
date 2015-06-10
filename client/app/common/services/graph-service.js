@@ -1,7 +1,7 @@
 /*
 * @Author: kuychaco
-* @Date:   2015-06-03 10:37:28
-* @Last Modified by:   Austin Liu
+* @Date:   2015-06-07 10:37:28
+* @Last Modified by:   cwhwang1986
 */
 
 'use strict';
@@ -15,7 +15,7 @@
 
   // input is parsed graph JSON
   var WrappedGraph = function(graphJson) {
-    this.graph = JSON.parse(graphJson);
+    this.graph = graphJson;
   };
 
   // Subclass example: 
@@ -25,12 +25,16 @@
   //
   WrappedGraph.prototype.deleteNode = function(nodeId) {
     var wrappedGraph = this;
-    // var result = 'complete';
     // store upstream and downstream arrays
-    var upstream = this.graph[nodeId].upstream_nodes.slice() || [];
-    var downstream = this.graph[nodeId].downstream_nodes.slice() || [];
-
-    wrappedGraph.graph.deleted.push(nodeId);
+    var upstream = [];
+    var downstream = [];
+    // store upstream and downstream arrays
+    if(this.graph[nodeId].upstream_nodes){
+      upstream = this.graph[nodeId].upstream_nodes.slice();
+    }
+    if(this.graph[nodeId].downstream_nodes){
+      downstream = this.graph[nodeId].downstream_nodes.slice();
+    }
     // break links to nodeId
     upstream.forEach(function(upNodeId) {
       wrappedGraph.unlinkNodes(upNodeId, nodeId);
@@ -48,7 +52,6 @@
       });
     });
     // carry out transitive reduction one more time
-    
   };
 
   // 
@@ -116,14 +119,15 @@
   //
   WrappedGraph.prototype.unlinkNodes = function(upNodeId, downNodeId) {
     // remove downNodeId from upNodeId's downstream array
-    this.graph[upNodeId].downstream_nodes.forEach(function(nodeId, i, arr) {
-      if (nodeId === downNodeId) {
+    var graphObj = this.graph;
+    graphObj[upNodeId].downstream_nodes.forEach(function(nodeId, i, arr) {
+      if (nodeId === Number(downNodeId)) {
         arr.splice(i,1);
       }
     });
     // remove upNodeId from downNodeId's upstream array
-    this.graph[downNodeId].upstream_nodes.forEach(function(nodeId, i, arr) {
-      if (nodeId === upNodeId) {
+    graphObj[downNodeId].upstream_nodes.forEach(function(nodeId, i, arr) {
+      if (nodeId === Number(upNodeId)) {
         arr.splice(i,1);
       }
     });
@@ -139,33 +143,52 @@
 // Service Definition
 // ---------------------------------------------------------
   var GraphServiceFactory = function($http, $q) {
-
+    
     return {
-      graphObj: null,
+      graphObj: {},
+
+      /**
+       * Delete node and Run transitive reduction check
+       * @param  {int} cluster_id
+       */
+      deleteNode: function(nodeId){
+        var graphObj = this.graphObj;
+        var deferred = $q.defer();
+        graphObj.deleteNode(nodeId);
+        deferred.resolve('OK');
+        return deferred.promise;
+      },
+
+      /**
+       * Delete edge and Run transitive reduction check
+       */
+      deleteEdge: function(upNodeId, downNodeId){
+        var graphObj = this.graphObj;
+        var deferred = $q.defer();
+        graphObj.unlinkNodes(upNodeId, downNodeId);
+        deferred.resolve('OK');
+        return deferred.promise;
+      },
       /**
        * get graph from server
        * @param  {int} cluster_id
        * @return {undefined} [data outputs to graphObj in service object]
        */
       getGraph: function(cluster_id) {
+        console.log('getGraph');
         var deferred = $q.defer();
-
         var serviceObj = this;
         cluster_id = (cluster_id === undefined) ? 1 : cluster_id;
-        $http.get('/cluster/'+cluster_id)
-
+        $http.get('http://localhost:3030/api/cluster/' + cluster_id)
           .success(function(data, status) {
-            console.log('successful get:', status);
-            var graph = JSON.parse(data);
-            var wrappedGraph = new WrappedGraph(graph);
+            var wrappedGraph = new WrappedGraph(data);
             serviceObj.graphObj = wrappedGraph;
+            console.log('Success', status);
             deferred.resolve(wrappedGraph);
           })
-
           .error(function(data, status) {
             console.log('error on get:', status);
           });
-
         return deferred.promise;
       },
 
@@ -318,18 +341,8 @@
             'downstream_nodes': [3] // foreign key ID from NODES table
           }
         };
-
         return JSON.stringify(dummy);
-      },  
-
-      deleteNode: function(nodeId){
-        var graphObj = this.graphObj;
-        var deferred = $q.defer();
-        graphObj.deleteNode(nodeId);
-        deferred.resolve('OK');
-        return deferred.promise;
       }
-
     };
   };
 
