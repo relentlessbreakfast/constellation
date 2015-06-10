@@ -521,276 +521,492 @@ var labels = [
 ];
 
 var graph1 = {
-  entry: 2,
-  parent_cluster: 1,
-  deleted: [],
-  1: {
-    "id": 1, // PRIMARY KEY
-    "type": "cluster",
-    "parent_cluster": null, // foreign key ID from NODES table
-    "cluster_id": {
-      "id": 1,  // PRIMARY KEY
-      "abbrev": "ROOT",  // must be less than 32 chars
-      "name": "Project Root",
-      "description": "Cluster of entire project",
-      "endpoints": [2, 3],  // these foreign key IDs for entries in NODES table
-      "creator": 1445825  // foreign key ID for entry in USERS table
-    }, // foreign key ID from CLUSTERS table
-    "issue_id": null, // foreign key ID from ISSUES table
-    "upstream_nodes": [], // foreign key ID from NODES table
-    "downstream_nodes": [] // foreign key ID from NODES table
-  },
-  2: {
-    "id": 2,// PRIMARY KEY
-    "type": "entry",
-    "parent_cluster": 1, // foreign key ID from NODES table
-    "cluster_id": null, // foreign key ID from CLUSTERS table
-    "issue_id": null, // foreign key ID from ISSUES table
-    "upstream_nodes": null, // foreign key ID from NODES table
-    "downstream_nodes": [4,6] // foreign key ID from NODES table
-  },
-  3: {
-    "id": 3,// PRIMARY KEY
-    "type": "exit",
-    "parent_cluster": 1, // foreign key ID from NODES table
-    "cluster_id": null, // foreign key ID from CLUSTERS table
-    "issue_id": null, // foreign key ID from ISSUES table
-    "upstream_nodes": [5,7], // foreign key ID from NODES table
-    "downstream_nodes": [] // foreign key ID from NODES table
-  },
-  4: {
-    "id": 4,// PRIMARY KEY
-    "type": "issue",
-    "parent_cluster": 1, // foreign key ID from NODES table
-    "cluster_id": null, // foreign key ID from CLUSTERS table
-    "issue_id": {
-      "id": 82639324,
-      "url": "https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/4",
-      "labels_url": "https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/4/labels{/name}",
-      "comments_url": "https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/4/comments",
-      "events_url": "https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/4/events",
-      "html_url": "https://github.com/relentlessbreakfast/sampleGraph/issues/4",
-      "number": 4,
-      "title": "Add O-auth",
-      "user": 1445825,
-      "labels": [1],
-      "state": "open",
-      "locked": false,
-      "assignee": 442978,
-      "comments": 0,
-      "created_at": "2015-05-30T00:16:35Z",
-      "updated_at": "2015-05-30T00:44:37Z",
-      "closed_at": null,
-      "body": "Type:\ * issue\ \ Upstream:\ * entry\ \ Downstream:\ * Cluster-Repo Selection Screen\ * Make sample graph data"
-    }, // foreign key ID from ISSUES table
-    "upstream_nodes": [2], // foreign key ID from NODES table
-    "downstream_nodes": [5,7] // foreign key ID from NODES table
-  },
-  5: {
-    "id": 5,// PRIMARY KEY
-    "type": "cluster",
-    "parent_cluster": 1, // foreign key ID from NODES table
-    "cluster_id": {
-      "id": 5,  // PRIMARY KEY
-      "abbrev": "Repo selection",  // must be less than 32 chars
-      "name": "Cluster-Repo Selection Screen",
-      "description": "Cluster of repo selection related tasks",
-      "endpoints": [13, 14],  // these foreign key IDs for entries in NODES table
-      "creator": 1445825  // foreign key ID for entry in USERS table
-    }, // foreign key ID from CLUSTERS table
-    "issue_id": null, // foreign key ID from ISSUES table
-    "upstream_nodes": [4,6], // foreign key ID from NODES table
-    "downstream_nodes": [3] // foreign key ID from NODES table
-  },
-  6: {
-    "id": 6,// PRIMARY KEY
-    "type": "cluster",
-    "parent_cluster": 1, // foreign key ID from NODES table
-    "cluster_id": {
-      "id": 2,  // PRIMARY KEY
-      "abbrev": "DB",  // must be less than 32 chars
-      "name": "Cluster-Database Schema",
-      "description": "Cluster of database schema related tasks",
-      "endpoints": [11, 12],  // these foreign key IDs for entries in NODES table
-      "creator": 1445825  // foreign key ID for entry in USERS table
-    }, // foreign key ID from CLUSTERS table
-    "issue_id": null, // foreign key ID from ISSUES table
-    "upstream_nodes": [2], // foreign key ID from NODES table
-    "downstream_nodes": [5,7] // foreign key ID from NODES table
-  },
-  7: {
-    "id": 7,// PRIMARY KEY
-    "type": "issue",
-    "parent_cluster": 1, // foreign key ID from NODES table
-    "cluster_id": null, // foreign key ID from CLUSTERS table
-    "issue_id": {
-      "id": 82639733, // PRIMARY KEY
-      "url": "https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/7",
-      "labels_url": "https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/7/labels{/name}",
-      "comments_url": "https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/7/comments",
-      "events_url": "https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/7/events",
-      "html_url": "https://github.com/relentlessbreakfast/sampleGraph/issues/7",
-      "number": 7,
-      "title": "Make sample graph data",
-      "user": 1445825,
-      "labels": [6],
-      "state": "open",
-      "locked": false,
-      "assignee": 1445825,
-      "comments": 2,
-      "created_at": "2015-05-30T00:18:26Z",
-      "updated_at": "2015-05-30T00:43:54Z",
-      "closed_at": null,
-      "body": "type:\ * Issue\ \ Upstream:\ * entry\ \ Downstream:\ * Cluster-Repo Selection Screen\ * Make sample graph data"
-    }, // foreign key ID from ISSUES table
-    "upstream_nodes": [4,6], // foreign key ID from NODES table
-    "downstream_nodes": [3] // foreign key ID from NODES table
+  "1": {
+  "id": 1,
+  "type": "cluster",
+  "parent_cluster": 0,
+  "cluster_id": 1,
+  "issue_id": null,
+  "upstream_nodes": null,
+  "downstream_nodes": null,
+  "cluster": {
+  "id": 1,
+  "abbrev": "ROOT",
+  "name": "Project Root",
+  "description": "Cluster of entire project",
+  "endpoints": [
+  2,
+  3
+  ],
+  "creator": 7910250,
+  "children_count": 5,
+  "children_complete": 0
   }
+  },
+  "2": {
+  "id": 2,
+  "type": "enter",
+  "parent_cluster": 1,
+  "cluster_id": null,
+  "issue_id": null,
+  "upstream_nodes": null,
+  "downstream_nodes": null
+  },
+  "3": {
+  "id": 3,
+  "type": "exit",
+  "parent_cluster": 1,
+  "cluster_id": null,
+  "issue_id": null,
+  "upstream_nodes": null,
+  "downstream_nodes": null
+  },
+  "4": {
+  "id": 4,
+  "type": "cluster",
+  "parent_cluster": 1,
+  "cluster_id": 2,
+  "issue_id": null,
+  "upstream_nodes": null,
+  "downstream_nodes": null,
+  "cluster": {
+  "id": 2,
+  "abbrev": "Auth",
+  "name": "Authentication",
+  "description": "Set up authentication",
+  "endpoints": [
+  5,
+  6
+  ],
+  "creator": 7910250,
+  "children_count": 5,
+  "children_complete": 0
+  }
+  },
+  "7": {
+  "id": 7,
+  "type": "cluster",
+  "parent_cluster": 1,
+  "cluster_id": 3,
+  "issue_id": null,
+  "upstream_nodes": null,
+  "downstream_nodes": null,
+  "cluster": {
+  "id": 3,
+  "abbrev": "DB",
+  "name": "Database",
+  "description": "Set up database",
+  "endpoints": [
+  8,
+  9
+  ],
+  "creator": 7910250,
+  "children_count": 5,
+  "children_complete": 0
+  }
+  },
+  "10": {
+  "id": 10,
+  "type": "cluster",
+  "parent_cluster": 1,
+  "cluster_id": 4,
+  "issue_id": null,
+  "upstream_nodes": null,
+  "downstream_nodes": null,
+  "cluster": {
+  "id": 4,
+  "abbrev": "ExAPI",
+  "name": "Github API",
+  "description": "Pull info from Github API",
+  "endpoints": [
+  11,
+  12
+  ],
+  "creator": 7910250,
+  "children_count": 5,
+  "children_complete": 0
+  }
+  },
+  "13": {
+  "id": 13,
+  "type": "cluster",
+  "parent_cluster": 1,
+  "cluster_id": 5,
+  "issue_id": null,
+  "upstream_nodes": null,
+  "downstream_nodes": null,
+  "cluster": {
+  "id": 5,
+  "abbrev": "View Plan",
+  "name": "Plan out User Interface",
+  "description": "Mock up user interface",
+  "endpoints": [
+  14,
+  15
+  ],
+  "creator": 7910250,
+  "children_count": 5,
+  "children_complete": 0
+  }
+  },
+  "16": {
+  "id": 16,
+  "type": "cluster",
+  "parent_cluster": 1,
+  "cluster_id": 6,
+  "issue_id": null,
+  "upstream_nodes": null,
+  "downstream_nodes": null,
+  "cluster": {
+  "id": 6,
+  "abbrev": "Model",
+  "name": "Design data model",
+  "description": "Set up app models",
+  "endpoints": [
+  17,
+  18
+  ],
+  "creator": 7910250,
+  "children_count": 5,
+  "children_complete": 0
+  }
+  },
+  "19": {
+  "id": 19,
+  "type": "cluster",
+  "parent_cluster": 1,
+  "cluster_id": 7,
+  "issue_id": null,
+  "upstream_nodes": null,
+  "downstream_nodes": null,
+  "cluster": {
+  "id": 7,
+  "abbrev": "Contr",
+  "name": "Data controller",
+  "description": "Set up data controller",
+  "endpoints": [
+  20,
+  21
+  ],
+  "creator": 7910250,
+  "children_count": 5,
+  "children_complete": 0
+  }
+  },
+  "22": {
+  "id": 22,
+  "type": "cluster",
+  "parent_cluster": 1,
+  "cluster_id": 8,
+  "issue_id": null,
+  "upstream_nodes": null,
+  "downstream_nodes": null,
+  "cluster": {
+  "id": 8,
+  "abbrev": "View",
+  "name": "Implement angular front end",
+  "description": "Create angular front end",
+  "endpoints": [
+  23,
+  24
+  ],
+  "creator": 7910250,
+  "children_count": 5,
+  "children_complete": 0
+  }
+  },
+  "25": {
+  "id": 25,
+  "type": "cluster",
+  "parent_cluster": 1,
+  "cluster_id": 9,
+  "issue_id": null,
+  "upstream_nodes": null,
+  "downstream_nodes": null,
+  "cluster": {
+  "id": 9,
+  "abbrev": "Styling",
+  "name": "Polish the UI",
+  "description": "CSS makeover",
+  "endpoints": [
+  26,
+  27
+  ],
+  "creator": 7910250,
+  "children_count": 5,
+  "children_complete": 0
+  }
+  },
+  "28": {
+  "id": 28,
+  "type": "cluster",
+  "parent_cluster": 1,
+  "cluster_id": 10,
+  "issue_id": null,
+  "upstream_nodes": null,
+  "downstream_nodes": null,
+  "cluster": {
+  "id": 10,
+  "abbrev": "Integ",
+  "name": "Integration",
+  "description": "Combine all parts",
+  "endpoints": [
+  29,
+  30
+  ],
+  "creator": 7910250,
+  "children_count": 5,
+  "children_complete": 0
+  }
+  },
+  "31": {
+  "id": 31,
+  "type": "cluster",
+  "parent_cluster": 1,
+  "cluster_id": 11,
+  "issue_id": null,
+  "upstream_nodes": null,
+  "downstream_nodes": null,
+  "cluster": {
+  "id": 11,
+  "abbrev": "Deploy",
+  "name": "Deploy the application",
+  "description": "Deploy the application",
+  "endpoints": [
+  32,
+  33
+  ],
+  "creator": 7910250,
+  "children_count": 5,
+  "children_complete": 0
+  }
+  },
+  "parent_cluster": "1",
+  "enter": 2,
+  "exit": 3,
+  "deleted": []
 };
 
 var graph2 = {
-  entry: 2,
-  parent_cluster: 5,
-  deleted: [],
-  5: {
-    "id": 5,// PRIMARY KEY
-    "type": "cluster",
-    "parent_cluster": 1, // foreign key ID from NODES table
-    "cluster_id": {
-      "id": 3,  // PRIMARY KEY
-      "abbrev": "Repo selection",  // must be less than 32 chars
-      "name": "Cluster-Repo Selection Screen",
-      "description": "Cluster of repo selection related tasks",
-      "endpoints": [13, 14],  // these foreign key IDs for entries in NODES table
-      "creator": 1445825  // foreign key ID for entry in USERS table
-    }, // foreign key ID from CLUSTERS table
-    "issue_id": null, // foreign key ID from ISSUES table
-    "upstream_nodes": [4,6], // foreign key ID from NODES table
-    "downstream_nodes": [3] // foreign key ID from NODES table
-  },
-  1: {
-    "id": 1, // PRIMARY KEY
-    "type": "cluster",
-    "parent_cluster": 5, // foreign key ID from NODES table
-    "cluster_id": {
-      "id": 1,  // PRIMARY KEY
-      "abbrev": "ROOT",  // must be less than 32 chars
-      "name": "Project Root",
-      "description": "Cluster of entire project",
-      "endpoints": [2, 3],  // these foreign key IDs for entries in NODES table
-      "creator": 1445825  // foreign key ID for entry in USERS table
-    }, // foreign key ID from CLUSTERS table
-    "issue_id": null, // foreign key ID from ISSUES table
-    "upstream_nodes": [], // foreign key ID from NODES table
-    "downstream_nodes": [] // foreign key ID from NODES table
-  },
-  2: {
-    "id": 2,// PRIMARY KEY
-    "type": "entry",
-    "parent_cluster": 5, // foreign key ID from NODES table
-    "cluster_id": null, // foreign key ID from CLUSTERS table
-    "issue_id": null, // foreign key ID from ISSUES table
-    "upstream_nodes": null, // foreign key ID from NODES table
-    "downstream_nodes": [4,6] // foreign key ID from NODES table
-  },
-  3: {
-    "id": 3,// PRIMARY KEY
-    "type": "exit",
-    "parent_cluster": 5, // foreign key ID from NODES table
-    "cluster_id": null, // foreign key ID from CLUSTERS table
-    "issue_id": null, // foreign key ID from ISSUES table
-    "upstream_nodes": [8,7], // foreign key ID from NODES table
-    "downstream_nodes": [] // foreign key ID from NODES table
-  },
-  4: {
-    "id": 4,// PRIMARY KEY
-    "type": "issue",
-    "parent_cluster": 5, // foreign key ID from NODES table
-    "cluster_id": null, // foreign key ID from CLUSTERS table
-    "issue_id": {
-      "id": 82639324,
-      "url": "https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/4",
-      "labels_url": "https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/4/labels{/name}",
-      "comments_url": "https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/4/comments",
-      "events_url": "https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/4/events",
-      "html_url": "https://github.com/relentlessbreakfast/sampleGraph/issues/4",
-      "number": 4,
-      "title": "Add O-auth",
-      "user": 1445825,
-      "labels": [1],
-      "state": "open",
-      "locked": false,
-      "assignee": 442978,
-      "comments": 0,
-      "created_at": "2015-05-30T00:16:35Z",
-      "updated_at": "2015-05-30T00:44:37Z",
-      "closed_at": null,
-      "body": "Type:\ * issue\ \ Upstream:\ * entry\ \ Downstream:\ * Cluster-Repo Selection Screen\ * Make sample graph data"
-    }, // foreign key ID from ISSUES table
-    "upstream_nodes": [2], // foreign key ID from NODES table
-    "downstream_nodes": [8,7] // foreign key ID from NODES table
-  },
-  8: {
-    "id": 8,// PRIMARY KEY
-    "type": "cluster",
-    "parent_cluster": 5, // foreign key ID from NODES table
-    "cluster_id": {
-      "id": 3,  // PRIMARY KEY
-      "abbrev": "Repo selection",  // must be less than 32 chars
-      "name": "Cluster-Repo Selection Screen",
-      "description": "Cluster of repo selection related tasks",
-      "endpoints": [13, 14],  // these foreign key IDs for entries in NODES table
-      "creator": 1445825  // foreign key ID for entry in USERS table
-    }, // foreign key ID from CLUSTERS table
-    "issue_id": null, // foreign key ID from ISSUES table
-    "upstream_nodes": [4,6], // foreign key ID from NODES table
-    "downstream_nodes": [3] // foreign key ID from NODES table
-  },
-  6: {
-    "id": 6,// PRIMARY KEY
-    "type": "cluster",
-    "parent_cluster": 5, // foreign key ID from NODES table
-    "cluster_id": {
-      "id": 2,  // PRIMARY KEY
-      "abbrev": "DB",  // must be less than 32 chars
-      "name": "Cluster-Database Schema",
-      "description": "Cluster of database schema related tasks",
-      "endpoints": [11, 12],  // these foreign key IDs for entries in NODES table
-      "creator": 1445825  // foreign key ID for entry in USERS table
-    }, // foreign key ID from CLUSTERS table
-    "issue_id": null, // foreign key ID from ISSUES table
-    "upstream_nodes": [2], // foreign key ID from NODES table
-    "downstream_nodes": [8,7] // foreign key ID from NODES table
-  },
-  7: {
-    "id": 7,// PRIMARY KEY
-    "type": "issue",
-    "parent_cluster": 5, // foreign key ID from NODES table
-    "cluster_id": null, // foreign key ID from CLUSTERS table
-    "issue_id": {
-      "id": 82639733, // PRIMARY KEY
-      "url": "https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/7",
-      "labels_url": "https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/7/labels{/name}",
-      "comments_url": "https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/7/comments",
-      "events_url": "https://api.github.com/repos/relentlessbreakfast/sampleGraph/issues/7/events",
-      "html_url": "https://github.com/relentlessbreakfast/sampleGraph/issues/7",
-      "number": 7,
-      "title": "Make sample graph data",
-      "user": 1445825,
-      "labels": [6],
-      "state": "open",
-      "locked": false,
-      "assignee": 1445825,
-      "comments": 2,
-      "created_at": "2015-05-30T00:18:26Z",
-      "updated_at": "2015-05-30T00:43:54Z",
-      "closed_at": null,
-      "body": "type:\ * Issue\ \ Upstream:\ * entry\ \ Downstream:\ * Cluster-Repo Selection Screen\ * Make sample graph data"
-    }, // foreign key ID from ISSUES table
-    "upstream_nodes": [4,6], // foreign key ID from NODES table
-    "downstream_nodes": [3] // foreign key ID from NODES table
+  "7": {
+  "id": 7,
+  "type": "cluster",
+  "parent_cluster": 1,
+  "cluster_id": 3,
+  "issue_id": null,
+  "upstream_nodes": null,
+  "downstream_nodes": null,
+  "cluster": {
+  "id": 3,
+  "abbrev": "DB",
+  "name": "Database",
+  "description": "Set up database",
+  "endpoints": [
+  8,
+  9
+  ],
+  "creator": 7910250,
+  "children_count": 5,
+  "children_complete": 0
   }
-};
+  },
+  "20": {
+  "id": 20,
+  "type": "enter",
+  "parent_cluster": 7,
+  "cluster_id": null,
+  "issue_id": null,
+  "upstream_nodes": null,
+  "downstream_nodes": null
+  },
+  "21": {
+  "id": 21,
+  "type": "exit",
+  "parent_cluster": 7,
+  "cluster_id": null,
+  "issue_id": null,
+  "upstream_nodes": null,
+  "downstream_nodes": null
+  },
+  "34": {
+  "id": 34,
+  "type": "issue",
+  "parent_cluster": 7,
+  "cluster_id": null,
+  "issue_id": 86269811,
+  "upstream_nodes": null,
+  "downstream_nodes": null,
+  "issue": {
+  "id": 86269811,
+  "url": "https://api.github.com/repos/relentlessbreakfast/WebApp/issues/6",
+  "labels_url": "https://api.github.com/repos/relentlessbreakfast/WebApp/issues/6/labels{/name}",
+  "comments_url": "https://api.github.com/repos/relentlessbreakfast/WebApp/issues/6/comments",
+  "events_url": "https://api.github.com/repos/relentlessbreakfast/WebApp/issues/6/events",
+  "html_url": "https://github.com/relentlessbreakfast/WebApp/issues/6",
+  "number_github": 6,
+  "title": "Create JSON Object",
+  "creator": 7910250,
+  "labels": null,
+  "state": "open",
+  "locked": false,
+  "assignee": 1445825,
+  "comments": 0,
+  "created_at": "2015-06-08T17:41:50Z",
+  "updated_at": "2015-06-08T22:30:47Z",
+  "closed_at": "null",
+  "body": "Create node objects with appropriate issue or cluster data"
+  }
+  },
+  "35": {
+  "id": 35,
+  "type": "issue",
+  "parent_cluster": 7,
+  "cluster_id": null,
+  "issue_id": 86269541,
+  "upstream_nodes": null,
+  "downstream_nodes": null,
+  "issue": {
+  "id": 86269541,
+  "url": "https://api.github.com/repos/relentlessbreakfast/WebApp/issues/5",
+  "labels_url": "https://api.github.com/repos/relentlessbreakfast/WebApp/issues/5/labels{/name}",
+  "comments_url": "https://api.github.com/repos/relentlessbreakfast/WebApp/issues/5/comments",
+  "events_url": "https://api.github.com/repos/relentlessbreakfast/WebApp/issues/5/events",
+  "html_url": "https://github.com/relentlessbreakfast/WebApp/issues/5",
+  "number_github": 5,
+  "title": "Delete Record",
+  "creator": 7910250,
+  "labels": null,
+  "state": "open",
+  "locked": false,
+  "assignee": 8173733,
+  "comments": 0,
+  "created_at": "2015-06-08T17:41:08Z",
+  "updated_at": "2015-06-08T22:30:57Z",
+  "closed_at": "null",
+  "body": "Remove nodes from database"
+  }
+  },
+  "36": {
+  "id": 36,
+  "type": "issue",
+  "parent_cluster": 7,
+  "cluster_id": null,
+  "issue_id": 86269457,
+  "upstream_nodes": null,
+  "downstream_nodes": null,
+  "issue": {
+  "id": 86269457,
+  "url": "https://api.github.com/repos/relentlessbreakfast/WebApp/issues/4",
+  "labels_url": "https://api.github.com/repos/relentlessbreakfast/WebApp/issues/4/labels{/name}",
+  "comments_url": "https://api.github.com/repos/relentlessbreakfast/WebApp/issues/4/comments",
+  "events_url": "https://api.github.com/repos/relentlessbreakfast/WebApp/issues/4/events",
+  "html_url": "https://github.com/relentlessbreakfast/WebApp/issues/4",
+  "number_github": 4,
+  "title": "Update Record",
+  "creator": 7910250,
+  "labels": null,
+  "state": "open",
+  "locked": false,
+  "assignee": 442978,
+  "comments": 0,
+  "created_at": "2015-06-08T17:40:55Z",
+  "updated_at": "2015-06-08T22:31:03Z",
+  "closed_at": "null",
+  "body": "null"
+  }
+  },
+  "37": {
+  "id": 37,
+  "type": "issue",
+  "parent_cluster": 7,
+  "cluster_id": null,
+  "issue_id": 86269344,
+  "upstream_nodes": null,
+  "downstream_nodes": null,
+  "issue": {
+  "id": 86269344,
+  "url": "https://api.github.com/repos/relentlessbreakfast/WebApp/issues/3",
+  "labels_url": "https://api.github.com/repos/relentlessbreakfast/WebApp/issues/3/labels{/name}",
+  "comments_url": "https://api.github.com/repos/relentlessbreakfast/WebApp/issues/3/comments",
+  "events_url": "https://api.github.com/repos/relentlessbreakfast/WebApp/issues/3/events",
+  "html_url": "https://github.com/relentlessbreakfast/WebApp/issues/3",
+  "number_github": 3,
+  "title": "Read Record from Database",
+  "creator": 7910250,
+  "labels": null,
+  "state": "open",
+  "locked": false,
+  "assignee": 7910250,
+  "comments": 0,
+  "created_at": "2015-06-08T17:40:37Z",
+  "updated_at": "2015-06-08T22:31:10Z",
+  "closed_at": "null",
+  "body": "null"
+  }
+  },
+  "38": {
+  "id": 38,
+  "type": "issue",
+  "parent_cluster": 7,
+  "cluster_id": null,
+  "issue_id": 86269119,
+  "upstream_nodes": null,
+  "downstream_nodes": null,
+  "issue": {
+  "id": 86269119,
+  "url": "https://api.github.com/repos/relentlessbreakfast/WebApp/issues/2",
+  "labels_url": "https://api.github.com/repos/relentlessbreakfast/WebApp/issues/2/labels{/name}",
+  "comments_url": "https://api.github.com/repos/relentlessbreakfast/WebApp/issues/2/comments",
+  "events_url": "https://api.github.com/repos/relentlessbreakfast/WebApp/issues/2/events",
+  "html_url": "https://github.com/relentlessbreakfast/WebApp/issues/2",
+  "number_github": 2,
+  "title": "Create Cluster in Database",
+  "creator": 7910250,
+  "labels": null,
+  "state": "open",
+  "locked": false,
+  "assignee": 1445825,
+  "comments": 0,
+  "created_at": "2015-06-08T17:40:09Z",
+  "updated_at": "2015-06-08T22:31:19Z",
+  "closed_at": "null",
+  "body": "null"
+  }
+  },
+  "39": {
+  "id": 39,
+  "type": "issue",
+  "parent_cluster": 7,
+  "cluster_id": null,
+  "issue_id": 86269044,
+  "upstream_nodes": null,
+  "downstream_nodes": null,
+  "issue": {
+  "id": 86269044,
+  "url": "https://api.github.com/repos/relentlessbreakfast/WebApp/issues/1",
+  "labels_url": "https://api.github.com/repos/relentlessbreakfast/WebApp/issues/1/labels{/name}",
+  "comments_url": "https://api.github.com/repos/relentlessbreakfast/WebApp/issues/1/comments",
+  "events_url": "https://api.github.com/repos/relentlessbreakfast/WebApp/issues/1/events",
+  "html_url": "https://github.com/relentlessbreakfast/WebApp/issues/1",
+  "number_github": 1,
+  "title": "Create Issue in Database",
+  "creator": 7910250,
+  "labels": null,
+  "state": "open",
+  "locked": false,
+  "assignee": 442978,
+  "comments": 0,
+  "created_at": "2015-06-08T17:39:58Z",
+  "updated_at": "2015-06-08T22:31:25Z",
+  "closed_at": "null",
+  "body": "Add issue entry and corresponding node"
+  }
+  },
+  "parent_cluster": "7",
+  "enter": 20,
+  "exit": 21,
+  "deleted": []
+  };
 
 var clusters = [
   {
