@@ -1,15 +1,7 @@
 /*
 * @Author: kuychaco
-* @Date:   2015-06-03 10:37:28
-<<<<<<< HEAD
-<<<<<<< HEAD
+* @Date:   2015-06-07 10:37:28
 * @Last Modified by:   cwhwang1986
-=======
-* @Last Modified by:   cwhwang1986
->>>>>>> (feat) Implement path deletion function
-=======
-* @Last Modified by:   ChalrieHwang
->>>>>>> (cleanup) Remove all the dummy data in the service file
 */
 
 'use strict';
@@ -23,7 +15,7 @@
 
   // input is parsed graph JSON
   var WrappedGraph = function(graphJson) {
-    this.graph = JSON.parse(graphJson);
+    this.graph = graphJson;
   };
 
   // Subclass example: 
@@ -183,8 +175,8 @@
        * @return {undefined} [data outputs to graphObj in service object]
        */
       getGraph: function(cluster_id) {
+        console.log('getGraph');
         var deferred = $q.defer();
-
         var serviceObj = this;
         cluster_id = (cluster_id === undefined) ? 1 : cluster_id;
         $http.get('http://localhost:3030/api/cluster/' + cluster_id)
