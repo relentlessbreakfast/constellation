@@ -22,6 +22,7 @@
 
 
 body {
+  font-family: 'open sans', sans-serif; 
   color: #00f;
   width: inherit;
   height: inherit;
@@ -37,7 +38,6 @@ div.top{
   height: 40px;
   color: white;
   background-color: black;
-  font-family: 'Cousine', monospace;
   font-size: 30px;
 }
 
@@ -58,7 +58,6 @@ div {
 
 div.information {
   float: right;
-  font-family: 'Cousine', monospace;
   font-size: 30px;
   color: #20b2aa;
   width: 50%;
