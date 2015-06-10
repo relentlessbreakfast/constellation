@@ -4,16 +4,10 @@
 * @Last Modified by:   kuychaco
 */
 
--- TODO: Refactor to CREATE TABLE IF NOT EXISTS IF NOT EXISTS after schema is decided
-
-CREATE EXTENSION IF NOT EXISTS hstore;
-
 -- ---
 -- Table 'users'
 --   Foreign keys: repo_list elements (not enforced)
 -- ---
-
--- DROP TABLE IF EXISTS users;
 
 CREATE TABLE IF NOT EXISTS users (
   id integer, -- 7910250,  // PRIMARY KEY
@@ -37,8 +31,6 @@ CREATE TABLE IF NOT EXISTS users (
 --   Foreign keys: none
 -- ---
 
--- DROP TABLE IF EXISTS repos;
-
 CREATE TABLE IF NOT EXISTS repos (
   id serial, -- 1,  // PRIMARY KEY
   user_or_org text, -- "relentlessbreakfast",
@@ -51,8 +43,6 @@ CREATE TABLE IF NOT EXISTS repos (
 -- Table 'labels'
 --   Foreign keys: repo_id
 -- ---
-
--- DROP TABLE IF EXISTS labels;
 
 CREATE TABLE IF NOT EXISTS labels (
   -- id serial, -- 1  // PRIMARY KEY
@@ -68,8 +58,6 @@ CREATE TABLE IF NOT EXISTS labels (
 -- Table 'comments'
 --   Foreign keys: creator
 -- ---
-
--- DROP TABLE IF EXISTS comments;
 
 CREATE TABLE IF NOT EXISTS comments (
   id integer, -- 106990292,  // PRIMARY KEY
@@ -88,10 +76,6 @@ CREATE TABLE IF NOT EXISTS comments (
 -- Table 'issues'
 --   Foreign keys: creator, assignee, labels elements
 -- ---
-
--- TODO: HANDLE COMMENTS
-
--- DROP TABLE IF EXISTS issues;
 
 CREATE TABLE IF NOT EXISTS issues (
   id integer, -- 82639733, // PRIMARY KEY
@@ -122,8 +106,6 @@ CREATE TABLE IF NOT EXISTS issues (
 --   Foreign keys: endponts elements, creator
 -- ---
 
--- DROP TABLE IF EXISTS clusters;
-
 CREATE TABLE IF NOT EXISTS clusters (
   id serial, -- 1,  // PRIMARY KEY
   abbrev text, -- "ROOT",  // must be less than 32 chars
@@ -133,7 +115,6 @@ CREATE TABLE IF NOT EXISTS clusters (
   creator integer REFERENCES users (id), -- 1445825,  // foreign key ID for entry in USERS table
   children_count integer,
   children_complete integer,
-  -- deleted integer ARRAY, -- []
   PRIMARY KEY (id)
 );
 
@@ -144,9 +125,6 @@ CREATE TABLE IF NOT EXISTS clusters (
 --   Foreign keys: cluster_id, issue_id, upsream_nodes, downstream_nodes
 -- ---
 
--- TODO: refactor all_upstream to hstore data type
--- DROP TABLE IF EXISTS nodes;
-
 CREATE TABLE IF NOT EXISTS nodes (
   id serial, -- 1, // PRIMARY KEY
   type text, -- "cluster",
@@ -155,8 +133,6 @@ CREATE TABLE IF NOT EXISTS nodes (
   issue_id integer REFERENCES issues (id), -- NULL, // foreign key ID from ISSUES table
   upstream_nodes integer, -- [], // foreign key ID from NODES table
   downstream_nodes integer, -- [], // foreign key ID from NODES table
-  -- all_upstream json, -- {}
-  -- all_upstream hstore, -- {}
   PRIMARY KEY (id)
 );
 
