@@ -2,7 +2,7 @@
 * @Author: justinwebb
 * @Date:   2015-05-26 15:18:17
 * @Last Modified by:   justinwebb
-* @Last Modified time: 2015-06-09 17:38:33
+* @Last Modified time: 2015-06-09 19:28:40
 */
 
 'use strict';
@@ -33,15 +33,77 @@ var ngAnnotate = require('gulp-ng-annotate');
 var shell = require('gulp-shell');
 
 // ---------------------------------------------------------
-// Setup task configurations
+// Helper methods
 // ---------------------------------------------------------
 
-var cleanPreviousBuild = function (cb) {
-  del([config.dist]);
-  cb();
+var onNodeProcessError = function () {
+  process.exit(1);
+};
+var onNodeProcessEnd = function () {
+  process.exit();
 };
 
-var copyMediaFiles = function () {
+// ---------------------------------------------------------
+// Define tasks
+// ---------------------------------------------------------
+
+// --------------------- Testing -------------------------//
+gulp.task('testback', function () {
+  return gulp.src(config.testFiles.back)
+    .on('error', function (err) {throw err;})
+    .pipe(jshint())
+    .pipe(jshint.reporter('jshint-stylish'))
+    .pipe(mocha({
+      reporter: 'spec'
+    }));
+});
+
+gulp.task('testfront', function () {
+  return gulp.src(config.testFiles.front)
+    .on('error', function (err) {throw err;})
+    .pipe(karma({
+      configFile: 'karma.config.js',
+      action: 'watch'
+    }));
+});
+
+// ------------------ PostgreSQL -------------------------//
+gulp.task('dbstatus', function () {
+  return gulp.src('')
+    .pipe(shell([
+      'pg_ctl -D /usr/local/var/postgres status',
+    ]))
+    .on('error', onNodeProcessError)
+    .on('end', onNodeProcessEnd);
+});
+
+gulp.task('dbstart', function () {
+  return gulp.src('')
+    .pipe(shell([
+      'pg_ctl -D /usr/local/var/postgres',
+      ' -l /usr/local/var/postgres/server.log start',
+    ].join('')))
+    .on('error', onNodeProcessError)
+    .on('end', onNodeProcessEnd);
+});
+
+gulp.task('dbstop', function () {
+  return gulp.src('')
+    .pipe(shell([
+      'pg_ctl -D /usr/local/var/postgres stop -s -m fast',
+    ]))
+    .on('error', onNodeProcessError)
+    .on('end', onNodeProcessEnd);
+});
+
+
+// --------------- Contiguous Integration ---------------//
+gulp.task('clean', function cleanPreviousBuild (cb) {
+  del([config.dist]);
+  cb();
+});
+
+gulp.task('copy', function copyMediaFiles () {
   var media = [
     '!'+ config.client +'/assets/styles/**/*',
     config.client +'/assets/**/*'
@@ -49,9 +111,9 @@ var copyMediaFiles = function () {
   console.log('Media', media);
   return gulp.src(media)
     .pipe(gulp.dest(config.assets));
-};
+});
 
-var compileSassFiles = function (cb) {
+gulp.task('sass', function compileSassFiles (cb) {
   gulp.src(config.appFiles.scss)
     .on('error', sass.logError)
     .pipe(sourcemaps.init())
@@ -65,9 +127,9 @@ var compileSassFiles = function (cb) {
     .pipe(browserSyncReload({stream: true}));
 
   cb();
-};
+});
 
-var transformSourceToDistFiles = function (cb) {
+gulp.task('dist', ['sass'], function transformSourceToDistFiles (cb) {
   var startTag = {starttag: '<!-- inject:head:{{ext}} -->'};
   var cssDest = config.assets +'/styles/main.css';
   var cssOptions = {
@@ -129,9 +191,11 @@ var transformSourceToDistFiles = function (cb) {
     });
   };
   intervalId = setInterval(injectWhenCSSReady, 60);
-};
+});
 
-var runNodemon = function (cb) {
+gulp.task('build', ['clean', 'copy', 'dist']);
+
+gulp.task('nodemon', function runNodemon (cb) {
   var isActive = false;
   return nodemon({
     script: config.server +'/server.js',
@@ -149,89 +213,15 @@ var runNodemon = function (cb) {
         browserSyncReload({stream: false});
       }, 500);
     });
-};
-
-var onNodeProcessError = function () {
-  process.exit(1);
-};
-var onNodeProcessEnd = function () {
-  process.exit();
-};
-
-// ---------------------------------------------------------
-// Register tasks
-// ---------------------------------------------------------
-
-// --------------------- Testing -------------------------//
-gulp.task('testback', function () {
-  return gulp.src(config.testFiles.back)
-    .on('error', function (err) {throw err;})
-    .pipe(jshint())
-    .pipe(jshint.reporter('jshint-stylish'))
-    .pipe(mocha({
-      reporter: 'spec'
-    }));
 });
-
-gulp.task('testfront', function () {
-  return gulp.src(config.testFiles.front)
-    .on('error', function (err) {throw err;})
-    .pipe(karma({
-      configFile: 'karma.config.js',
-      action: 'watch'
-    }));
-});
-
-// ------------------ PostgreSQL -------------------------//
-gulp.task('dbstatus', function () {
-  return gulp.src('')
-    .pipe(shell([
-      'pg_ctl -D /usr/local/var/postgres status',
-    ]))
-    .on('error', onNodeProcessError)
-    .on('end', onNodeProcessEnd);
-});
-
-gulp.task('dbstart', function () {
-  return gulp.src('')
-    .pipe(shell([
-      'pg_ctl -D /usr/local/var/postgres',
-      ' -l /usr/local/var/postgres/server.log start',
-    ].join('')))
-    .on('error', onNodeProcessError)
-    .on('end', onNodeProcessEnd);
-});
-
-gulp.task('dbstop', function () {
-  return gulp.src('')
-    .pipe(shell([
-      'pg_ctl -D /usr/local/var/postgres stop -s -m fast',
-    ]))
-    .on('error', onNodeProcessError)
-    .on('end', onNodeProcessEnd);
-});
-
-
-// --------------- Contiguous Integration ---------------//
-gulp.task('clean', cleanPreviousBuild);
-
-gulp.task('copy', copyMediaFiles);
-
-gulp.task('sass', compileSassFiles);
-
-gulp.task('dist', ['sass'], transformSourceToDistFiles);
-
-gulp.task('build', ['clean', 'copy', 'dist']);
-
-gulp.task('nodemon', runNodemon);
 
 gulp.task('update-js', ['dist'], browserSyncReload);
 
-gulp.task('update-html', ['dist'], function () {
+gulp.task('update-html', ['dist'], function reloadOnDelay() {
   setTimeout(browserSyncReload, 500);
 });
 
-gulp.task('serve', ['build', 'nodemon'], function () {
+gulp.task('serve', ['build', 'nodemon'], function serveExpressOnBrowserSync() {
   
   var port = process.env.PORT || 3999;
 
