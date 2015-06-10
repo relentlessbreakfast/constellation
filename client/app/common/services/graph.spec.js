@@ -2,7 +2,7 @@
 * @Author: Austin Liu
 * @Date:   2015-06-01 17:41:31
 * @Last Modified by:   Austin Liu
-* @Last Modified time: 2015-06-05 14:01:29
+* @Last Modified time: 2015-06-08 18:47:09
 
 */
 
@@ -41,8 +41,8 @@ describe('Graph Class', function() {
   describe('when instantiated', function() {
     var wrappedGraph;
     beforeEach(function() {
-      graph = GraphService.getStubProjectClusterData();
-      wrappedGraph = GraphService.getWrapper(graph);
+      graph = GraphService._getStubProjectClusterData();
+      wrappedGraph = GraphService._getWrapper(graph);
     });
 
     it('should return an object with graph property', function () {
@@ -64,8 +64,8 @@ describe('Graph Class', function() {
     var wrappedGraph;
     
     beforeEach(function() {
-      graph = GraphService.getStubProjectClusterData();
-      wrappedGraph = GraphService.getWrapper(graph);
+      graph = GraphService._getStubProjectClusterData();
+      wrappedGraph = GraphService._getWrapper(graph);
       wrappedGraph.linkNodes(6,4);
     });
 
@@ -92,10 +92,14 @@ describe('Graph Class', function() {
     describe('delete node', function() {
 
       beforeEach(function() {
+        graph = GraphService._getStubProjectClusterData();  //INSERTION
+        wrappedGraph = GraphService._getWrapper(graph); // INSERTION
         wrappedGraph.deleteNode(5);
       });
 
       it('should break link from 3/4 to 5', function () {
+        console.log('wrappedGraph.deleteNode(5)');
+        console.log('wrappedGraph.graph[4].downstream_nodes', wrappedGraph.graph[4].downstream_nodes);
         expect(wrappedGraph.graph[4].downstream_nodes.indexOf(5)).toBe(-1);
         expect(wrappedGraph.graph[3].upstream_nodes.indexOf(5)).toBe(-1);
         expect(wrappedGraph.graph[5]).toBeUndefined();
