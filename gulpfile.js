@@ -2,7 +2,7 @@
 * @Author: justinwebb
 * @Date:   2015-05-26 15:18:17
 * @Last Modified by:   justinwebb
-* @Last Modified time: 2015-06-06 17:55:43
+* @Last Modified time: 2015-06-09 17:37:06
 */
 
 'use strict';
@@ -91,7 +91,10 @@ var transformSourceToDistFiles = function (cb) {
           .pipe(concat(config.src +'/constellation-app.js'))
           .pipe(ngAnnotate())
           .pipe(uglify())
-          .pipe(sourcemaps.write())
+          .pipe(sourcemaps.write('.', {
+            includeContent: true,
+            sourceRoot: config.src
+          }))
           .pipe(gulp.dest(config.dist));
 
         var templates = gulp.src(config.appFiles.atpl)
@@ -115,7 +118,7 @@ var transformSourceToDistFiles = function (cb) {
       }
     });
   };
-  intervalId = setInterval(injectWhenCSSReady, 50);
+  intervalId = setInterval(injectWhenCSSReady, 60);
 };
 
 var runNodemon = function (cb) {
