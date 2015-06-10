@@ -36,16 +36,14 @@ div.top{
   margin: 0px;
   padding: 10px 0px 0px 10px;
   height: 40px;
-  color: white;
   background-color: black;
-  font-size: 30px;
-}
-
-
-div.line {
-  background-color: #ffa500;
-  display: block;
-  height: 2px;
+  border-bottom: 2px solid #ffa500;
+  /*  Typography   */
+  font-size: 24px;
+  color: white;
+  font-weight: lighter;
+  letter-spacing: 2.2px;
+  line-height: 33px;
 }
 
 .ng-scope:before {
