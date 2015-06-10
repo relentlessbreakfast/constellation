@@ -2,7 +2,7 @@
 * @Author: justinwebb
 * @Date:   2015-06-03 15:30:09
 * @Last Modified by:   ChalrieHwang
-* @Last Modified time: 2015-06-09 16:37:44
+* @Last Modified time: 2015-06-10 10:18:31
 */
 
 'use strict';
@@ -294,7 +294,7 @@
       controller: GraphDirectiveCtrl,
       template:  [
         '<div class="graph">',
-        '<svg id="canvas" ng-click="onClick($event)" ng-right-click ng-dblclick="onGraphDblClick($event)"><g/>',
+        '<svg id="canvas" ng-click="onClick($event)" ng-dblclick="onGraphDblClick($event)" ng-right-click><g/>',
         '</svg>',
         '</div>',
         '<div class="information">',
