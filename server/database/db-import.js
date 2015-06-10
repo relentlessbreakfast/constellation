@@ -7,12 +7,12 @@
 'use strict';
 
 
-var Promise = require('bluebird');
-var fs = Promise.promisifyAll(require('fs'));
-var pg = Promise.promisifyAll(require('pg'));
+var Bluebird = require('bluebird');
+var fs = Bluebird.promisifyAll(require('fs'));
+var pg = Bluebird.promisifyAll(require('pg'));
 var config = require('../../build-config');
 
-var conString = "postgres://localhost:5432/constellation";
+var conString = 'postgres://localhost:5432/constellation';
 
 // Connect to database --> promise with value sqlClient
 var pSqlClient = pg.connectAsync(conString).spread(function(sqlClient, done) {
@@ -32,17 +32,14 @@ var closeConnection = function() {
 
 // Load database schema
 var loadSchema = function(callback) {
-  Promise.join(pSqlClient, schemaPromise, function(sqlClient, schema) {
+  Bluebird.join(pSqlClient, schemaPromise, function(sqlClient, schema) {
     return sqlClient.queryAsync(schema).thenReturn(schema);
   })
-  .then(function(result) {
+  .then(function(/*result*/) {
     callback(null, 'database schema loaded');
   })
   .catch(function(err) {
     callback(err, null);
-  })
-  .finally(function() {
-    closeConnection();
   });
 };
 
@@ -55,15 +52,15 @@ var postUsers = function(users, callback) {
       users.forEach(function(user, i) {
         query += "(" + user.id + ", '" + user.login + "', '" + user.avatar_url + "', '" + user.url + "', '" + user.html_url + "', '" + user.organizations_url + "', '" + user.repos_url + "', '" + user.name + "', '" + user.email + "', '" + user.created_at + "', '" + user.updated_at + "')";
         if (i !== users.length-1) {
-          query += ", ";
+          query += ', ';
         } else {
-          query += ";";
+          query += ';';
         }
       });
 
       return sqlClient.queryAsync(query).thenReturn(query);
     })
-    .then(function(query) {
+    .then(function(/*query*/) {
       callback(null, 'successfully added users');
     })
     .catch(function(err) {
@@ -75,7 +72,7 @@ var postUsers = function(users, callback) {
 var createProjectBase = function(clusters, callback) {
 
   clusters.forEach(function(cluster) {
-  var clusterId, entry, exit, sqlClient;
+  var clusterId, entry, exit;
 
     pSqlClient
       // insert cluster
@@ -88,7 +85,7 @@ var createProjectBase = function(clusters, callback) {
       .then(function(results) {
         clusterId = results.rows[0].id;
 
-        var queryAddRootNodes = "INSERT INTO nodes (type, parent_cluster, cluster_id, issue_id) VALUES ('cluster', DEFAULT, " + clusterId + ", DEFAULT), ('enter', 1, DEFAULT, DEFAULT), ('exit', 1, DEFAULT, DEFAULT) RETURNING id;";
+        var queryAddRootNodes = "INSERT INTO nodes (type, parent_cluster, cluster_id, issue_id) VALUES ('cluster', 1, " + clusterId + ", DEFAULT), ('enter', " + clusterId + ", DEFAULT, DEFAULT), ('exit', " + clusterId + ", DEFAULT, DEFAULT) RETURNING id;";
         // update cluster to have entry and exit node IDs
         return pSqlClient.value().queryAsync(queryAddRootNodes);
 
@@ -100,7 +97,11 @@ var createProjectBase = function(clusters, callback) {
         var queryAddEndpoints = "UPDATE clusters SET endpoints = ARRAY[" + entry + ',' + exit + "] WHERE id = " + clusterId;
         return pSqlClient.value().queryAsync(queryAddEndpoints);
       })
-      .then(function(results) {
+      .then(function(/*results*/) {
+        var query = "UPDATE nodes SET parent_cluster = 0 WHERE id = 1";
+        return pSqlClient.value().queryAsync(query);
+      })
+      .then(function(/*results*/) {
         callback(null, 'successfully created project root clusters and nodes');
       })
       .catch(function(err) {
@@ -123,15 +124,15 @@ var postIssues = function(issues, callback) {
         queryAddIssue += "('" + issue.id + "', '" + issue.url + "', '" + issue.labels_url + "', '" + issue.comments_url + "', '" + issue.events_url + "', '" + issue.html_url + "', '" + issue.number + "', '" + issue.title + "', " + issue.user.id + ", '" + issue.state + "', '" + issue.locked + "', " + issue.assignee.id + ", '" + issue.comments + "', '" + issue.created_at + "', '" + issue.updated_at + "', '" + issue.closed_at + "', '" + issue.body + "')";
 
         if (i !== issues.length-1) {
-          queryAddIssue += ", ";
+          queryAddIssue += ', ';
         } else {
-          queryAddIssue += ";";
+          queryAddIssue += ';';
         }
       });
 
       return sqlClient.queryAsync(queryAddIssue).thenReturn(queryAddIssue);
     })
-    .then(function(query) {
+    .then(function(/*query*/) {
       callback(null, 'successfully added issues');
     })
     .catch(function(err) {
@@ -162,12 +163,12 @@ var createIssueNodes = function(issues, callback) {
 
       var queryAddNode = 'INSERT INTO nodes (id, type, parent_cluster, issue_id) VALUES ';
       issues.forEach(function(issue, i) {
-        queryAddNode += "(DEFAULT, 'issue', 1, " + issue.id + ")";
+        queryAddNode += "(DEFAULT, 'issue', 7, " + issue.id + ")";
 
         if (i !== issues.length-1) {
-          queryAddNode += ", ";
+          queryAddNode += ', ';
         } else {
-          queryAddNode += ";";
+          queryAddNode += ';';
         }
       });
       return sqlClient.queryAsync(queryAddNode).thenReturn(queryAddNode);
