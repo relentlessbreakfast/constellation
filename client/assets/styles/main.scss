@@ -28,8 +28,9 @@ body {
   height: inherit;
   margin: 0px; 
   padding: 0px;
-  // background-color: black;
+  background-color: black;
   background-image: url(../images/stars.jpg);
+  background-size: cover;
 }
 
 div.top{
@@ -38,11 +39,18 @@ div.top{
   height: 40px;
   background-color: black;
   border-bottom: 2px solid #ffa500;
-  /*  Typography   */
+}
+
+/*  CSS reset of h1  */
+h1{
+  margin: 0;
+}
+
+div.top h1{
   font-size: 24px;
   color: white;
   font-weight: lighter;
-  letter-spacing: 2.2px;
+  letter-spacing: 4px;
   line-height: 33px;
 }
 
