@@ -2,7 +2,7 @@
 * @Author: Austin Liu
 * @Date:   2015-06-01 17:41:31
 * @Last Modified by:   Austin Liu
-* @Last Modified time: 2015-06-08 18:47:09
+* @Last Modified time: 2015-06-09 19:41:02
 
 */
 
@@ -111,8 +111,43 @@ describe('Graph Class', function() {
         expect(wrappedGraph.graph[3].upstream_nodes).toContain(4);
       });
     });
+  });
 
-});
+  describe('countNodes()', function(){
+    var wrappedGraph;
+    var count;
+    beforeEach(function() {
+      graph = GraphService._getStubProjectClusterData();
+      wrappedGraph = GraphService._getWrapper(graph);
+      count = wrappedGraph.countNodes();
+    });
 
+    it('should return an integer', function(){
+      console.log('count is:', count);
+      expect(typeof count).toBe('number');
+      expect(count !== NaN).toBe(true);
+      expect(count === parseInt(count, 10)).toBeTruthy;
+    });
+
+    it('should be 7 for getStubProjectClusterData', function(){
+      expect(count).toBe(7);
+    });
+  });
+
+  describe('countClosed', function(){
+    var wrappedGraph;
+    var closedCount;
+    beforeEach(function() {
+      graph = GraphService._getStubProjectClusterData();
+      wrappedGraph = GraphService._getWrapper(graph);
+      closedCount = wrappedGraph.countClosed();
+    });
+
+    it('should return 2', function(){
+      console.log('closedCount is', closedCount);
+      expect(closedCount).toBe(2);
+
+    });
+  });
 
 });
