@@ -20,6 +20,8 @@
 // Sections code includes page-specific and layout-related 
 // styles
 
+$text-color: white;
+
 
 body {
   font-family: 'open sans', sans-serif; 
@@ -28,6 +30,7 @@ body {
   height: inherit;
   margin: 0px; 
   padding: 0px;
+  position: relative;
   background-color: black;
   background-image: url(../images/stars.jpg);
   background-size: 1500px;
@@ -41,36 +44,49 @@ div.top{
   height: 40px;
   background-color: black;
   border-bottom: 2px solid #ffa500;
+
+  h1{
+    margin: 0;
+    font-size: 24px;
+    color: $text-color;
+    font-weight: lighter;
+    letter-spacing: 4px;
+    line-height: 33px;
+  }
+
 }
 
-/*  CSS reset of h1  */
-h1{
-  margin: 0;
-}
-
-div.top h1{
-  font-size: 24px;
-  color: white;
-  font-weight: lighter;
-  letter-spacing: 4px;
-  line-height: 33px;
-}
+div.top 
 
 .ng-scope:before {
   opacity: 0.7;
 }
 
+/*
 div {
   width: inherit;
 }
+*/
 
-div.information {
+div.wrapper {
   float: right;
-  font-size: 30px;
-  color: #20b2aa;
-  width: 50%;
-  border: 1px solid red;
-  height: 100%;
+  right: 0;
+  top: 0;
+  width: 50vw;
+  height: 86vh;
+
+  div.information {
+    margin: 15px;
+    margin-top: 17px;
+    padding: 15px;
+    font-size: 30px;
+    color: $text-color;
+    opacity: 0.39;
+    background: #000000;
+    border: 1px solid #979797;
+    height: 100%;
+  }
+
 }
 
 .graph {
@@ -86,7 +102,7 @@ div.information {
 }
 
 .path {
-  stroke: white;
+  stroke: $text-color;
   stroke-width: 4px;
   stroke-linecap: "butt";
 }
@@ -124,7 +140,7 @@ div.information {
   width: inherit;
 }
 .exit {
-  fill: white;
+  fill: $text-color;
   opacity: 1;
   stroke: #cc0000;
   stroke-opacity: 0.6;
@@ -141,7 +157,7 @@ div.information {
 
 .entry {
   opacity: 1;
-  fill: white;
+  fill: $text-color;
   stroke-opacity: 0.6;
   stroke: #cc0000;
   stroke-width: 7px;
@@ -158,7 +174,7 @@ div.information {
 .cluster {
   opacity: 1;
   stroke: #154de5;
-  fill: white;
+  fill: $text-color;
   stroke-width: 7px;
   stroke-opacity: 0.7;
   stroke-linecap: "round";
@@ -174,7 +190,7 @@ div.information {
 
 .issue {
   opacity: 1;
-  fill: white;
+  fill: $text-color;
   stroke: #66cdaa;
   stroke-width: 7px;
   stroke-opacity: 0.7;
@@ -182,7 +198,7 @@ div.information {
 
 .issue:hover {
   opacity: 1;
-  fill: white;
+  fill: $text-color;
   stroke: #fff68f;
   stroke-width: 12px;
   stroke-opacity: 0.7;
