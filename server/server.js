@@ -1,7 +1,7 @@
 /* 
 * @Author: justinwebb
 * @Date:   2015-05-28 22:46:32
-* @Last Modified by:   kuychaco
+* @Last Modified by:   Justin Webb
 */
 
 'use strict';
@@ -12,8 +12,10 @@ var router = require('./routes/routes');
 var config = require('./server-config');
 var utils = require('../lib/utils');
 require('./database/db');
+var cors = require('cors');
 var bodyParser = require('body-parser');
 
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(config.dist));
