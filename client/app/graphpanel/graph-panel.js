@@ -1,13 +1,12 @@
 /* 
 * @Author: ChalrieHwang
 * @Date:   2015-06-01 17:45:29
-* @Last Modified by:   ChalrieHwang
-* @Last Modified time: 2015-06-11 18:36:16
+* @Last Modified by:   Austin Liu
+* @Last Modified time: 2015-06-12 13:16:42
 */
 
 'use strict';
 (function(angular){
-
 
   var GraphPanelController = function($scope, D3Service, $window){
     var d3 = D3Service.getD3();

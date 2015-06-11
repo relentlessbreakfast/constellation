@@ -2,7 +2,7 @@
 * @Author: Justin Webb
 * @Date:   2015-06-11 13:00:38
 * @Last Modified by:   Austin Liu
-* @Last Modified time: 2015-06-12 13:11:09
+* @Last Modified time: 2015-06-12 13:18:57
 */
 
 'use strict';
@@ -49,10 +49,5 @@ var InfoPanelController = function ($scope) {
 
     'cd-app.common'
   ])
-<<<<<<< HEAD
   .controller('InfoPanelController', InfoPanelController);
-=======
-  .config(InfoPanelConfig)
-  .controller('infoPanelCtrl', InfoPanelCtrl);
->>>>>>> (refactor) Make app UI available at URL root
 })(angular);
