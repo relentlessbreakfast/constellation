@@ -2,7 +2,7 @@
 * @Author: justinwebb
 * @Date:   2015-05-22 19:51:08
 * @Last Modified by:   Justin Webb
-* @Last Modified time: 2015-06-11 13:25:52
+* @Last Modified time: 2015-06-11 16:06:30
 */
 
 'use strict';
@@ -14,11 +14,11 @@
       views: {
         'graphpanel': {
             templateUrl: 'graphpanel/graph-panel.tpl.html',
-            controller: 'graphPanelCtrl'
+            controller: 'GraphPanelController'
         },
         'infopanel': {
             templateUrl: 'infopanel/info-panel.tpl.html',
-            controller: 'infoPanelCtrl'
+            controller: 'InfoPanelController'
         }
       },
       controller: AppCtrl
@@ -43,6 +43,6 @@
       'app-templates'
     ])
     .config(AppConfig)
-    .controller('appCtrl', AppCtrl);
+    .controller('AppController', AppCtrl);
 
 })(angular);
