@@ -1,7 +1,7 @@
 /*
 * @Author: kuychaco
 * @Date:   2015-06-07 10:37:28
-* @Last Modified by:   cwhwang1986
+* @Last Modified by:   ChalrieHwang
 */
 
 'use strict';
@@ -192,7 +192,7 @@
         var deferred = $q.defer();
         var serviceObj = this;
         cluster_id = (cluster_id === undefined) ? 1 : cluster_id;
-        $http.get('http://localhost:3030/api/cluster/' + cluster_id)
+        $http.get('http://localhost:3030/api/graph/' + cluster_id)
           .success(function(data, status) {
             var wrappedGraph = new WrappedGraph(data);
             serviceObj.graphObj = wrappedGraph;
@@ -212,7 +212,7 @@
       postGraph: function() {
         var deferred = $q.defer();
         var graphObj = this.graphObj;
-        $http.post('/cluster/'+graphObj.parent_cluster.id, graphObj)
+        $http.post('http://localhost:3030/api/graph/'+graphObj.parent_cluster.id, graphObj)
 
           .success(function(response, status) {
             console.log('successful post:', status);
