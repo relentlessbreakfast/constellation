@@ -1,8 +1,8 @@
 /* 
 * @Author: justinwebb
 * @Date:   2015-05-26 15:18:17
-* @Last Modified by:   justinwebb
-* @Last Modified time: 2015-06-09 19:28:40
+* @Last Modified by:   Justin Webb
+* @Last Modified time: 2015-06-11 15:15:18
 */
 
 'use strict';
@@ -165,7 +165,7 @@ gulp.task('dist', ['sass'], function transformSourceToDistFiles (cb) {
           .pipe(uglify())
           .pipe(sourcemaps.write('.', {
             includeContent: true,
-            sourceRoot: config.src
+            sourceRoot: './'
           }))
           .pipe(gulp.dest(config.dist));
 
