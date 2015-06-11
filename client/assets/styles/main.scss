@@ -30,7 +30,9 @@ body {
   padding: 0px;
   background-color: black;
   background-image: url(../images/stars.jpg);
-  background-size: cover;
+  background-size: 1500px;
+  background-repeat: no-repeat;
+  background-position: top left;
 }
 
 div.top{
@@ -67,6 +69,8 @@ div.information {
   font-size: 30px;
   color: #20b2aa;
   width: 50%;
+  border: 1px solid red;
+  height: 100%;
 }
 
 .graph {
