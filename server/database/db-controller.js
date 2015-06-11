@@ -98,25 +98,93 @@ var getGraph = function(clusterId, callback) {
 
 };
 
-// Helper function to post cluster object
+// Helper function to post clusters
 var updateClusters = function(clusters) {
 
 };
 
-// Helper function to post issue object
-var updateIssues = function(issues, callback) {
+// Helper function to post issues
+var updateIssues = function(issues) {
 
 };
 
-var postGraph = function(graph, callback) {
+// Helper function to update nodes
+var updateNodes = function(nodes) {
+  return Bluebird.map(nodes, function(node) {
+
+  });
+};
+
+// Helper function to delete nodes
+var deleteNodes = function(nodes) {
+  // parameter is array of nodeIds
+
   // delete deleted nodes
+  deleted.forEach(function(nodeId) {
+    // delete node from database and corresponding issue, cluster, entry/exit nodes
+    // if node is cluster
+      // delete corresponding entry and exit nodes
+      // delete corresponding cluster
+      // find all child nodes and set parent_cluster to 0
+      // delete node
+    // if node is issue
+      // delete correspnding issue
+      // delete node
+  });
+};
+
+// Helper function to delete issues
+var deleteIssues = function(issues) {
+
+
+};
+
+// Helper function to delete clusters
+var deleteClusters = function(clusters) {
+  // parameter is array of
+
+};
+
+// Update database to store changes made to graph
+var postGraph = function(graph, callback) {
+
+  var nodes = [];
+  var clusters = [];
+  var issues = [];
+  var deleted = graph.deleted;
+
   // iterate through all nodes
-    // post to nodes
-    // if issue post to issues
-    // if cluster post to clusters
+  Object.keys(graph).forEach(function(key) {
+    var node = graph[key];
+    if (node.constructor === Object) {
+      if (node.type === 'cluster') {
+        clusters.push(node.cluster);
+        delete node.cluster;
+      } else if (node.type === 'issue') {
+        issues.push(node.issue);
+        delete node.issue;
+      }
+      nodes.push(node);
+    }
+  });
+
+
+
+  // post to nodes
+  console.log('NODES', nodes);
+  console.log('CLUSTERS', clusters);
+  console.log('ISSUES', issues);
+
+  Bluebird.map([updateNodes(nodes), deleteNodes(deleted)], function(test) {
+    console.log('*****', test);
+  });
+
+  // if issue post to issues
+  // if cluster post to clusters
 };
 
 module.exports.getGraph = getGraph;
 module.exports.getCluster = getCluster;
 module.exports.getIssue = getIssue;
 module.exports.closeConnection = closeConnection;
+module.exports.postGraph = postGraph;
