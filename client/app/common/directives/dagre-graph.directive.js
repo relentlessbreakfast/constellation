@@ -1,8 +1,8 @@
 /* 
 * @Author: justinwebb
 * @Date:   2015-06-03 15:30:09
-* @Last Modified by:   cwhwang1986
-* @Last Modified time: 2015-06-11 11:13:50
+* @Last Modified by:   ChalrieHwang
+* @Last Modified time: 2015-06-11 11:44:40
 */
 
 'use strict';
@@ -312,6 +312,7 @@
         '<svg id="canvas" ng-click="onClick($event)" ng-dblclick="onGraphDblClick($event)" ng-right-click><g/>',
         '</svg>',
         '</div>',
+        '<div class="wrapper">',
         '<div class="information">',
         '<div class="name">',
         '{{displayId}}' + ' ' + '{{displayTitle}}',
@@ -320,6 +321,7 @@
         '{{displayDescription}}',
         '</div>',
         '<div class="dependency">',
+        '</div>',
         '</div>',
         '</div>'
       ].join('')
