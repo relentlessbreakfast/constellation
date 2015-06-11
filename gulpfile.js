@@ -1,12 +1,8 @@
 /* 
 * @Author: justinwebb
 * @Date:   2015-05-26 15:18:17
-* @Last Modified by:   justinwebb
-<<<<<<< HEAD
-* @Last Modified time: 2015-06-13 14:55:56
-=======
-* @Last Modified time: 2015-06-09 19:28:40
->>>>>>> 5582aded2cb60e2019fbb0e631a9246b6d602f6a
+* @Last Modified by:   Justin Webb
+* @Last Modified time: 2015-06-13 18:41:30
 */
 
 'use strict';
