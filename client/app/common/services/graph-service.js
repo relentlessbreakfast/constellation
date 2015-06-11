@@ -158,7 +158,6 @@
 // Service Definition
 // ---------------------------------------------------------
   var GraphServiceFactory = function($http, $q) {
-    
     return {
       graphObj: {},
 
@@ -190,7 +189,6 @@
        * @return {undefined} [data outputs to graphObj in service object]
        */
       getGraph: function(cluster_id) {
-        console.log('getGraph');
         var deferred = $q.defer();
         var serviceObj = this;
         cluster_id = (cluster_id === undefined) ? 1 : cluster_id;
