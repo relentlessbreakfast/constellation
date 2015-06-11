@@ -33,9 +33,10 @@ body {
   position: relative;
   background-color: black;
   background-image: url(../images/stars.jpg);
-  background-size: 1500px;
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: top left;
+
 }
 
 div.top{
@@ -155,7 +156,7 @@ div.wrapper {
   cursor:pointer;
 }
 
-.entry {
+.enter {
   opacity: 1;
   fill: $text-color;
   stroke-opacity: 0.6;
@@ -163,7 +164,7 @@ div.wrapper {
   stroke-width: 7px;
 }
 
-.entry:hover {
+.enter:hover {
   opacity: 1;
   stroke: #d1b6f1;
   stroke-width: 12px;
@@ -228,13 +229,31 @@ div.description {
   width: 100%;
 }
 
-div.menu {
-    float: right;
-    width: 100px;
-    height: 100px;
+.context-menu {
+  position: absolute;
+  display: none;
+  background-color: #f2f2f2;
+  border-radius: 4px;
+  font-family: 'open sans', sans-serif; 
+  font-size: 14px;
+  min-width: 150px;
+  border: 1px solid #d4d4d4;
+  z-index:1200;
 }
 
-li {
-  color: white;
+.context-menu ul {
+  list-style-type: none;
+  margin: 4px 0px;
+  padding: 0px;
+  cursor: default;
+}
+
+.context-menu ul li {
+  padding: 4px 16px;
+}
+
+.context-menu ul li:hover {
+  background-color: #4677f8;
+  color: #fefefe;
 }
 

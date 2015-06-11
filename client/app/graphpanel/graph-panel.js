@@ -1,8 +1,8 @@
 /* 
 * @Author: ChalrieHwang
 * @Date:   2015-06-01 17:45:29
-* @Last Modified by:   ChalrieHwang
-* @Last Modified time: 2015-06-09 17:40:58
+* @Last Modified by:   cwhwang1986
+* @Last Modified time: 2015-06-10 15:20:05
 */
 
 'use strict';
@@ -52,15 +52,13 @@
      * Define event listeners to handle zooming
      * @return {d3} [description]
      */
-    $scope.onZoom = function(){
-      var zoom = d3.behavior.zoom().on('zoom', function() {
-            var yOffset = d3.event.translate[1];
-            inner.attr('transform', 'translate(' + [xOffset[0], yOffset] + ')'+'scale(' + d3.event.scale + ')');
-          });
-      svg.call(zoom);
-      d3.select('svg').on('dblclick.zoom', null);
-      return zoom;
-    };
+    
+
+    $scope.zoom = d3.behavior.zoom().on('zoom', function() {
+        inner.attr('transform', 'translate(' + d3.event.translate + ')'+'scale(' + d3.event.scale + ')');
+    });
+    svg.call($scope.zoom);
+    d3.select('svg').on('dblclick.zoom', null);
 
     //Watch the graph width changes and zoom the graph
     $scope.$watchCollection('size', function(newVal){
@@ -74,13 +72,6 @@
       } 
       inner.attr('transform', 'translate(' + xOffset + ')'+'scale(' + shrinkRate + ')');
     });
-
-
-    $scope.onZoom()
-      .translate([xOffset, 20])
-      .scale(1);
-
-
   };
 
 
