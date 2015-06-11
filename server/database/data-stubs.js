@@ -522,264 +522,231 @@ var labels = [
 
 var graph1 = {
   "1": {
-  "id": 1,
-  "type": "cluster",
-  "parent_cluster": 0,
-  "cluster_id": 1,
-  "issue_id": null,
-  "upstream_nodes": null,
-  "downstream_nodes": null,
-  "cluster": {
-  "id": 1,
-  "abbrev": "ROOT",
-  "name": "Project Root",
-  "description": "Cluster of entire project",
-  "endpoints": [
-  2,
-  3
-  ],
-  "creator": 7910250,
-  "children_count": 5,
-  "children_complete": 0
-  }
+    "id": 1,
+    "type": "cluster",
+    "parent_cluster": 0,
+    "cluster_id": 1,
+    "issue_id": null,
+    "upstream_nodes": null,
+    "downstream_nodes": null,
+    "cluster": {
+      "id": 1,
+      "abbrev": "ROOT",
+      "name": "Project Root",
+      "description": "Cluster of entire project",
+      "endpoints": [2,3],
+      "creator": 7910250,
+      "children_count": 5,
+      "children_complete": 0
+    }
   },
   "2": {
-  "id": 2,
-  "type": "enter",
-  "parent_cluster": 1,
-  "cluster_id": null,
-  "issue_id": null,
-  "upstream_nodes": null,
-  "downstream_nodes": null
+    "id": 2,
+    "type": "enter",
+    "parent_cluster": 1,
+    "cluster_id": null,
+    "issue_id": null,
+    "upstream_nodes": null,
+    "downstream_nodes": null
   },
   "3": {
-  "id": 3,
-  "type": "exit",
-  "parent_cluster": 1,
-  "cluster_id": null,
-  "issue_id": null,
-  "upstream_nodes": null,
-  "downstream_nodes": null
+    "id": 3,
+    "type": "exit",
+    "parent_cluster": 1,
+    "cluster_id": null,
+    "issue_id": null,
+    "upstream_nodes": null,
+    "downstream_nodes": null
   },
   "4": {
-  "id": 4,
-  "type": "cluster",
-  "parent_cluster": 1,
-  "cluster_id": 2,
-  "issue_id": null,
-  "upstream_nodes": null,
-  "downstream_nodes": null,
-  "cluster": {
-  "id": 2,
-  "abbrev": "Auth",
-  "name": "Authentication",
-  "description": "Set up authentication",
-  "endpoints": [
-  5,
-  6
-  ],
-  "creator": 7910250,
-  "children_count": 5,
-  "children_complete": 0
-  }
+    "id": 4,
+    "type": "cluster",
+    "parent_cluster": 1,
+    "cluster_id": 2,
+    "issue_id": null,
+    "upstream_nodes": null,
+    "downstream_nodes": null,
+    "cluster": {
+      "id": 2,
+      "abbrev": "Auth",
+      "name": "Authentication",
+      "description": "Set up authentication",
+      "endpoints": [5,6],
+      "creator": 7910250,
+      "children_count": 5,
+      "children_complete": 0
+    }
   },
   "7": {
-  "id": 7,
-  "type": "cluster",
-  "parent_cluster": 1,
-  "cluster_id": 3,
-  "issue_id": null,
-  "upstream_nodes": null,
-  "downstream_nodes": null,
-  "cluster": {
-  "id": 3,
-  "abbrev": "DB",
-  "name": "Database",
-  "description": "Set up database",
-  "endpoints": [
-  8,
-  9
-  ],
-  "creator": 7910250,
-  "children_count": 5,
-  "children_complete": 0
-  }
+    "id": 7,
+    "type": "cluster",
+    "parent_cluster": 1,
+    "cluster_id": 3,
+    "issue_id": null,
+    "upstream_nodes": null,
+    "downstream_nodes": null,
+    "cluster": {
+      "id": 3,
+      "abbrev": "DB",
+      "name": "Database",
+      "description": "Set up database",
+      "endpoints": [8,9],
+      "creator": 7910250,
+      "children_count": 5,
+      "children_complete": 0
+    }
   },
   "10": {
-  "id": 10,
-  "type": "cluster",
-  "parent_cluster": 1,
-  "cluster_id": 4,
-  "issue_id": null,
-  "upstream_nodes": null,
-  "downstream_nodes": null,
-  "cluster": {
-  "id": 4,
-  "abbrev": "ExAPI",
-  "name": "Github API",
-  "description": "Pull info from Github API",
-  "endpoints": [
-  11,
-  12
-  ],
-  "creator": 7910250,
-  "children_count": 5,
-  "children_complete": 0
-  }
+    "id": 10,
+    "type": "cluster",
+    "parent_cluster": 1,
+    "cluster_id": 4,
+    "issue_id": null,
+    "upstream_nodes": null,
+    "downstream_nodes": null,
+    "cluster": {
+      "id": 4,
+      "abbrev": "ExAPI",
+      "name": "Github API",
+      "description": "Pull info from Github API",
+      "endpoints": [11,2],
+      "creator": 7910250,
+      "children_count": 5,
+      "children_complete": 0
+    }
   },
   "13": {
-  "id": 13,
-  "type": "cluster",
-  "parent_cluster": 1,
-  "cluster_id": 5,
-  "issue_id": null,
-  "upstream_nodes": null,
-  "downstream_nodes": null,
-  "cluster": {
-  "id": 5,
-  "abbrev": "View Plan",
-  "name": "Plan out User Interface",
-  "description": "Mock up user interface",
-  "endpoints": [
-  14,
-  15
-  ],
-  "creator": 7910250,
-  "children_count": 5,
-  "children_complete": 0
-  }
+    "id": 13,
+    "type": "cluster",
+    "parent_cluster": 1,
+    "cluster_id": 5,
+    "issue_id": null,
+    "upstream_nodes": null,
+    "downstream_nodes": null,
+    "cluster": {
+      "id": 5,
+      "abbrev": "View Plan",
+      "name": "Plan out User Interface",
+      "description": "Mock up user interface",
+      "endpoints": [14,5],
+      "creator": 7910250,
+      "children_count": 5,
+      "children_complete": 0
+    }
   },
   "16": {
-  "id": 16,
-  "type": "cluster",
-  "parent_cluster": 1,
-  "cluster_id": 6,
-  "issue_id": null,
-  "upstream_nodes": null,
-  "downstream_nodes": null,
-  "cluster": {
-  "id": 6,
-  "abbrev": "Model",
-  "name": "Design data model",
-  "description": "Set up app models",
-  "endpoints": [
-  17,
-  18
-  ],
-  "creator": 7910250,
-  "children_count": 5,
-  "children_complete": 0
-  }
+    "id": 16,
+    "type": "cluster",
+    "parent_cluster": 1,
+    "cluster_id": 6,
+    "issue_id": null,
+    "upstream_nodes": null,
+    "downstream_nodes": null,
+    "cluster": {
+      "id": 6,
+      "abbrev": "Model",
+      "name": "Design data model",
+      "description": "Set up app models",
+      "endpoints": [17,8],
+      "creator": 7910250,
+      "children_count": 5,
+      "children_complete": 0
+    }
   },
   "19": {
-  "id": 19,
-  "type": "cluster",
-  "parent_cluster": 1,
-  "cluster_id": 7,
-  "issue_id": null,
-  "upstream_nodes": null,
-  "downstream_nodes": null,
-  "cluster": {
-  "id": 7,
-  "abbrev": "Contr",
-  "name": "Data controller",
-  "description": "Set up data controller",
-  "endpoints": [
-  20,
-  21
-  ],
-  "creator": 7910250,
-  "children_count": 5,
-  "children_complete": 0
-  }
+    "id": 19,
+    "type": "cluster",
+    "parent_cluster": 1,
+    "cluster_id": 7,
+    "issue_id": null,
+    "upstream_nodes": null,
+    "downstream_nodes": null,
+    "cluster": {
+      "id": 7,
+      "abbrev": "Contr",
+      "name": "Data controller",
+      "description": "Set up data controller",
+      "endpoints": [20,1],
+      "creator": 7910250,
+      "children_count": 5,
+      "children_complete": 0
+    }
   },
   "22": {
-  "id": 22,
-  "type": "cluster",
-  "parent_cluster": 1,
-  "cluster_id": 8,
-  "issue_id": null,
-  "upstream_nodes": null,
-  "downstream_nodes": null,
-  "cluster": {
-  "id": 8,
-  "abbrev": "View",
-  "name": "Implement angular front end",
-  "description": "Create angular front end",
-  "endpoints": [
-  23,
-  24
-  ],
-  "creator": 7910250,
-  "children_count": 5,
-  "children_complete": 0
-  }
+    "id": 22,
+    "type": "cluster",
+    "parent_cluster": 1,
+    "cluster_id": 8,
+    "issue_id": null,
+    "upstream_nodes": null,
+    "downstream_nodes": null,
+    "cluster": {
+      "id": 8,
+      "abbrev": "View",
+      "name": "Implement angular front end",
+      "description": "Create angular front end",
+      "endpoints": [23,4],
+      "creator": 7910250,
+      "children_count": 5,
+      "children_complete": 0
+    }
   },
   "25": {
-  "id": 25,
-  "type": "cluster",
-  "parent_cluster": 1,
-  "cluster_id": 9,
-  "issue_id": null,
-  "upstream_nodes": null,
-  "downstream_nodes": null,
-  "cluster": {
-  "id": 9,
-  "abbrev": "Styling",
-  "name": "Polish the UI",
-  "description": "CSS makeover",
-  "endpoints": [
-  26,
-  27
-  ],
-  "creator": 7910250,
-  "children_count": 5,
-  "children_complete": 0
-  }
+    "id": 25,
+    "type": "cluster",
+    "parent_cluster": 1,
+    "cluster_id": 9,
+    "issue_id": null,
+    "upstream_nodes": null,
+    "downstream_nodes": null,
+    "cluster": {
+      "id": 9,
+      "abbrev": "Styling",
+      "name": "Polish the UI",
+      "description": "CSS makeover",
+      "endpoints": [26,7],
+      "creator": 7910250,
+      "children_count": 5,
+      "children_complete": 0
+    }
   },
   "28": {
-  "id": 28,
-  "type": "cluster",
-  "parent_cluster": 1,
-  "cluster_id": 10,
-  "issue_id": null,
-  "upstream_nodes": null,
-  "downstream_nodes": null,
-  "cluster": {
-  "id": 10,
-  "abbrev": "Integ",
-  "name": "Integration",
-  "description": "Combine all parts",
-  "endpoints": [
-  29,
-  30
-  ],
-  "creator": 7910250,
-  "children_count": 5,
-  "children_complete": 0
-  }
+    "id": 28,
+    "type": "cluster",
+    "parent_cluster": 1,
+    "cluster_id": 10,
+    "issue_id": null,
+    "upstream_nodes": null,
+    "downstream_nodes": null,
+    "cluster": {
+      "id": 10,
+      "abbrev": "Integ",
+      "name": "Integration",
+      "description": "Combine all parts",
+      "endpoints": [29,0],
+      "creator": 7910250,
+      "children_count": 5,
+      "children_complete": 0
+    }
   },
   "31": {
-  "id": 31,
-  "type": "cluster",
-  "parent_cluster": 1,
-  "cluster_id": 11,
-  "issue_id": null,
-  "upstream_nodes": null,
-  "downstream_nodes": null,
-  "cluster": {
-  "id": 11,
-  "abbrev": "Deploy",
-  "name": "Deploy the application",
-  "description": "Deploy the application",
-  "endpoints": [
-  32,
-  33
-  ],
-  "creator": 7910250,
-  "children_count": 5,
-  "children_complete": 0
-  }
+    "id": 31,
+    "type": "cluster",
+    "parent_cluster": 1,
+    "cluster_id": 11,
+    "issue_id": null,
+    "upstream_nodes": null,
+    "downstream_nodes": null,
+    "cluster": {
+      "id": 11,
+      "abbrev": "Deploy",
+      "name": "Deploy the application",
+      "description": "Deploy the application",
+      "endpoints": [32,3],
+      "creator": 7910250,
+      "children_count": 5,
+      "children_complete": 0
+    }
   },
   "parent_cluster": "1",
   "enter": 2,
@@ -787,55 +754,289 @@ var graph1 = {
   "deleted": []
 };
 
+var graph_removed_19 = {
+  "1": {
+    "id": 1,
+    "type": "cluster",
+    "parent_cluster": 0,
+    "cluster_id": 1,
+    "issue_id": null,
+    "upstream_nodes": null,
+    "downstream_nodes": null,
+    "cluster": {
+      "id": 1,
+      "abbrev": "ROOT",
+      "name": "Project Root",
+      "description": "Cluster of entire project",
+      "endpoints": [2,3],
+      "creator": 7910250,
+      "children_count": 5,
+      "children_complete": 0
+    }
+  },
+  "2": {
+    "id": 2,
+    "type": "enter",
+    "parent_cluster": 1,
+    "cluster_id": null,
+    "issue_id": null,
+    "upstream_nodes": null,
+    "downstream_nodes": null
+  },
+  "3": {
+    "id": 3,
+    "type": "exit",
+    "parent_cluster": 1,
+    "cluster_id": null,
+    "issue_id": null,
+    "upstream_nodes": null,
+    "downstream_nodes": null
+  },
+  "4": {
+    "id": 4,
+    "type": "cluster",
+    "parent_cluster": 1,
+    "cluster_id": 2,
+    "issue_id": null,
+    "upstream_nodes": null,
+    "downstream_nodes": null,
+    "cluster": {
+      "id": 2,
+      "abbrev": "Auth",
+      "name": "Authentication",
+      "description": "Set up authentication",
+      "endpoints": [5,6],
+      "creator": 7910250,
+      "children_count": 5,
+      "children_complete": 0
+    }
+  },
+  "7": {
+    "id": 7,
+    "type": "cluster",
+    "parent_cluster": 1,
+    "cluster_id": 3,
+    "issue_id": null,
+    "upstream_nodes": null,
+    "downstream_nodes": null,
+    "cluster": {
+      "id": 3,
+      "abbrev": "DB",
+      "name": "Database",
+      "description": "Set up database",
+      "endpoints": [8,9],
+      "creator": 7910250,
+      "children_count": 5,
+      "children_complete": 0
+    }
+  },
+  "10": {
+    "id": 10,
+    "type": "cluster",
+    "parent_cluster": 1,
+    "cluster_id": 4,
+    "issue_id": null,
+    "upstream_nodes": null,
+    "downstream_nodes": null,
+    "cluster": {
+      "id": 4,
+      "abbrev": "ExAPI",
+      "name": "Github API",
+      "description": "Pull info from Github API",
+      "endpoints": [11,2],
+      "creator": 7910250,
+      "children_count": 5,
+      "children_complete": 0
+    }
+  },
+  "13": {
+    "id": 13,
+    "type": "cluster",
+    "parent_cluster": 1,
+    "cluster_id": 5,
+    "issue_id": null,
+    "upstream_nodes": null,
+    "downstream_nodes": null,
+    "cluster": {
+      "id": 5,
+      "abbrev": "View Plan",
+      "name": "Plan out User Interface",
+      "description": "Mock up user interface",
+      "endpoints": [14,5],
+      "creator": 7910250,
+      "children_count": 5,
+      "children_complete": 0
+    }
+  },
+  "16": {
+    "id": 16,
+    "type": "cluster",
+    "parent_cluster": 1,
+    "cluster_id": 6,
+    "issue_id": null,
+    "upstream_nodes": null,
+    "downstream_nodes": null,
+    "cluster": {
+      "id": 6,
+      "abbrev": "Model",
+      "name": "Design data model",
+      "description": "Set up app models",
+      "endpoints": [17,8],
+      "creator": 7910250,
+      "children_count": 5,
+      "children_complete": 0
+    }
+  },
+  // "19": {
+  // "id": 19,
+  // "type": "cluster",
+  // "parent_cluster": 1,
+  // "cluster_id": 7,
+  // "issue_id": null,
+  // "upstream_nodes": null,
+  // "downstream_nodes": null,
+  // "cluster": {
+  // "id": 7,
+  // "abbrev": "Contr",
+  // "name": "Data controller",
+  // "description": "Set up data controller",
+  // "endpoints": [
+  // 20,
+  // 21
+  // ],
+  // "creator": 7910250,
+  // "children_count": 5,
+  // "children_complete": 0
+  // }
+  // },
+  "22": {
+    "id": 22,
+    "type": "cluster",
+    "parent_cluster": 1,
+    "cluster_id": 8,
+    "issue_id": null,
+    "upstream_nodes": null,
+    "downstream_nodes": null,
+    "cluster": {
+      "id": 8,
+      "abbrev": "View",
+      "name": "Implement angular front end",
+      "description": "Create angular front end",
+      "endpoints": [23,4],
+      "creator": 7910250,
+      "children_count": 5,
+      "children_complete": 0
+    }
+  },
+  "25": {
+    "id": 25,
+    "type": "cluster",
+    "parent_cluster": 1,
+    "cluster_id": 9,
+    "issue_id": null,
+    "upstream_nodes": null,
+    "downstream_nodes": null,
+    "cluster": {
+      "id": 9,
+      "abbrev": "Styling",
+      "name": "Polish the UI",
+      "description": "CSS makeover",
+      "endpoints": [26,7],
+      "creator": 7910250,
+      "children_count": 5,
+      "children_complete": 0
+    }
+  },
+  "28": {
+    "id": 28,
+    "type": "cluster",
+    "parent_cluster": 1,
+    "cluster_id": 10,
+    "issue_id": null,
+    "upstream_nodes": null,
+    "downstream_nodes": null,
+    "cluster": {
+      "id": 10,
+      "abbrev": "Integ",
+      "name": "Integration",
+      "description": "Combine all parts",
+      "endpoints": [29,0],
+      "creator": 7910250,
+      "children_count": 5,
+      "children_complete": 0
+    }
+  },
+  "31": {
+    "id": 31,
+    "type": "cluster",
+    "parent_cluster": 1,
+    "cluster_id": 11,
+    "issue_id": null,
+    "upstream_nodes": null,
+    "downstream_nodes": null,
+    "cluster": {
+      "id": 11,
+      "abbrev": "Deploy",
+      "name": "Deploy the application",
+      "description": "Deploy the application",
+      "endpoints": [32,3],
+      "creator": 7910250,
+      "children_count": 5,
+      "children_complete": 0
+    }
+  },
+  "parent_cluster": "1",
+  "enter": 2,
+  "exit": 3,
+  "deleted": [7]
+};
+
 var graph2 = {
   "7": {
-  "id": 7,
-  "type": "cluster",
-  "parent_cluster": 1,
-  "cluster_id": 3,
-  "issue_id": null,
-  "upstream_nodes": null,
-  "downstream_nodes": null,
-  "cluster": {
-  "id": 3,
-  "abbrev": "DB",
-  "name": "Database",
-  "description": "Set up database",
-  "endpoints": [
-  8,
-  9
-  ],
-  "creator": 7910250,
-  "children_count": 5,
-  "children_complete": 0
-  }
+    "id": 7,
+    "type": "cluster",
+    "parent_cluster": 1,
+    "cluster_id": 3,
+    "issue_id": null,
+    "upstream_nodes": null,
+    "downstream_nodes": null,
+    "cluster": {
+      "id": 3,
+      "abbrev": "DB",
+      "name": "Database",
+      "description": "Set up database",
+      "endpoints": [8,9],
+      "creator": 7910250,
+      "children_count": 5,
+      "children_complete": 0
+    }
   },
   "20": {
-  "id": 20,
-  "type": "enter",
-  "parent_cluster": 7,
-  "cluster_id": null,
-  "issue_id": null,
-  "upstream_nodes": null,
-  "downstream_nodes": null
+    "id": 20,
+    "type": "enter",
+    "parent_cluster": 7,
+    "cluster_id": null,
+    "issue_id": null,
+    "upstream_nodes": null,
+    "downstream_nodes": null
   },
   "21": {
-  "id": 21,
-  "type": "exit",
-  "parent_cluster": 7,
-  "cluster_id": null,
-  "issue_id": null,
-  "upstream_nodes": null,
-  "downstream_nodes": null
+    "id": 21,
+    "type": "exit",
+    "parent_cluster": 7,
+    "cluster_id": null,
+    "issue_id": null,
+    "upstream_nodes": null,
+    "downstream_nodes": null
   },
   "34": {
-  "id": 34,
-  "type": "issue",
-  "parent_cluster": 7,
-  "cluster_id": null,
-  "issue_id": 86269811,
-  "upstream_nodes": null,
-  "downstream_nodes": null,
+    "id": 34,
+    "type": "issue",
+    "parent_cluster": 7,
+    "cluster_id": null,
+    "issue_id": 86269811,
+    "upstream_nodes": null,
+    "downstream_nodes": null,
   "issue": {
   "id": 86269811,
   "url": "https://api.github.com/repos/relentlessbreakfast/WebApp/issues/6",
@@ -858,13 +1059,13 @@ var graph2 = {
   }
   },
   "35": {
-  "id": 35,
-  "type": "issue",
-  "parent_cluster": 7,
-  "cluster_id": null,
-  "issue_id": 86269541,
-  "upstream_nodes": null,
-  "downstream_nodes": null,
+    "id": 35,
+    "type": "issue",
+    "parent_cluster": 7,
+    "cluster_id": null,
+    "issue_id": 86269541,
+    "upstream_nodes": null,
+    "downstream_nodes": null,
   "issue": {
   "id": 86269541,
   "url": "https://api.github.com/repos/relentlessbreakfast/WebApp/issues/5",
@@ -887,13 +1088,13 @@ var graph2 = {
   }
   },
   "36": {
-  "id": 36,
-  "type": "issue",
-  "parent_cluster": 7,
-  "cluster_id": null,
-  "issue_id": 86269457,
-  "upstream_nodes": null,
-  "downstream_nodes": null,
+    "id": 36,
+    "type": "issue",
+    "parent_cluster": 7,
+    "cluster_id": null,
+    "issue_id": 86269457,
+    "upstream_nodes": null,
+    "downstream_nodes": null,
   "issue": {
   "id": 86269457,
   "url": "https://api.github.com/repos/relentlessbreakfast/WebApp/issues/4",
@@ -916,13 +1117,13 @@ var graph2 = {
   }
   },
   "37": {
-  "id": 37,
-  "type": "issue",
-  "parent_cluster": 7,
-  "cluster_id": null,
-  "issue_id": 86269344,
-  "upstream_nodes": null,
-  "downstream_nodes": null,
+    "id": 37,
+    "type": "issue",
+    "parent_cluster": 7,
+    "cluster_id": null,
+    "issue_id": 86269344,
+    "upstream_nodes": null,
+    "downstream_nodes": null,
   "issue": {
   "id": 86269344,
   "url": "https://api.github.com/repos/relentlessbreakfast/WebApp/issues/3",
@@ -945,13 +1146,13 @@ var graph2 = {
   }
   },
   "38": {
-  "id": 38,
-  "type": "issue",
-  "parent_cluster": 7,
-  "cluster_id": null,
-  "issue_id": 86269119,
-  "upstream_nodes": null,
-  "downstream_nodes": null,
+    "id": 38,
+    "type": "issue",
+    "parent_cluster": 7,
+    "cluster_id": null,
+    "issue_id": 86269119,
+    "upstream_nodes": null,
+    "downstream_nodes": null,
   "issue": {
   "id": 86269119,
   "url": "https://api.github.com/repos/relentlessbreakfast/WebApp/issues/2",
@@ -974,13 +1175,13 @@ var graph2 = {
   }
   },
   "39": {
-  "id": 39,
-  "type": "issue",
-  "parent_cluster": 7,
-  "cluster_id": null,
-  "issue_id": 86269044,
-  "upstream_nodes": null,
-  "downstream_nodes": null,
+    "id": 39,
+    "type": "issue",
+    "parent_cluster": 7,
+    "cluster_id": null,
+    "issue_id": 86269044,
+    "upstream_nodes": null,
+    "downstream_nodes": null,
   "issue": {
   "id": 86269044,
   "url": "https://api.github.com/repos/relentlessbreakfast/WebApp/issues/1",

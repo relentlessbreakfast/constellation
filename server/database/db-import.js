@@ -144,7 +144,7 @@ var postIssues = function(issues, callback) {
 var getIssueIds = function(callback) {
   pSqlClient
     .then(function(sqlClient) {
-      var query = 'SELECT id FROM issues';
+      var query = 'SELECT id, title FROM issues';
       return sqlClient.queryAsync(query);
     })
     .then(function(results) {
@@ -161,9 +161,15 @@ var createIssueNodes = function(issues, callback) {
   pSqlClient
     .then(function(sqlClient) {
 
-      var queryAddNode = 'INSERT INTO nodes (id, type, parent_cluster, issue_id) VALUES ';
+      var queryAddNode = 'INSERT INTO nodes (id, type, parent_cluster, issue_id, upstream_nodes, downstream_nodes) VALUES ';
       issues.forEach(function(issue, i) {
-        queryAddNode += "(DEFAULT, 'issue', 7, " + issue.id + ")";
+        var abbrev = issue.title.split(' - ')[0];
+        // var abbrev = 'DB';
+        if ([86269811, 86269541, 86269457, 86269344, 86269119, 86269044].indexOf(issue.id) !== -1) {
+          abbrev = 'Contr';
+        }
+        var queryParentCluster = "(SELECT id FROM clusters WHERE abbrev = '" + abbrev + "')";
+        queryAddNode += "(DEFAULT, 'issue', " + queryParentCluster + ", " + issue.id + ", ARRAY[(SELECT id FROM nodes WHERE parent_cluster = " + queryParentCluster + " AND type = 'enter')], ARRAY[(SELECT id FROM nodes WHERE parent_cluster = " + queryParentCluster + " AND type = 'exit')])";
 
         if (i !== issues.length-1) {
           queryAddNode += ', ';

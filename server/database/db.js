@@ -10,6 +10,7 @@
 var Bluebird = require('bluebird');
 
 var data = require('./data-stubs');
+var ghData = Bluebird.promisifyAll(require('./github-controller'));
 var controller = Bluebird.promisifyAll(require('./db-import'));
 
 
@@ -25,10 +26,15 @@ controller.loadSchemaAsync()
   console.log(result);
   return controller.createProjectBaseAsync(data.clusters);
 })
-// Add issues to database
+// Get issues from github
 .then(function(result) {
   console.log(result);
-  return controller.postIssuesAsync(data.issues);
+  return ghData.getIssuesAsync();
+})
+// Add issues to database
+.then(function(result) {
+  console.log(result.length, 'issues added to database');
+  return controller.postIssuesAsync(result);
 })
 // Get list of issue ids
 .then(function(result) {
