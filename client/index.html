@@ -11,12 +11,12 @@
   </head>
   <body ng-controller="appCtrl">
     <div class="top">
-      Constellation
+      <h1>CONSTELLATION<h1/>
     </div>
-    <div class="line">
       
+    <div class="wrapper">
+      <div ui-view class="information">asdf</div>
     </div>
-    <div ui-view></div>
     <!-- inject:js -->
     <!-- endinject -->
     <script type="text/javascript">
@@ -32,7 +32,8 @@
         wf.async = 'true';
         var s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(wf, s);
-      })(); </script>
+      })(); 
+    </script>
 
     <script type="text/javascript">
       var WebFontConfig = {
@@ -47,7 +48,7 @@
         wf.async = 'true';
         var s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(wf, s);
-      })(); </script>
+      })(); 
     </script>
   </body>
 </html>
