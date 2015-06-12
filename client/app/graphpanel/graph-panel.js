@@ -1,8 +1,8 @@
 /* 
 * @Author: ChalrieHwang
 * @Date:   2015-06-01 17:45:29
-* @Last Modified by:   cwhwang1986
-* @Last Modified time: 2015-06-10 15:20:05
+* @Last Modified by:   ChalrieHwang
+* @Last Modified time: 2015-06-11 17:24:25
 */
 
 'use strict';
@@ -52,13 +52,12 @@
      * Define event listeners to handle zooming
      * @return {d3} [description]
      */
-    
-
     $scope.zoom = d3.behavior.zoom().on('zoom', function() {
         inner.attr('transform', 'translate(' + d3.event.translate + ')'+'scale(' + d3.event.scale + ')');
     });
     svg.call($scope.zoom);
     d3.select('svg').on('dblclick.zoom', null);
+
 
     //Watch the graph width changes and zoom the graph
     $scope.$watchCollection('size', function(newVal){

@@ -2,7 +2,7 @@
 * @Author: justinwebb
 * @Date:   2015-06-03 15:30:09
 * @Last Modified by:   ChalrieHwang
-* @Last Modified time: 2015-06-11 11:44:40
+* @Last Modified time: 2015-06-11 16:58:13
 */
 
 'use strict';
@@ -81,7 +81,8 @@
         $scope.displayTitle = $scope.g.node(nodeId).title;
         $scope.displayDescription = $scope.g.node(nodeId).description;
         $scope.displayCount = $scope.g.node(nodeId).childrenCount;
-        $scope.displayComplete = $scope.g.node(nodeId).complete;
+        $scope.displayComplete = Number($scope.g.node(nodeId).complete / 
+          $scope.displayCount * 100).toFixed(1);
       }
     };
     
@@ -311,18 +312,6 @@
         '<div class="graph">',
         '<svg id="canvas" ng-click="onClick($event)" ng-dblclick="onGraphDblClick($event)" ng-right-click><g/>',
         '</svg>',
-        '</div>',
-        '<div class="wrapper">',
-        '<div class="information">',
-        '<div class="name">',
-        '{{displayId}}' + ' ' + '{{displayTitle}}',
-        '</div>',
-        '<div class="description" ng-show="display">',
-        '{{displayDescription}}',
-        '</div>',
-        '<div class="dependency">',
-        '</div>',
-        '</div>',
         '</div>'
       ].join('')
     };
