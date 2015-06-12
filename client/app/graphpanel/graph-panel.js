@@ -2,7 +2,7 @@
 * @Author: ChalrieHwang
 * @Date:   2015-06-01 17:45:29
 * @Last Modified by:   ChalrieHwang
-* @Last Modified time: 2015-06-12 22:46:06
+* @Last Modified time: 2015-06-12 22:46:57
 */
 
 'use strict';
@@ -28,12 +28,13 @@
       $scope.canvasWidth = document.getElementById('canvas').offsetWidth;
       $scope.canvasHeight = document.getElementById('canvas').offsetHeight;
       if($scope.canvasWidth * 0.9 > $scope.size[0]){
-        xOffset = [0.5 * ($scope.canvasWidth - $scope.size[0]) - 6, 20];
+        xOffset = [0.5 * ($scope.canvasWidth - $scope.size[0]) - 5, 20];
         inner.attr('transform', 'translate(' + xOffset + ')'+'scale(' + shrinkRate + ')');
       } else {
-        xOffset = [0.5 * ($scope.canvasWidth - $scope.size[0]) - 6, 20];
+        xOffset = [0.5 * ($scope.canvasWidth - $scope.size[0]) - 5, 20];
         var idealGraphWidth = $scope.canvasWidth * 0.9;
-        shrinkRate = (1 - ($scope.size[0] - idealGraphWidth)/$scope.size[0]);
+        // shrinkRate = (1 - ($scope.size[0] - idealGraphWidth)/$scope.size[0]);
+        shrinkRate = idealGraphWidth/$scope.size[0];
         xOffset[0] = xOffset[0] + 0.5 * (1 - shrinkRate) * $scope.size[0];
         inner.attr('transform', 'translate(' + xOffset + ')'+'scale(' + shrinkRate + ')');
       } 
@@ -58,6 +59,7 @@
         shrinkRate = $scope.idealHeight/newVal[1];
         xOffset[0] = xOffset[0] + 0.5 * (1 - shrinkRate) * newVal[0]; 
       } else if(newVal[0] > $scope.idealWidth) {
+        console.log('ideal',$scope.idealWidth, newVal[0]);
         shrinkRate = $scope.idealWidth/newVal[0];
         xOffset[0] = xOffset[0] + 0.5 * (1 - shrinkRate) * newVal[0]; 
       } 

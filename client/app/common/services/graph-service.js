@@ -222,7 +222,6 @@
         var deferred = $q.defer();
         graphObj.linkNodes(downstreamId, upstreamId);
         deferred.resolve('OK');
-        console.log('afterAddLink',graphObj.graph);
         return deferred.promise;
       },
 

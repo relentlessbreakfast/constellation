@@ -2,7 +2,7 @@
 * @Author: ChalrieHwang
 * @Date:   2015-06-05 17:38:31
 * @Last Modified by:   cwhwang1986
-* @Last Modified time: 2015-06-12 14:15:39
+* @Last Modified time: 2015-06-12 14:20:16
 */
 
 'use strict';
@@ -121,8 +121,7 @@
       var menu2 = [
         {
           title: 'Add New Cluster',
-          action: function(elm, d) {
-            console.log('elm', elm, 'd', d);
+          action: function() {
             promise = $scope.graph.addCluster(obj);
             if(promise){
               promise.then(function(result){
