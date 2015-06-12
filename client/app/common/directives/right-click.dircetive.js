@@ -1,8 +1,8 @@
 /* 
 * @Author: ChalrieHwang
 * @Date:   2015-06-05 17:38:31
-* @Last Modified by:   cwhwang1986
-* @Last Modified time: 2015-06-12 14:20:16
+* @Last Modified by:   ChalrieHwang
+* @Last Modified time: 2015-06-12 16:45:21
 */
 
 'use strict';
@@ -38,6 +38,7 @@
         upNodeId = Number($event.target.__data__.v);
         downNodeId = Number($event.target.__data__.w);
       } else if (clickObjType === 'svg'){
+
       }
 
       // Pop up window
@@ -45,7 +46,7 @@
         {
           title: 'Add New Dependency',
           action: function() {
-            d3.selectAll('.cluster')
+            d3.selectAll('.node')
               .attr('class', 'cluster pick')
               .on('click', function(clickId){
                 promise = $scope.graph.addNewDependency(nodeId, clickId);
@@ -72,6 +73,7 @@
               if(nodeClass === 'cluster'){
                 promise = $scope.graph.deleteNode(nodeId);
               } else if (nodeClass === 'issue'){
+                console.log('clickObjTypeIssue', nodeId);
                 promise = $scope.graph.deleteNode(nodeId);
               }
             }
@@ -147,7 +149,7 @@
           .attr('class', 'context-menu');
         d3.selectAll('.context-menu').html('');
         var list = d3.selectAll('.context-menu').append('ul');
-        if(clickObjType === 'cluster' || clickObjType === 'circle' || clickObjType === 'tspan'){
+        if(clickObjType === 'cluster' || clickObjType === 'circle' || clickObjType === 'tspan' || clickObjType === 'path'){
           list.selectAll('li').data(menu1).enter()
             .append('li')
             .html(function(d) {
