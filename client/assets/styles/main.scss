@@ -117,6 +117,16 @@ div.wrapper {
     height: 100%;
     padding-right: 15px;
     width: 50%;
+  
+    svg#canvas {
+      width: 100%;
+      height: 900px;
+      // min-height: 100%;
+      fill: #e9eceb;
+      opacity: 1;
+      display: block;
+      margin: auto;
+    }
   }
 }
 
@@ -145,15 +155,6 @@ div.wrapper {
   stroke-width: 2px;
   cursor: pointer;
   stroke-linecap: "butt"; 
-}
-
-#canvas {
-  width: 100%;
-  height: 900px;
-  fill: #e9eceb;
-  opacity: 1;
-  display: block;
-  margin: auto;
 }
 
 .output {
