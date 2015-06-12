@@ -2,7 +2,7 @@
 * @Author: justinwebb
 * @Date:   2015-05-26 15:18:17
 * @Last Modified by:   Justin Webb
-* @Last Modified time: 2015-06-11 15:15:18
+* @Last Modified time: 2015-06-11 17:29:32
 */
 
 'use strict';
@@ -31,6 +31,7 @@ var config = require('./build-config');
 var browserSyncReload = browserSync.reload;
 var ngAnnotate = require('gulp-ng-annotate');
 var shell = require('gulp-shell');
+var gulpif = require('gulp-if');
 
 // ---------------------------------------------------------
 // Helper methods
@@ -130,6 +131,7 @@ gulp.task('sass', function compileSassFiles (cb) {
 });
 
 gulp.task('dist', ['sass'], function transformSourceToDistFiles (cb) {
+  var environment = process.env.NODE_ENV || 'development';
   var startTag = {starttag: '<!-- inject:head:{{ext}} -->'};
   var cssDest = config.assets +'/styles/main.css';
   var cssOptions = {
@@ -162,7 +164,7 @@ gulp.task('dist', ['sass'], function transformSourceToDistFiles (cb) {
           .pipe(sourcemaps.init())
           .pipe(concat(config.src +'/constellation-app.js'))
           .pipe(ngAnnotate())
-          .pipe(uglify())
+          .pipe(gulpif(environment === 'production', uglify()))
           .pipe(sourcemaps.write('.', {
             includeContent: true,
             sourceRoot: './'
@@ -221,7 +223,7 @@ gulp.task('update-html', ['dist'], function reloadOnDelay() {
   setTimeout(browserSyncReload, 500);
 });
 
-gulp.task('serve', ['build', 'nodemon'], function serveExpressOnBrowserSync() {
+gulp.task('develop', ['build', 'nodemon'], function serveExpressOnBrowserSync() {
   
   var port = process.env.PORT || 3999;
 
@@ -238,4 +240,8 @@ gulp.task('serve', ['build', 'nodemon'], function serveExpressOnBrowserSync() {
   gulp.watch(config.appFiles.atpl, ['update-html']);
 });
 
-gulp.task('default', ['serve']);
+gulp.task('serve', ['build'], shell.task([
+  'node '+ config.server +'/server.js'
+]));
+
+gulp.task('default', ['develop']);

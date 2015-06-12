@@ -1,8 +1,8 @@
 /* 
 * @Author: ChalrieHwang
 * @Date:   2015-06-01 17:45:29
-* @Last Modified by:   ChalrieHwang
-* @Last Modified time: 2015-06-11 17:24:25
+* @Last Modified by:   Justin Webb
+* @Last Modified time: 2015-06-11 17:33:31
 */
 
 'use strict';
@@ -12,11 +12,11 @@
     $stateProvider.state('graph',{
       url: '/graph',
       templateUrl: 'graphpanel/graph-panel.tpl.html',
-      controller: GraphPanelCtrl
+      controller: GraphPanelController
     });
   };
 
-  var GraphPanelCtrl = function($scope, D3Service, $window){
+  var GraphPanelController = function($scope, D3Service, $window){
     var d3 = D3Service.getD3();
     var svg = d3.select('svg');
     var inner = svg.select('g');
@@ -84,7 +84,7 @@
     'cd-app.common'
   ])
   .config(GraphConfig)
-  .controller('graphPanelCtrl', GraphPanelCtrl);
+  .controller('GraphPanelController', GraphPanelController);
 })(angular);	
 
 

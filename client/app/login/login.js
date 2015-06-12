@@ -1,7 +1,7 @@
 'use strict';
 (function (angular) {
 
-  var LoginCtrl = function ($scope) {
+  var LoginController = function ($scope) {
     $scope.test = 'done';
   };
 
@@ -9,7 +9,7 @@
     $stateProvider.state('login', {
       url: '/login',
       templateUrl: 'login/login.tpl.html',
-      controller: LoginCtrl
+      controller: LoginController
     });
   };
   angular.
@@ -21,6 +21,6 @@
     ])
     .config(LoginConfig)
     .value('testFunc', 5)
-    .controller('loginCtrl', LoginCtrl);
+    .controller('LoginController', LoginController);
 
 })(angular);
