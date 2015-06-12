@@ -1,7 +1,7 @@
 /*
 * @Author: kuychaco
 * @Date:   2015-06-07 10:37:28
-* @Last Modified by:   ChalrieHwang
+* @Last Modified by:   cwhwang1986
 */
 
 'use strict';
@@ -51,8 +51,18 @@
         wrappedGraph.linkNodes(upNodeId, downNodeId);
       });
     });
+    //add deleted node to
+    wrappedGraph.graph.deleted.push(nodeId);
     // carry out transitive reduction one more time
   };
+
+  WrappedGraph.prototype.addCluster = function(obj) {
+    this.graph[300] = obj;
+  };
+
+
+
+
 
   // 
   WrappedGraph.prototype.gatherUpstreamNodeRefs = function(nodeId) {
@@ -183,6 +193,20 @@
         deferred.resolve('OK');
         return deferred.promise;
       },
+
+      /**
+       * Add new cluster function
+       */
+      addCluster: function(obj){
+        var graphObj = this.graphObj;
+        var deferred = $q.defer();
+        graphObj.addCluster(obj);
+        deferred.resolve('OK');
+        return deferred.promise;
+      },
+
+
+
       /**
        * get graph from server
        * @param  {int} cluster_id
@@ -211,7 +235,8 @@
 
       postGraph: function() {
         var deferred = $q.defer();
-        var graphObj = this.graphObj;
+        var graphObj = this.graphObj.graph;
+
         $http.post('http://localhost:3030/api/graph/'+graphObj.parent_cluster.id, graphObj)
 
           .success(function(response, status) {
