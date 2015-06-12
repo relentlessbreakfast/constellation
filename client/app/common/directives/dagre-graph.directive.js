@@ -1,8 +1,8 @@
 /* 
 * @Author: justinwebb
 * @Date:   2015-06-03 15:30:09
-* @Last Modified by:   Austin Liu
-* @Last Modified time: 2015-06-12 13:06:37
+* @Last Modified by:   ChalrieHwang
+* @Last Modified time: 2015-06-12 22:44:55
 */
 
 'use strict';
@@ -57,7 +57,7 @@
     /**
     * Define function for single click events
     */
-    $scope.onClick = function($event){
+    $scope.mouseOver = function($event){
       var clickObjType = $event.path[0].tagName;
       if (clickObjType === 'circle'){
         $scope.rightClickId = Number($event.target.__data__);
@@ -294,7 +294,7 @@
       controller: GraphDirectiveCtrl,
       template:  [
         '<div class="graph">',
-        '<svg id="canvas" ng-click="onClick($event)" ng-dblclick="onGraphDblClick($event)" ng-right-click><g/>',
+        '<svg id="canvas" ng-mouseover="mouseOver($event)" ng-dblclick="onGraphDblClick($event)" ng-right-click><g/>',
         '</svg>',
         '</div>'
       ].join('')
