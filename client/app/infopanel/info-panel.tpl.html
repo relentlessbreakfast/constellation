@@ -1,23 +1,36 @@
 <div class="info-panel">
-  <h3>
-    Name: {{displayId}}
-  </h3>
-  <h3>
-    Title: {{displayTitle}}
-  </h3>
-  <h4>
-    Description: {{displayDescription}}
-  </h4>
-  <h4>
-    Status: {{displayState}}
-  </h4>
-  <h4>
-    Assignee: {{displayAssignee}}
-  </h4>
-  <h4>
-    Total issue: {{displayCount}}
-  </h4>
-  <h4>
-    Status: {{displayComplete}} %
-  </h4>
+  <div ng-show = "!display">
+    <h3>
+      {{displayId}} {{displayTitle}}
+    </h3>
+    <h4>
+      {{displayState}}
+    </h4>
+     <h4 ng-repeat="label in displayIssuetype">
+      {{label}}
+    </h4>
+    <h4>
+      {{displayAssignee}}
+    </h4>
+    <h4>
+      {{displayDescription}}
+    </h4>
+  </div>
+  <div ng-show = "display">
+    <h3>
+      Name: {{displayId}}
+    </h3>
+    <h3>
+      {{displayTitle}}
+    </h3>
+    <h4>
+      {{displayDescription}}
+    </h4>
+    <h4>
+      Total issues: {{displayCount}}
+    </h4>
+    <h4>
+      {{displayComplete}}/{{displayCount}}
+    </h4>
+  </div>
 </div>
