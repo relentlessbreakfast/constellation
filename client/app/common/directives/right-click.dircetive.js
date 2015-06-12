@@ -2,7 +2,7 @@
 * @Author: ChalrieHwang
 * @Date:   2015-06-05 17:38:31
 * @Last Modified by:   ChalrieHwang
-* @Last Modified time: 2015-06-11 17:20:46
+* @Last Modified time: 2015-06-11 18:49:37
 */
 
 'use strict';
@@ -21,7 +21,6 @@
 
     element.bind('contextmenu', function($event){
       $event.preventDefault();
-      console.log('rightclick', $scope.$parent);
       var clickObjType = $event.path[0].tagName;
       var nodeClasses = ['cluster', 'issue'];
       var nodeId,
@@ -66,8 +65,8 @@
             if(promise){
               promise.then(function(result){
                   if(result){
-                    $scope.data = $scope.graph.graphObj.graph;
-                    $scope.buildGraph($scope.data);
+                    $scope.graphData = $scope.graph.graphObj.graph;
+                    $scope.buildGraph($scope.graphData);
                   }
                 }, function(err){
                   console.log('error', err);

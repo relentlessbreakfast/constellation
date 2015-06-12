@@ -1,8 +1,8 @@
 /* 
 * @Author: justinwebb
 * @Date:   2015-05-22 19:51:08
-* @Last Modified by:   Justin Webb
-* @Last Modified time: 2015-06-11 16:06:30
+* @Last Modified by:   ChalrieHwang
+* @Last Modified time: 2015-06-11 18:59:12
 */
 
 'use strict';
@@ -21,14 +21,16 @@
             controller: 'InfoPanelController'
         }
       },
-      controller: AppCtrl
+      controller: AppController
     });
 
     $urlRouterProvider.otherwise('/');
   };
 
-  var AppCtrl = function ($scope) {
-    $scope.foo = 'bar';
+  var AppController = function ($scope) {
+    $scope.graphData = {};
+    $scope.g = {};
+    $scope.rightClickId = null;
   };
 
   angular
@@ -43,6 +45,6 @@
       'app-templates'
     ])
     .config(AppConfig)
-    .controller('AppController', AppCtrl);
+    .controller('AppController', AppController);
 
 })(angular);

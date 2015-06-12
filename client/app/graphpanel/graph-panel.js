@@ -1,20 +1,13 @@
 /* 
 * @Author: ChalrieHwang
 * @Date:   2015-06-01 17:45:29
-* @Last Modified by:   Justin Webb
-* @Last Modified time: 2015-06-11 17:33:31
+* @Last Modified by:   ChalrieHwang
+* @Last Modified time: 2015-06-11 18:36:16
 */
 
 'use strict';
 (function(angular){
 
-  var GraphConfig = function($stateProvider){
-    $stateProvider.state('graph',{
-      url: '/graph',
-      templateUrl: 'graphpanel/graph-panel.tpl.html',
-      controller: GraphPanelController
-    });
-  };
 
   var GraphPanelController = function($scope, D3Service, $window){
     var d3 = D3Service.getD3();
@@ -83,7 +76,6 @@
 
     'cd-app.common'
   ])
-  .config(GraphConfig)
   .controller('GraphPanelController', GraphPanelController);
 })(angular);	
 
