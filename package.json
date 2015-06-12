@@ -3,9 +3,14 @@
   "version": "1.0.0",
   "description": "> Cut though the confusion",
   "main": "gulpfile.js",
+  "engines": {
+    "node": "0.12.2",
+    "npm": "2.7.4"
+  },
   "scripts": {
-    "testfront": "karma start karma.config.js",
-    "testback": "mocha server/*"
+    "start": "node server/server.js",
+    "test": "mocha server/*",
+    "postinstall": "bower install && gulp build"
   },
   "repository": {
     "type": "git",
@@ -20,7 +25,7 @@
   "dependencies": {
     "bluebird": "^2.9.27",
     "body-parser": "^1.12.4",
-    "fs": "0.0.2",
+    "dotenv": "^1.1.0",
     "github": "^0.2.4",
     "morgan": "^1.5.3",
     "pg": "^4.3.0"
@@ -36,6 +41,7 @@
     "gulp-changed": "^1.2.1",
     "gulp-concat": "^2.5.2",
     "gulp-html2js": "^0.2.0",
+    "gulp-if": "^1.2.5",
     "gulp-inject": "^1.2.0",
     "gulp-jshint": "^1.11.0",
     "gulp-karma": "0.0.4",
