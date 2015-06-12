@@ -1,8 +1,8 @@
 /* 
 * @Author: justinwebb
 * @Date:   2015-05-22 19:51:08
-* @Last Modified by:   cwhwang1986
-* @Last Modified time: 2015-06-11 23:10:13
+* @Last Modified by:   ChalrieHwang
+* @Last Modified time: 2015-06-12 09:46:41
 */
 
 'use strict';
@@ -30,21 +30,14 @@
   var AppController = function ($scope) {
     $scope.graphData = null;
     $scope.g = {};
-    $scope.rightClickId = 0;
 
-    $scope.$watchCollection('rightClickId', function(newVal, oldVal){
-      console.log('app');
-      if(newVal !== oldVal){
-      console.log('rightClickId');
-        $scope.$broadcast('rightClick', {'val' : newVal});
-      }
+    $scope.$on('newGraph', function($event, data){
+      $scope.$broadcast('newGraphDown', data);
+      return;
     });
-
-
-    $scope.$watchCollection('graphData', function(newVal){
-      if(newVal){
-        console.log('changeGraphApp');
-      }
+    $scope.$on('singleClick', function($event, data){
+      $scope.$broadcast('singleClickId', Number(data));
+      return;
     });
   };
 

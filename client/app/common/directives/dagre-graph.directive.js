@@ -1,8 +1,8 @@
 /* 
 * @Author: justinwebb
 * @Date:   2015-06-03 15:30:09
-* @Last Modified by:   cwhwang1986
-* @Last Modified time: 2015-06-11 23:14:05
+* @Last Modified by:   ChalrieHwang
+* @Last Modified time: 2015-06-12 11:00:50
 */
 
 'use strict';
@@ -63,6 +63,9 @@
         $scope.rightClickId = Number($event.target.__data__);
       } else if (clickObjType === 'tspan'){
         $scope.rightClickId = Number($event.path[4].__data__);
+      }
+      if(clickObjType === 'circle' || clickObjType === 'tspan'){
+        $scope.$emit('singleClick', $scope.rightClickId);
       }
     };
     
@@ -277,6 +280,8 @@
     $scope.$watchCollection('graphData', function(newVal){
       if(newVal){
         $scope.buildGraph(newVal);
+        $scope.$emit('newGraph', $scope.g);
+        return;
       }
     });
   };

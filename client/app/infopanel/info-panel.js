@@ -1,19 +1,24 @@
 /* 
 * @Author: Justin Webb
 * @Date:   2015-06-11 13:00:38
-* @Last Modified by:   ChalrieHwang
-* @Last Modified time: 2015-06-11 23:13:53
+* @Last Modified by:   cwhwang1986
+* @Last Modified time: 2015-06-12 09:46:04
 */
 
 'use strict';
 (function (angular) {
 
 var InfoPanelController = function ($scope) {
-  $scope.$watchCollection('rightClickId', function(newVal, oldVal){
-    if(newVal !== oldVal){
-      renderInfo(Number(newVal));
-    }
+  $scope.$on('newGraphDown', function(event, data){
+      $scope.g = data;
   });
+
+  $scope.$on('singleClickId', function(event,data){
+    $scope.rightClickId = Number(data);
+    renderInfo($scope.rightClickId);
+    return;
+  });
+
   var renderInfo = function(id){
     var objClass = $scope.g.node(id).class;
     if(objClass === 'issue'){
@@ -29,8 +34,6 @@ var InfoPanelController = function ($scope) {
       $scope.displayDescription = $scope.g.node(id).description;
       $scope.displayCount = $scope.g.node(id).childrenCount;
       $scope.displayComplete =  $scope.g.node(id).complete; 
-      // $scope.displayComplete = Number($scope.g.node(id).complete / 
-      //   $scope.displayCount * 100).toFixed(1);
     }
 
   };
