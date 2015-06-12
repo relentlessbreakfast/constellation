@@ -24,7 +24,7 @@ $text-color: white;
 
 
 body {
-  font-family: 'open sans', sans-serif; 
+  font-family: 'Muli', sans-serif; 
   color: #00f;
   width: inherit;
   height: inherit;
@@ -50,9 +50,10 @@ div.top{
     margin: 0;
     font-size: 24px;
     color: $text-color;
-    font-weight: lighter;
+    font-weight: 300;
     letter-spacing: 4px;
     line-height: 33px;
+    text-transform: uppercase;
   }
 
 }
@@ -216,7 +217,7 @@ text:hover {
 }
 
 text {
-  font-family: 'Cousine', monospace;
+  font-family: 'Ubuntu Mono', monospace;
   stroke: #534741;
   stroke-width: 0.8px;
   fill: #534741;
