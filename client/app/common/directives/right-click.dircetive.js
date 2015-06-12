@@ -1,8 +1,8 @@
 /* 
 * @Author: ChalrieHwang
 * @Date:   2015-06-05 17:38:31
-* @Last Modified by:   cwhwang1986
-* @Last Modified time: 2015-06-11 11:12:36
+* @Last Modified by:   ChalrieHwang
+* @Last Modified time: 2015-06-11 17:20:46
 */
 
 'use strict';
@@ -21,7 +21,7 @@
 
     element.bind('contextmenu', function($event){
       $event.preventDefault();
-
+      console.log('rightclick', $scope.$parent);
       var clickObjType = $event.path[0].tagName;
       var nodeClasses = ['cluster', 'issue'];
       var nodeId,
