@@ -43,4 +43,4 @@ vendor/
 scratch/
 
 # API tokens
-*/github-controller.js
+github-token
