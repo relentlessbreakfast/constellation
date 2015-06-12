@@ -1,7 +1,7 @@
 /*
 * @Author: kuychaco
 * @Date:   2015-06-07 10:37:28
-* @Last Modified by:   cwhwang1986
+* @Last Modified by:   ChalrieHwang
 */
 
 'use strict';
@@ -139,17 +139,21 @@
   WrappedGraph.prototype.unlinkNodes = function(upNodeId, downNodeId) {
     // remove downNodeId from upNodeId's downstream array
     var graphObj = this.graph;
-    graphObj[upNodeId].downstream_nodes.forEach(function(nodeId, i, arr) {
-      if (nodeId === Number(downNodeId)) {
-        arr.splice(i,1);
-      }
-    });
+    if(graphObj[upNodeId].downstream_nodes){
+      graphObj[upNodeId].downstream_nodes.forEach(function(nodeId, i, arr) {
+        if (nodeId === Number(downNodeId)) {
+          arr.splice(i,1);
+        }
+      });
+    }
     // remove upNodeId from downNodeId's upstream array
-    graphObj[downNodeId].upstream_nodes.forEach(function(nodeId, i, arr) {
-      if (nodeId === Number(upNodeId)) {
-        arr.splice(i,1);
-      }
-    });
+    if(graphObj[downNodeId].upstream_nodes){
+      graphObj[downNodeId].upstream_nodes.forEach(function(nodeId, i, arr) {
+        if (nodeId === Number(upNodeId)) {
+          arr.splice(i,1);
+        }
+      });
+    }
   };
 
   WrappedGraph.prototype.countNodes = function(){
