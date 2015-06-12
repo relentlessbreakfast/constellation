@@ -1,8 +1,8 @@
 /* 
 * @Author: justinwebb
 * @Date:   2015-06-03 15:30:09
-* @Last Modified by:   cwhwang1986
-* @Last Modified time: 2015-06-12 09:46:56
+* @Last Modified by:   ChalrieHwang
+* @Last Modified time: 2015-06-12 11:00:50
 */
 
 'use strict';
@@ -45,7 +45,6 @@
         if(promise){
           promise.then(function(result){
               if(result){
-                console.log('change in ctrl');
                 $scope.graphData = GraphService.graphObj.graph;
               }
             }, function(err){

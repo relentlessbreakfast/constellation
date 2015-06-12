@@ -2,7 +2,7 @@
 * @Author: ChalrieHwang
 * @Date:   2015-06-05 17:38:31
 * @Last Modified by:   ChalrieHwang
-* @Last Modified time: 2015-06-12 10:13:37
+* @Last Modified time: 2015-06-12 11:00:16
 */
 
 'use strict';
@@ -68,6 +68,7 @@
                   if(result){
                     $scope.graphData = $scope.graph.graphObj.graph;
                     $scope.buildGraph($scope.graphData);
+                    $scope.graph.postGraph();
                   }
                 }, function(err){
                   console.log('error', err);
@@ -76,11 +77,48 @@
           }
         }
       ];
+
+
+      var obj = {
+        id: 300,
+        type: 'cluster',
+        parent_cluster: 1,
+        cluster_id: 100,
+        issue_id: null,
+        upstream_nodes: null,
+        downstream_nodes: null,
+        cluster: {
+          id: 100,
+          abbrev: 'NewCluster',
+          name: 'Add New cluster',
+          description: 'Add New Cluster',
+          endpoints: [
+            32,
+            33
+          ],
+          creator: 7910250,
+          children_count: 2,
+          children_complete: 0
+        }
+      };
+
       var menu2 = [
         {
-          title: 'Add New Node',
+          title: 'Add New Custer',
           action: function(elm, d) {
             console.log('elm', elm, 'd', d);
+            promise = $scope.graph.addCluster(obj);
+            if(promise){
+              promise.then(function(result){
+                  if(result){
+                    $scope.graphData = $scope.graph.graphObj.graph;
+                    $scope.graph.postGraph();
+                    $scope.buildGraph($scope.graphData);
+                  }
+                }, function(err){
+                  console.log('error', err);
+                });
+            }
           }
         }
       ];

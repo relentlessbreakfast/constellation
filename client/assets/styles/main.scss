@@ -70,14 +70,13 @@ div {
 */
 
 div.wrapper {
-  float: right;
   right: 0;
   top: 0;
-  width: 50vw;
-  height: 86vh;
+  width: 95vw;
+  height: 95vh;
 
   div.information {
-    margin: 15px;
+    margin: 17px 1px 15px 1px;
     margin-top: 17px;
     padding: 15px;
     font-size: 30px;
@@ -86,13 +85,15 @@ div.wrapper {
     background: #000000;
     border: 1px solid #979797;
     height: 100%;
+    width: 48%;
+    margin-left: 52%;
   }
 
 }
 
 .graph {
   color: $brand-secondary;
-  width: 50%;
+  width: 53%;
   float: left;
 }
 
