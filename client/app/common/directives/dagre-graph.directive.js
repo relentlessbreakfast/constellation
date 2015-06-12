@@ -2,7 +2,7 @@
 * @Author: justinwebb
 * @Date:   2015-06-03 15:30:09
 * @Last Modified by:   ChalrieHwang
-* @Last Modified time: 2015-06-11 16:58:13
+* @Last Modified time: 2015-06-11 19:11:24
 */
 
 'use strict';
@@ -11,11 +11,12 @@
 // ---------------------------------------------------------
 // GraphPanelDirective - dblclick traversion
 // ---------------------------------------------------------
-  var GraphDirectiveCtrl = function ($scope, $rootScope, D3Service, GraphService) {
+  var GraphDirectiveCtrl = function ($scope, D3Service, GraphService) {
     var d3 = D3Service.getD3();
     var dagreD3 = D3Service.getDagreD3();
+    
     /**
-    * Define function for double clicks events and modify the scope data
+    * Define function for double clicks events and re-fetch the data from server
     */
     $scope.onGraphDblClick = function($event){
       var clickObjType = $event.path[0].tagName;
@@ -45,7 +46,7 @@
         if(promise){
           promise.then(function(result){
               if(result){
-                $scope.data = GraphService.graphObj.graph;
+                $scope.graphData = GraphService.graphObj.graph;
               }
             }, function(err){
               console.log('error', err);
@@ -54,36 +55,16 @@
       } 
     };
 
+    /**
+    * Define function for single click events
+    */
     $scope.onClick = function($event){
       var clickObjType = $event.path[0].tagName;
-      var nodeId,
-          nodeClass;
       if (clickObjType === 'circle'){
-        nodeId = Number($event.target.__data__);
-        nodeClass = $scope.g.node(nodeId).class;
+        $scope.rightClickId = Number($event.target.__data__);
       } else if (clickObjType === 'tspan'){
-        nodeId = Number($event.path[4].__data__);
-        nodeClass = $scope.g.node(nodeId).class;
+        $scope.rightClickId = Number($event.path[4].__data__);
       } 
-      if(nodeClass === 'issue'){
-        $scope.displayInfo = false;
-        $scope.displayId =  'Issue # '+ nodeId;
-        $scope.displayTitle = $scope.g.node(nodeId).title;
-        $scope.displayDescription = $scope.g.node(nodeId).description;
-        $scope.displayState = $scope.g.node(nodeId).status;
-        $scope.displayAssignee = $scope.g.node(nodeId).asignee;
-        $scope.displayCreateAt = $scope.g.node(nodeId).createAt;
-        $scope.displayUpdateAt = $scope.g.node(nodeId).updateAt;
-        $scope.displayCloseAt = $scope.g.node(nodeId).closeAt;
-      } else if (nodeClass === 'cluster'){
-        $scope.display = true;
-        $scope.displayId = $scope.g.node(nodeId).abbrev;
-        $scope.displayTitle = $scope.g.node(nodeId).title;
-        $scope.displayDescription = $scope.g.node(nodeId).description;
-        $scope.displayCount = $scope.g.node(nodeId).childrenCount;
-        $scope.displayComplete = Number($scope.g.node(nodeId).complete / 
-          $scope.displayCount * 100).toFixed(1);
-      }
     };
     
     /**
@@ -282,7 +263,7 @@
       if(promise){
         promise.then(function(result){
           if(result){
-            $scope.data = GraphService.graphObj.graph;
+            $scope.graphData = GraphService.graphObj.graph;
           }
         }, function(err){
           console.log('error', err);
@@ -294,7 +275,7 @@
     /**
      * Watch the data changes and re-render the graph
      */
-    $scope.$watchCollection('data', function(newVal){
+    $scope.$watchCollection('graphData', function(newVal){
       if(newVal){
         $scope.buildGraph(newVal);
       }
