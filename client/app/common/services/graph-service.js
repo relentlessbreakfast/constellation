@@ -118,12 +118,21 @@
   };
 
   //
-  WrappedGraph.prototype.linkNodes = function(upNodeId, downNodeId) {
+  WrappedGraph.prototype.linkNodes = function(downNodeId, upNodeId) {
     // adds appropriate nodeIds to upstream and downstream arrays
-    this.graph[upNodeId].downstream_nodes.push(downNodeId);
-    this.graph[downNodeId].upstream_nodes.push(upNodeId);
+    if(!this.graph[upNodeId].downstream_nodes){
+      this.graph[upNodeId].downstream_nodes = [];
+    }
+    if(!this.graph[downNodeId].upstream_nodes){
+      this.graph[downNodeId].upstream_nodes = [];
+    }
+    if(this.graph[upNodeId].downstream_nodes.indexOf(downNodeId) === -1){
+      this.graph[upNodeId].downstream_nodes.push(Number(downNodeId));
+    }
+    if(this.graph[downNodeId].upstream_nodes.indexOf(upNodeId) === -1){
+      this.graph[downNodeId].upstream_nodes.push(Number(upNodeId));
+    }
     // do transitive reduction
-    this.transitiveReduction(downNodeId, upNodeId);
   };
 
   //
@@ -204,6 +213,20 @@
         deferred.resolve('OK');
         return deferred.promise;
       },
+
+      /**
+       * Add new cluster function
+       */
+      addNewDependency: function(downstreamId, upstreamId){
+        var graphObj = this.graphObj;
+        var deferred = $q.defer();
+        graphObj.linkNodes(downstreamId, upstreamId);
+        deferred.resolve('OK');
+        console.log('afterAddLink',graphObj.graph);
+        return deferred.promise;
+      },
+
+
 
 
 
