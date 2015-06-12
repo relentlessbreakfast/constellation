@@ -16,22 +16,23 @@ require('./database/db');
 var cors = require('cors');
 var bodyParser = require('body-parser');
 
+// Initialize application
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(config.dist));
-
 app.use(express.static(config.dist));
+
+// Start the server
 server.listen(config.port, function () {
-  var host = server.address().address;
   var port = server.address().port;
   var project = utils.grandParentDir(__dirname, true);
-  console.log(project + ' is online at http://localhost:'+port, host, port);
-
+  console.log(project + ' is online at http://localhost:'+port,
+    'on ' + process.env.NODE_ENV + ' server...');
 });
 
-// Register routes
-// all routes will be prefixed by /api
+// Register routes. All routes will be prefixed by '/api'
 app.use('/api', router);
 
+// Module entry point
 module.exports.router = router;
