@@ -1,8 +1,8 @@
 /* 
 * @Author: ChalrieHwang
 * @Date:   2015-06-05 17:38:31
-* @Last Modified by:   ChalrieHwang
-* @Last Modified time: 2015-06-12 11:00:16
+* @Last Modified by:   cwhwang1986
+* @Last Modified time: 2015-06-12 14:05:09
 */
 
 'use strict';
@@ -20,6 +20,7 @@
   var link = function($scope, element){
 
     element.bind('contextmenu', function($event){
+      console.log('right click',$scope.graphData);
       $event.preventDefault();
       var clickObjType = $event.path[0].tagName;
       var nodeClasses = ['cluster', 'issue'];
@@ -43,9 +44,26 @@
       // Pop up window
       var menu1 = [
         {
-          title: 'Edit',
-          action: function(elm, d) {
-            console.log('elm', elm, 'd', d);
+          title: 'Add New Dependency',
+          action: function() {
+            d3.selectAll('.cluster')
+              .attr('class', 'cluster pick')
+              .on('click', function(clickId){
+                promise = $scope.graph.addNewDependency(nodeId, clickId);
+                if(promise){
+                  promise.then(function(result){
+                      if(result){
+                        $scope.graphData = $scope.graph.graphObj.graph;
+                        console.log('last', $scope.graphData);
+                        $scope.graph.postGraph();
+                        d3.selectAll('.cluster').remove();
+                        $scope.buildGraph($scope.graphData);
+                      }
+                    }, function(err){
+                      console.log('error', err);
+                    });
+                }
+              });
           }
         },
         {
@@ -104,7 +122,7 @@
 
       var menu2 = [
         {
-          title: 'Add New Custer',
+          title: 'Add New Cluster',
           action: function(elm, d) {
             console.log('elm', elm, 'd', d);
             promise = $scope.graph.addCluster(obj);
@@ -149,7 +167,8 @@
               return d.title;
             })
             .on('click', function(d) {
-              d.action(d);
+              d.action(d);  
+              console.log($scope.graData);
               d3.select('.context-menu').style('display', 'none');
             });
         }
