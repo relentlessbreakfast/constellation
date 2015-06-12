@@ -2,7 +2,7 @@
 * @Author: justinwebb
 * @Date:   2015-06-03 15:30:09
 * @Last Modified by:   cwhwang1986
-* @Last Modified time: 2015-06-11 23:14:05
+* @Last Modified time: 2015-06-12 09:46:56
 */
 
 'use strict';
@@ -45,6 +45,7 @@
         if(promise){
           promise.then(function(result){
               if(result){
+                console.log('change in ctrl');
                 $scope.graphData = GraphService.graphObj.graph;
               }
             }, function(err){
@@ -63,6 +64,9 @@
         $scope.rightClickId = Number($event.target.__data__);
       } else if (clickObjType === 'tspan'){
         $scope.rightClickId = Number($event.path[4].__data__);
+      }
+      if(clickObjType === 'circle' || clickObjType === 'tspan'){
+        $scope.$emit('singleClick', $scope.rightClickId);
       }
     };
     
@@ -277,6 +281,8 @@
     $scope.$watchCollection('graphData', function(newVal){
       if(newVal){
         $scope.buildGraph(newVal);
+        $scope.$emit('newGraph', $scope.g);
+        return;
       }
     });
   };
