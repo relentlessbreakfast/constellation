@@ -54,7 +54,7 @@ var getGraph = function(clusterId, callback) {
   pSqlClient
     .then(function(sqlClient) {
       // get nodes with parent_cluster === clusterId or id === clusterId
-      var query = 'SELECT * FROM nodes WHERE parent_cluster = ' + clusterId + ' OR id = ' + clusterId + ';';
+      var query = 'SELECT * FROM nodes WHERE parent_cluster = ' + clusterId + ' OR cluster_id = ' + clusterId + ';';
       return sqlClient.queryAsync(query);
     })
     .then(function(results) {
