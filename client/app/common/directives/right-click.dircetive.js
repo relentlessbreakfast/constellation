@@ -2,7 +2,7 @@
 * @Author: ChalrieHwang
 * @Date:   2015-06-05 17:38:31
 * @Last Modified by:   cwhwang1986
-* @Last Modified time: 2015-06-12 14:05:09
+* @Last Modified time: 2015-06-12 14:15:39
 */
 
 'use strict';
@@ -20,7 +20,6 @@
   var link = function($scope, element){
 
     element.bind('contextmenu', function($event){
-      console.log('right click',$scope.graphData);
       $event.preventDefault();
       var clickObjType = $event.path[0].tagName;
       var nodeClasses = ['cluster', 'issue'];
@@ -54,7 +53,6 @@
                   promise.then(function(result){
                       if(result){
                         $scope.graphData = $scope.graph.graphObj.graph;
-                        console.log('last', $scope.graphData);
                         $scope.graph.postGraph();
                         d3.selectAll('.cluster').remove();
                         $scope.buildGraph($scope.graphData);
@@ -168,7 +166,6 @@
             })
             .on('click', function(d) {
               d.action(d);  
-              console.log($scope.graData);
               d3.select('.context-menu').style('display', 'none');
             });
         }

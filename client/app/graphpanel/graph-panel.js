@@ -1,8 +1,8 @@
 /* 
 * @Author: ChalrieHwang
 * @Date:   2015-06-01 17:45:29
-* @Last Modified by:   Austin Liu
-* @Last Modified time: 2015-06-12 13:16:42
+* @Last Modified by:   ChalrieHwang
+* @Last Modified time: 2015-06-12 22:46:06
 */
 
 'use strict';
@@ -19,7 +19,7 @@
     $scope.canvasHeight = document.getElementById('canvas').offsetHeight;
     $scope.size = [0, 0];
     $scope.idealHeight = $scope.canvasHeight * 0.85;
-    $scope.idealWidth = $scope.canvasWidth * 0.95;
+    $scope.idealWidth = $scope.canvasWidth * 0.9;
 
     /**
      * Attach event listener to window size
@@ -27,12 +27,12 @@
     $window.addEventListener('resize', function(){
       $scope.canvasWidth = document.getElementById('canvas').offsetWidth;
       $scope.canvasHeight = document.getElementById('canvas').offsetHeight;
-      if($scope.canvasWidth * 0.95 > $scope.size[0]){
+      if($scope.canvasWidth * 0.9 > $scope.size[0]){
         xOffset = [0.5 * ($scope.canvasWidth - $scope.size[0]) - 6, 20];
         inner.attr('transform', 'translate(' + xOffset + ')'+'scale(' + shrinkRate + ')');
       } else {
         xOffset = [0.5 * ($scope.canvasWidth - $scope.size[0]) - 6, 20];
-        var idealGraphWidth = $scope.canvasWidth * 0.95;
+        var idealGraphWidth = $scope.canvasWidth * 0.9;
         shrinkRate = (1 - ($scope.size[0] - idealGraphWidth)/$scope.size[0]);
         xOffset[0] = xOffset[0] + 0.5 * (1 - shrinkRate) * $scope.size[0];
         inner.attr('transform', 'translate(' + xOffset + ')'+'scale(' + shrinkRate + ')');
