@@ -1,8 +1,8 @@
 /* 
 * @Author: justinwebb
 * @Date:   2015-05-26 15:18:17
-* @Last Modified by:   Austin Liu
-* @Last Modified time: 2015-06-12 13:13:44
+* @Last Modified by:   justinwebb
+* @Last Modified time: 2015-06-13 12:06:44
 */
 
 'use strict';
@@ -223,7 +223,7 @@ gulp.task('update-html', ['dist'], function reloadOnDelay() {
   setTimeout(browserSyncReload, 500);
 });
 
-gulp.task('develop', ['build', 'nodemon'], function serveExpressOnBrowserSync() {
+gulp.task('develop', ['build', 'nodemon'], function serveOnBrowserSync() {
   
   var port = process.env.PORT || 3999;
 
