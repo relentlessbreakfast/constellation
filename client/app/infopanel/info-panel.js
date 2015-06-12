@@ -2,39 +2,38 @@
 * @Author: Justin Webb
 * @Date:   2015-06-11 13:00:38
 * @Last Modified by:   ChalrieHwang
-* @Last Modified time: 2015-06-11 20:04:04
+* @Last Modified time: 2015-06-11 23:13:53
 */
 
 'use strict';
 (function (angular) {
 
 var InfoPanelController = function ($scope) {
-  var $scope.nodeId = $scope.rightClickId;
-  $scope.$watchCollection('nodeId', function(newVal){
-    if(newVal){
-      $scope.buildGraph(newVal);
+  $scope.$watchCollection('rightClickId', function(newVal, oldVal){
+    if(newVal !== oldVal){
+      renderInfo(Number(newVal));
     }
   });
   var renderInfo = function(id){
     var objClass = $scope.g.node(id).class;
-    if(nodeClass === 'issue'){
-      $scope.displayId = '#'+ $scope.g.node(nodeId).label;
-      $scope.displayTitle = $scope.g.node(nodeId).title;
-      $scope.displayDescription = $scope.g.node(nodeId).description;
-      $scope.displayState = $scope.g.node(nodeId).status;
-      $scope.displayAssignee = $scope.g.node(nodeId).asignee;
+    if(objClass === 'issue'){
+      $scope.display = false;
+      $scope.displayId = '#'+ $scope.g.node(id).label;
+      $scope.displayTitle = $scope.g.node(id).title;
+      $scope.displayDescription = $scope.g.node(id).description;
+      $scope.displayState = $scope.g.node(id).status;
+      $scope.displayAssignee = $scope.g.node(id).asignee;
       $scope.displayIssuetype = $scope.g.node(id).issueType;
-    } else if (nodeClass === 'cluster'){
+    } else if (objClass === 'cluster'){
       $scope.display = true;
-      $scope.displayId = $scope.g.node(nodeId).abbrev;
-      $scope.displayTitle = $scope.g.node(nodeId).title;
-      $scope.displayDescription = $scope.g.node(nodeId).description;
-      $scope.displayCount = $scope.g.node(nodeId).childrenCount;
-      $scope.displayComplete = Number($scope.g.node(nodeId).complete / 
-        $scope.displayCount * 100).toFixed(1);
+      $scope.displayDescription = $scope.g.node(id).description;
+      $scope.displayCount = $scope.g.node(id).childrenCount;
+      $scope.displayComplete =  $scope.g.node(id).complete; 
+      // $scope.displayComplete = Number($scope.g.node(id).complete / 
+      //   $scope.displayCount * 100).toFixed(1);
     }
 
-  }
+  };
 };
 
 
