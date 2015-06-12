@@ -42,4 +42,5 @@ vendor/
 # Scratch notes
 scratch/
 
-github-controller.js
+# API tokens
+*/github-controller.js
