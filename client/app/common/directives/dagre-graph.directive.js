@@ -1,8 +1,8 @@
 /* 
 * @Author: justinwebb
 * @Date:   2015-06-03 15:30:09
-* @Last Modified by:   ChalrieHwang
-* @Last Modified time: 2015-06-11 19:11:24
+* @Last Modified by:   cwhwang1986
+* @Last Modified time: 2015-06-11 23:14:05
 */
 
 'use strict';
@@ -14,7 +14,6 @@
   var GraphDirectiveCtrl = function ($scope, D3Service, GraphService) {
     var d3 = D3Service.getD3();
     var dagreD3 = D3Service.getDagreD3();
-    
     /**
     * Define function for double clicks events and re-fetch the data from server
     */
@@ -64,7 +63,7 @@
         $scope.rightClickId = Number($event.target.__data__);
       } else if (clickObjType === 'tspan'){
         $scope.rightClickId = Number($event.path[4].__data__);
-      } 
+      }
     };
     
     /**
@@ -116,7 +115,7 @@
       var id = jsonObj.id;
       var label;
       if(jsonObj.type === 'issue'){
-        label = '# ' + jsonObj.issue.number_github;
+        label = '#' + jsonObj.issue.number_github;
       } else if(jsonObj.type === 'enter'){
         label = 'Start';
       } else if(jsonObj.type === 'exit'){
@@ -286,8 +285,7 @@
   var GraphDirective = function () {
     return {
       restrict: 'E',
-      scope: {
-      },
+      scope: true,
       controller: GraphDirectiveCtrl,
       template:  [
         '<div class="graph">',
