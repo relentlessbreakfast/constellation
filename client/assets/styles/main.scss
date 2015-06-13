@@ -17,86 +17,118 @@
 // modules
 // @import 'skins/manifest.gen';
 
+// MIXINS ––––––––––––––––––––––––––––––––––––––––––––––––––
+@mixin box-sizing($type){
+  -webkit-box-sizing: $type;
+  -moz-box-sizing: $type;
+  box-sizing: $type;
+}
+// –––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+div.info-panel {
+  h2, h3, h4{
+    margin: 0;
+    font-family: 'Muli', sans-serif;
+    font-weight: 300;
+    border: 1px solid red; //
+  }
+}
+
 // Sections code includes page-specific and layout-related 
 // styles
 
+// VARIABLES –––––––––––––––––––––––––––––––––––––––––––––––
 $text-color: white;
+$top-bar-height: 40px;
+// –––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
 
 body {
-  font-family: 'open sans', sans-serif; 
-  color: #00f;
-  width: inherit;
-  height: inherit;
+  font-family: 'Muli', sans-serif; 
+  color: $text-color;
+  // width: inherit;
+  // height: inherit;
   margin: 0px; 
   padding: 0px;
   position: relative;
   background-color: black;
   background-image: url(../images/stars.jpg);
   background-size: cover;
+  background-attachment: fixed;
   background-repeat: no-repeat;
   background-position: top left;
 
 }
 
 div.top{
+  @include box-sizing(border-box);
+  position: fixed;
   margin: 0px;
   padding: 10px 0px 0px 10px;
-  height: 40px;
+  height: $top-bar-height;
+  width: 100vw;
   background-color: black;
   border-bottom: 2px solid #ffa500;
+  z-index: 2;
 
   h1{
-    margin: 0;
+    margin-top: 0;
+    margin-bottom: .5em;
     font-size: 24px;
     color: $text-color;
-    font-weight: lighter;
+    font-weight: 300;
     letter-spacing: 4px;
-    line-height: 33px;
+    line-height: 100%;
+    text-transform: uppercase;
   }
 
 }
-
-div.top 
 
 .ng-scope:before {
   opacity: 0.7;
 }
 
-/*
-div {
-  width: inherit;
-}
-*/
-
 div.wrapper {
-  right: 0;
-  top: 0;
-  width: 95vw;
-  height: 95vh;
+  @include box-sizing(border-box);
+  height: 100vh;
+  padding: 15px;
+  padding-top: $top-bar-height+15;
+  width: 100vw;
+  z-index: 1;
 
-  div.information {
-    margin: 17px 1px 15px 1px;
-    margin-top: 17px;
-    padding: 15px;
-    font-size: 30px;
-    color: $text-color;
-    opacity: 0.39;
+  div.information { // migrate these styles to div.info-panel
+    @include box-sizing(border-box);
     background: #000000;
     border: 1px solid #979797;
+    color: $text-color;
+    float:right;
+    font-size: 30px;
     height: 100%;
-    width: 48%;
-    margin-left: 52%;
+    opacity: 0.39;
+    padding: 15px;    
+    width: 50%;
   }
 
+  div.graph {
+    @include box-sizing(border-box);
+    border: 1px solid red;
+    color: $brand-secondary;
+    float: left;
+    height: 100%;
+    padding-right: 15px;
+    width: 50%;
+  
+    svg#canvas {
+      width: 100%;
+      height: 900px;
+      // min-height: 100%;
+      fill: #e9eceb;
+      opacity: 1;
+      display: block;
+      margin: auto;
+    }
+  }
 }
-
-.graph {
-  color: $brand-secondary;
-  width: 53%;
-  float: left;
-}
-
 
 .nodes {
   width: 600px;
@@ -123,15 +155,6 @@ div.wrapper {
   stroke-width: 2px;
   cursor: pointer;
   stroke-linecap: "butt"; 
-}
-
-#canvas {
-  width: 100%;
-  height: 900px;
-  fill: #e9eceb;
-  opacity: 1;
-  display: block;
-  margin: auto;
 }
 
 .output {
@@ -216,7 +239,7 @@ text:hover {
 }
 
 text {
-  font-family: 'Cousine', monospace;
+  font-family: 'Ubuntu Mono', monospace;
   stroke: #534741;
   stroke-width: 0.8px;
   fill: #534741;
