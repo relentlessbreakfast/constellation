@@ -2,7 +2,11 @@
 * @Author: justinwebb
 * @Date:   2015-05-26 15:18:17
 * @Last Modified by:   justinwebb
-* @Last Modified time: 2015-06-13 12:06:44
+<<<<<<< HEAD
+* @Last Modified time: 2015-06-13 14:55:56
+=======
+* @Last Modified time: 2015-06-09 19:28:40
+>>>>>>> 5582aded2cb60e2019fbb0e631a9246b6d602f6a
 */
 
 'use strict';
@@ -224,7 +228,7 @@ gulp.task('update-html', ['dist'], function reloadOnDelay() {
 });
 
 gulp.task('develop', ['build', 'nodemon'], function serveOnBrowserSync() {
-  
+
   var port = process.env.PORT || 3999;
 
   browserSync.init({
