@@ -25,14 +25,6 @@
 }
 // –––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
-div.info-panel {
-  h2, h3, h4{
-    margin: 0;
-    font-family: 'Muli', sans-serif;
-    font-weight: 300;
-  }
-}
-
 // Sections code includes page-specific and layout-related 
 // styles
 
@@ -105,7 +97,11 @@ div.wrapper {
     width: 50%;
   
     div.info-panel{
-
+      h2, h3, h4{
+        margin: 0;
+        font-family: 'Muli', sans-serif;
+        font-weight: 300;
+      }
     }
   }
 
