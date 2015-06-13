@@ -98,9 +98,21 @@ div.wrapper {
   
     div.info-panel{
       h2, h3, h4{
-        margin: 0;
         font-family: 'Muli', sans-serif;
         font-weight: 300;
+        margin: 0;
+      }
+      
+      h3{
+        font-size: 20pt;
+      }
+      h4{
+        font-size: 16pt;
+        font-style: italic;
+      }
+      p{
+        font-size: 12pt;
+        font-weight: normal;
       }
     }
   }
