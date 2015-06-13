@@ -1,7 +1,7 @@
 /* 
 * @Author: justinwebb
 * @Date:   2015-05-28 22:46:32
-* @Last Modified by:   Justin Webb
+* @Last Modified by:   kuychaco
 */
 
 'use strict';
@@ -21,7 +21,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(config.dist));
 
-app.use(express.static(config.dist));
 server.listen(config.port, function () {
   var host = server.address().address;
   var port = server.address().port;
