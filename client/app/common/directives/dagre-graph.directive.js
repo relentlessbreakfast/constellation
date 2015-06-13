@@ -1,8 +1,8 @@
 /* 
 * @Author: justinwebb
 * @Date:   2015-06-03 15:30:09
-* @Last Modified by:   ChalrieHwang
-* @Last Modified time: 2015-06-12 22:44:55
+* @Last Modified by:   cwhwang1986
+* @Last Modified time: 2015-06-13 09:38:17
 */
 
 'use strict';
@@ -242,9 +242,9 @@
         //Offset the label to center of the node
         if(label.length % 2 === 0){
           var transformTag = text.parentNode.parentNode;
-          var x = Number(transformTag.transform.animVal[0].matrix.e) + 4.8;
+          var x = Number(transformTag.transform.animVal[0].matrix.e) + 2;
           var y = transformTag.transform.animVal[0].matrix.f; 
-          transformTag.setAttribute('transform','translate('+x+','+y+')');
+          transformTag.setAttribute('transform','translate(' + x + ',' + y +')');
         }
       });
       //Add the parent node object to graph object

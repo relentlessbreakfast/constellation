@@ -261,11 +261,11 @@ text:hover {
 }
 
 text {
-  font-family: 'Ubuntu Mono', monospace;
+  font-family: monospace;
   stroke: #534741;
   stroke-width: 0.8px;
   fill: #534741;
-  align: center;
+  // align: center;
 }
 
 div.name {
