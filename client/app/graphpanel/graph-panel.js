@@ -2,7 +2,7 @@
 * @Author: ChalrieHwang
 * @Date:   2015-06-01 17:45:29
 * @Last Modified by:   ChalrieHwang
-* @Last Modified time: 2015-06-12 22:46:57
+* @Last Modified time: 2015-06-12 22:47:42
 */
 
 'use strict';
@@ -59,7 +59,6 @@
         shrinkRate = $scope.idealHeight/newVal[1];
         xOffset[0] = xOffset[0] + 0.5 * (1 - shrinkRate) * newVal[0]; 
       } else if(newVal[0] > $scope.idealWidth) {
-        console.log('ideal',$scope.idealWidth, newVal[0]);
         shrinkRate = $scope.idealWidth/newVal[0];
         xOffset[0] = xOffset[0] + 0.5 * (1 - shrinkRate) * newVal[0]; 
       } 

@@ -2,7 +2,7 @@
 * @Author: ChalrieHwang
 * @Date:   2015-06-05 17:38:31
 * @Last Modified by:   ChalrieHwang
-* @Last Modified time: 2015-06-12 16:45:21
+* @Last Modified time: 2015-06-12 22:36:48
 */
 
 'use strict';
@@ -52,15 +52,15 @@
                 promise = $scope.graph.addNewDependency(nodeId, clickId);
                 if(promise){
                   promise.then(function(result){
-                      if(result){
-                        $scope.graphData = $scope.graph.graphObj.graph;
-                        $scope.graph.postGraph();
-                        d3.selectAll('.cluster').remove();
-                        $scope.buildGraph($scope.graphData);
-                      }
-                    }, function(err){
+                    if(result){
+                      $scope.graphData = $scope.graph.graphObj.graph;
+                      $scope.graph.postGraph();
+                      d3.selectAll('.cluster').remove();
+                      $scope.buildGraph($scope.graphData);
+                    }
+                  }, function(err){
                       console.log('error', err);
-                    });
+                  });
                 }
               });
           }
@@ -73,7 +73,6 @@
               if(nodeClass === 'cluster'){
                 promise = $scope.graph.deleteNode(nodeId);
               } else if (nodeClass === 'issue'){
-                console.log('clickObjTypeIssue', nodeId);
                 promise = $scope.graph.deleteNode(nodeId);
               }
             }
@@ -83,14 +82,14 @@
             }
             if(promise){
               promise.then(function(result){
-                  if(result){
-                    $scope.graphData = $scope.graph.graphObj.graph;
-                    $scope.buildGraph($scope.graphData);
-                    $scope.graph.postGraph();
-                  }
-                }, function(err){
-                  console.log('error', err);
-                });
+                if(result){
+                  $scope.graphData = $scope.graph.graphObj.graph;
+                  $scope.buildGraph($scope.graphData);
+                  // $scope.graph.postGraph();
+                }
+              }, function(err){
+                console.log('error', err);
+              });
             }
           }
         }
@@ -127,14 +126,14 @@
             promise = $scope.graph.addCluster(obj);
             if(promise){
               promise.then(function(result){
-                  if(result){
-                    $scope.graphData = $scope.graph.graphObj.graph;
-                    $scope.graph.postGraph();
-                    $scope.buildGraph($scope.graphData);
-                  }
-                }, function(err){
-                  console.log('error', err);
-                });
+                if(result){
+                  $scope.graphData = $scope.graph.graphObj.graph;
+                  $scope.graph.postGraph();
+                  $scope.buildGraph($scope.graphData);
+                }
+              }, function(err){
+                console.log('error', err);
+              });
             }
           }
         }
@@ -149,7 +148,7 @@
           .attr('class', 'context-menu');
         d3.selectAll('.context-menu').html('');
         var list = d3.selectAll('.context-menu').append('ul');
-        if(clickObjType === 'cluster' || clickObjType === 'circle' || clickObjType === 'tspan' || clickObjType === 'path'){
+        if(clickObjType === 'cluster' || clickObjType === 'circle' || clickObjType === 'tspan'){
           list.selectAll('li').data(menu1).enter()
             .append('li')
             .html(function(d) {
@@ -159,6 +158,17 @@
               d.action(d);
               d3.select('.context-menu').style('display', 'none');
             });
+        } else if (clickObjType === 'path') {
+          list.selectAll('li')
+              .data(menu1[1]).enter()
+              .append('li')
+              .html(function(d) {
+                return d.title;
+              })
+              .on('click', function(d) {
+                d.action(d);
+                d3.select('.context-menu').style('display', 'none');
+              });
         } else if (clickObjType === 'svg'){
           list.selectAll('li').data(menu2).enter()
             .append('li')

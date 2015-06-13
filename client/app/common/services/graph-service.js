@@ -64,17 +64,42 @@
 
 
 
-  // 
-  WrappedGraph.prototype.gatherUpstreamNodeRefs = function(nodeId) {
+  //Gather all possible upstream nodes
+  WrappedGraph.prototype.gatherAllUpNodes = function(nodeId) {
     // catalog object w/ all upstream nodeIds as keys
     var catalog = {};
+    var memo = {};
     var wrappedGraph = this;
     var recursiveGather = function (nodeId) {
-      if (wrappedGraph.graph[nodeId].upstream_nodes) {
-        wrappedGraph.graph[nodeId].upstream_nodes.forEach(function(upNodeId) {
-          catalog[upNodeId] = true;
-          recursiveGather(upNodeId);
-        }); 
+      if(!memo[nodeId]){
+        memo[nodeId] = true;
+        if (wrappedGraph.graph[nodeId].upstream_nodes) {
+          wrappedGraph.graph[nodeId].upstream_nodes.forEach(function(upNodeId) {
+            catalog[upNodeId] = true;
+            recursiveGather(upNodeId);
+          }); 
+        }
+      }
+    };
+    recursiveGather(nodeId);
+    return catalog;
+  };  
+
+  //Gather all possible downStream nodes
+  WrappedGraph.prototype.gatherAllDownNodes = function(nodeId) {
+    // catalog object w/ all upstream nodeIds as keys
+    var catalog = {};
+    var memo = {};
+    var wrappedGraph = this;
+    var recursiveGather = function (nodeId) {
+      if(!memo[nodeId]){
+        memo[nodeId] = true;
+        if (wrappedGraph.graph[nodeId].downstream_nodes) {
+          wrappedGraph.graph[nodeId].downstream_nodes.forEach(function(downNodeId) {
+            catalog[downNodeId] = true;
+            recursiveGather(downNodeId);
+          }); 
+        }
       }
     };
     recursiveGather(nodeId);
@@ -106,8 +131,9 @@
 
   /** Given a particular node and a new dependency (new upstream node) **/
   WrappedGraph.prototype.transitiveReduction = function(nodeId, newUpNodeId) {
+    console.log('transitive');
     // gather all upstream nodeIds
-    var catalog = this.gatherUpstreamNodeRefs(newUpNodeId);
+    var catalog = this.gatherAllUpNodes(nodeId);
     // remove all uplinks from node at nodeId
     this.purgeUplinksFromANode(nodeId, catalog);
     // add newUpNodeId to catalog
@@ -119,26 +145,66 @@
 
   //
   WrappedGraph.prototype.linkNodes = function(downNodeId, upNodeId) {
+    var wrappedGraph = this; 
+    downNodeId = Number(downNodeId);
+    upNodeId = Number(upNodeId);
     // adds appropriate nodeIds to upstream and downstream arrays
-    if(!this.graph[upNodeId].downstream_nodes){
-      this.graph[upNodeId].downstream_nodes = [];
+    if(!wrappedGraph.graph[upNodeId].downstream_nodes){
+      wrappedGraph.graph[upNodeId].downstream_nodes = [];
     }
-    if(!this.graph[downNodeId].upstream_nodes){
-      this.graph[downNodeId].upstream_nodes = [];
+    if(!wrappedGraph.graph[downNodeId].upstream_nodes){
+      wrappedGraph.graph[downNodeId].upstream_nodes = [];
     }
-    if(this.graph[upNodeId].downstream_nodes.indexOf(downNodeId) === -1){
+    var checkImmediateDown = function(downNodeId, upNodeId){
+      if(!wrappedGraph.graph[downNodeId].downstream_nodes){
+        wrappedGraph.graph[downNodeId].downstream_nodes = [];
+      }
+
+      if(!wrappedGraph.graph[upNodeId].downstream_nodes){
+        wrappedGraph.graph[upNodeId].downstream_nodes = [];
+      }
+      var downNodeImmediateDown = wrappedGraph.graph[downNodeId].downstream_nodes;
+      var upNodeImmediateDown = wrappedGraph.graph[upNodeId].downstream_nodes;
+      //Node need to be delete by upNode
+      var deletionQue = [];
+
+      upNodeImmediateDown.forEach(function(downId){
+        var idx = downNodeImmediateDown.indexOf(downId); 
+        if(idx !== -1){
+          deletionQue.push(downId);
+        }
+      });
+      deletionQue.forEach(function(ele){
+        var index = wrappedGraph.graph[upNodeId].downstream_nodes.indexOf(ele);
+        var id = wrappedGraph.graph[upNodeId].downstream_nodes.splice(index, 1);
+        var idx = wrappedGraph.graph[id].upstream_nodes.indexOf(upNodeId);
+        wrappedGraph.graph[id].upstream_nodes.splice(idx,1);
+      });
+    };
+    // var downAllup = this.gatherAllUpNodes(downNodeId);
+    // var downAlldown = this.gatherAllDownNodes(downNodeId);
+    // var upAllDown = this.gatherAllDownNodes(upNodeId);
+    // var upAllup = this.gatherAllUpNodes(upNodeId);
+
+
+    var checkUp = this.gatherAllUpNodes(downNodeId).hasOwnProperty(upNodeId);
+    var checkDown = this.gatherAllDownNodes(downNodeId).hasOwnProperty(upNodeId);
+
+    if(checkUp || checkDown){
+      return;
+    } else {
+      checkImmediateDown(downNodeId, upNodeId);
       this.graph[upNodeId].downstream_nodes.push(Number(downNodeId));
-    }
-    if(this.graph[downNodeId].upstream_nodes.indexOf(upNodeId) === -1){
       this.graph[downNodeId].upstream_nodes.push(Number(upNodeId));
     }
-    // do transitive reduction
   };
 
   //
   WrappedGraph.prototype.unlinkNodes = function(upNodeId, downNodeId) {
     // remove downNodeId from upNodeId's downstream array
     var graphObj = this.graph;
+    downNodeId = Number(downNodeId);
+    upNodeId = Number(upNodeId);
     if(graphObj[upNodeId].downstream_nodes){
       graphObj[upNodeId].downstream_nodes.forEach(function(nodeId, i, arr) {
         if (nodeId === Number(downNodeId)) {
@@ -224,7 +290,10 @@
       addNewDependency: function(downstreamId, upstreamId){
         var graphObj = this.graphObj;
         var deferred = $q.defer();
+        downstreamId = Number(downstreamId);
+        upstreamId = Number(upstreamId);
         graphObj.linkNodes(downstreamId, upstreamId);
+        // graphObj.transitiveReduction(downstreamId, upstreamId);
         deferred.resolve('OK');
         return deferred.promise;
       },
