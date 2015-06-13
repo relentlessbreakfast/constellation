@@ -11,6 +11,7 @@
 var Bluebird = require('bluebird');
 var pg = Bluebird.promisifyAll(require('pg'));
 var dbPost = Bluebird.promisifyAll(require('./db-import'));
+var data = require('./data-stubs');
 
 var conString = "postgres://localhost:5432/constellation";
 
@@ -54,7 +55,7 @@ var getGraph = function(clusterId, callback) {
   pSqlClient
     .then(function(sqlClient) {
       // get nodes with parent_cluster === clusterId or id === clusterId
-      var query = 'SELECT * FROM nodes WHERE parent_cluster = ' + clusterId + ' OR id = ' + clusterId + ';';
+      var query = 'SELECT * FROM nodes WHERE parent_cluster = ' + clusterId + ' OR cluster_id = ' + clusterId + ';';
       return sqlClient.queryAsync(query);
     })
     .then(function(results) {
@@ -95,53 +96,64 @@ var getGraph = function(clusterId, callback) {
         callback(err, null);
       });
     });
-
-};
-
-// Helper function to post clusters
-var updateClusters = function(clusters) {
-
-};
-
-// Helper function to post issues
-var updateIssues = function(issues) {
-
 };
 
 // Helper function to update nodes
-var updateNodes = function(nodes) {
+var updateNodes = function(nodes, callback) {
   return Bluebird.map(nodes, function(node) {
+    return pSqlClient
+      .then(function(sqlClient) {
+        // update upstream and downstream arrays
+        var upstream = node.upstream_nodes ? 'ARRAY['+node.upstream_nodes.toString()+']' : 'null';
+        var downstream = node.downstream_nodes ? 'ARRAY['+node.downstream_nodes.toString()+']' : 'null';
 
+        var query = 'UPDATE nodes SET (upstream_nodes, downstream_nodes) = (' + upstream + ', ' + downstream + ') WHERE id = ' + node.id + ';';
+        return sqlClient.queryAsync(query);
+      });
+  });
+
+};
+
+var getChildrenNodes = function(clusters) {
+  return Bluebird.map(clusters, function(clusterNodeId) {
+
+    return pSqlClient
+      .then(function(sqlClient) {
+        // get all nodes with parent_cluster === clusterId
+        var clusterId = '(SELECT cluster_id FROM nodes WHERE id = ' + clusterNodeId + ')';
+        var query = 'SELECT id FROM nodes WHERE parent_cluster = ' + clusterId + ';';
+        return sqlClient.queryAsync(query);
+      })
+      .then(function(results){
+        var mappedResults = results.rows.map(function(row){
+          return row.id;
+        });
+        return mappedResults;
+      });
+  })
+  .then(function(results){
+    // flatten array
+    return results.reduce(function(result, array) {
+      return result.concat(array);
+    }, []);
   });
 };
 
 // Helper function to delete nodes
-var deleteNodes = function(nodes) {
-  // parameter is array of nodeIds
+var deleteNodes = function(deletedNodeIds) {
+  return getChildrenNodes(deletedNodeIds)
+    .then(function(nodeIds) {
+      deletedNodeIds = deletedNodeIds.concat(nodeIds);
+      return Bluebird.map(deletedNodeIds, function(nodeId) {
+        return pSqlClient
+          .then(function(sqlClient) {
+            // delete node
+            var query = 'DELETE FROM nodes WHERE id = ' + nodeId + ';';
+            return sqlClient.queryAsync(query);
+          });
+      });
 
-  // delete deleted nodes
-  deleted.forEach(function(nodeId) {
-    // delete node from database and corresponding issue, cluster, entry/exit nodes
-    // if node is cluster
-      // delete corresponding entry and exit nodes
-      // delete corresponding cluster
-      // find all child nodes and set parent_cluster to 0
-      // delete node
-    // if node is issue
-      // delete correspnding issue
-      // delete node
-  });
-};
-
-// Helper function to delete issues
-var deleteIssues = function(issues) {
-
-
-};
-
-// Helper function to delete clusters
-var deleteClusters = function(clusters) {
-  // parameter is array of
+    });
 
 };
 
@@ -168,20 +180,25 @@ var postGraph = function(graph, callback) {
     }
   });
 
+  return Bluebird.all([updateNodes(nodes), deleteNodes(deleted)])
+    .then(function(test) {
+      // console.log('*****', test);
+      callback(null, 'graph successfully posted.');
+    })
+    .catch(function (err) {
+      callback(err, null);
+    });
 
-
-  // post to nodes
-  console.log('NODES', nodes);
-  console.log('CLUSTERS', clusters);
-  console.log('ISSUES', issues);
-
-  Bluebird.map([updateNodes(nodes), deleteNodes(deleted)], function(test) {
-    console.log('*****', test);
-  });
-
-  // if issue post to issues
-  // if cluster post to clusters
 };
+
+
+// setTimeout(function(){postGraph(data.graph_removed_19, function(err, results){
+//   if(err){
+//     return console.log(err);
+//   }
+//   console.log('@@@@@@', results);
+// });
+// }, 6000);
 
 module.exports.getGraph = getGraph;
 module.exports.getCluster = getCluster;

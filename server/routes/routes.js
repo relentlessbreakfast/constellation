@@ -2,7 +2,7 @@
 * @Author: kuychaco
 * @Date:   2015-06-03 11:57:45
 * @Last Modified by:   kuychaco
-* @Last Modified time: 2015-06-10 20:15:13
+* @Last Modified time: 2015-06-12 20:50:21
 */
 
 'use strict';
@@ -29,25 +29,28 @@ router.get('/graph/:cluster_id', function(req, res) {
     })
     .catch(function(err) {
       res.status(500).send(err.message);
-    })
-    .finally(function() {
-      res.end('could not find cluster');
-      // TODO: Research when to close connection
-      // dbController.closeConnection();
     });
+    // .finally(function() {
+    //   // TODO: Research when to close connection
+    //   // dbController.closeConnection();
+    // });
 
 });
 
-router.post('/graph/:cluster_id', function(req, res) {
-  // console.log(req.body);
-  dbController.postGraphAsync(req.body);
-  res.end('graph received');
-});
+router.post('/graph', function(req, res) {
+  console.log('post request for graph with parent cluster id', req.body.parent_cluster);
 
-router.post('/nodes', function(req, res) {
-  console.log(req.body);
-  dbController.postNodes(req.body);
-  res.end('nodes received');
+  dbController.postGraphAsync(req.body)
+    .then(function(graph) {
+      res.end('graph successfully saved');
+    })
+    .catch(function(err) {
+      res.status(500).send(err.message);
+    });
+    // .finally(function() {
+    //   // TODO: Research when to close connection
+    //   // dbController.closeConnection();
+    // });
 });
 
 

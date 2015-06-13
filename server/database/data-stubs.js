@@ -754,6 +754,232 @@ var graph1 = {
   "deleted": []
 };
 
+var graph10 = {
+"28": {
+"id": 28,
+"type": "cluster",
+"parent_cluster": 1,
+"cluster_id": 10,
+"issue_id": null,
+"upstream_nodes": null,
+"downstream_nodes": null,
+"cluster": {
+"id": 10,
+"abbrev": "Integ",
+"name": "Integration",
+"description": "Combine all parts",
+"endpoints": [
+29,
+30
+],
+"creator": 7910250,
+"children_count": 5,
+"children_complete": 0
+}
+},
+"29": {
+"id": 29,
+"type": "enter",
+"parent_cluster": 10,
+"cluster_id": null,
+"issue_id": null,
+"upstream_nodes": null,
+"downstream_nodes": [41]
+},
+"30": {
+"id": 30,
+"type": "exit",
+"parent_cluster": 10,
+"cluster_id": null,
+"issue_id": null,
+"upstream_nodes": [41],
+"downstream_nodes": null
+},
+// "37": {
+// "id": 37,
+// "type": "issue",
+// "parent_cluster": 10,
+// "cluster_id": null,
+// "issue_id": 87193025,
+// "upstream_nodes": [
+// 29
+// ],
+// "downstream_nodes": [
+// 30
+// ],
+// "issue": {
+// "id": 87193025,
+// "url": "https://api.github.com/repos/relentlessbreakfast/WebApp/issues/39",
+// "labels_url": "https://api.github.com/repos/relentlessbreakfast/WebApp/issues/39/labels{/name}",
+// "comments_url": "https://api.github.com/repos/relentlessbreakfast/WebApp/issues/39/comments",
+// "events_url": "https://api.github.com/repos/relentlessbreakfast/WebApp/issues/39/events",
+// "html_url": "https://github.com/relentlessbreakfast/WebApp/issues/39",
+// "number_github": 39,
+// "title": "Integ - Issue2",
+// "creator": 7910250,
+// "labels": null,
+// "state": "open",
+// "locked": false,
+// "assignee": 7910250,
+// "comments": 0,
+// "created_at": "2015-06-11T03:15:14Z",
+// "updated_at": "2015-06-11T03:15:16Z",
+// "closed_at": "null",
+// "body": "Do some other task"
+// }
+// },
+"41": {
+"id": 41,
+"type": "issue",
+"parent_cluster": 10,
+"cluster_id": null,
+"issue_id": 87193021,
+"upstream_nodes": [
+29
+],
+"downstream_nodes": [
+30
+],
+"issue": {
+"id": 87193021,
+"url": "https://api.github.com/repos/relentlessbreakfast/WebApp/issues/33",
+"labels_url": "https://api.github.com/repos/relentlessbreakfast/WebApp/issues/33/labels{/name}",
+"comments_url": "https://api.github.com/repos/relentlessbreakfast/WebApp/issues/33/comments",
+"events_url": "https://api.github.com/repos/relentlessbreakfast/WebApp/issues/33/events",
+"html_url": "https://github.com/relentlessbreakfast/WebApp/issues/33",
+"number_github": 33,
+"title": "Integ - Issue1",
+"creator": 7910250,
+"labels": null,
+"state": "open",
+"locked": false,
+"assignee": 7910250,
+"comments": 0,
+"created_at": "2015-06-11T03:15:14Z",
+"updated_at": "2015-06-11T03:15:15Z",
+"closed_at": "null",
+"body": "Do some task"
+}
+},
+"parent_cluster": "10",
+"enter": 29,
+"exit": 30,
+"deleted": [37]
+};
+
+var graph10_del36 = {
+"31": {
+"id": 31,
+"type": "cluster",
+"parent_cluster": 1,
+"cluster_id": 11,
+"issue_id": null,
+"upstream_nodes": null,
+"downstream_nodes": null,
+"cluster": {
+"id": 11,
+"abbrev": "Deploy",
+"name": "Deploy the application",
+"description": "Deploy the application",
+"endpoints": [
+32,
+33
+],
+"creator": 7910250,
+"children_count": 5,
+"children_complete": 0
+}
+},
+"32": {
+"id": 32,
+"type": "enter",
+"parent_cluster": 11,
+"cluster_id": null,
+"issue_id": null,
+"upstream_nodes": null,
+"downstream_nodes": [34]
+},
+"33": {
+"id": 33,
+"type": "exit",
+"parent_cluster": 11,
+"cluster_id": null,
+"issue_id": null,
+"upstream_nodes": [34],
+"downstream_nodes": null
+},
+// "36": {
+// "id": 36,
+// "type": "issue",
+// "parent_cluster": 11,
+// "cluster_id": null,
+// "issue_id": 87193026,
+// "upstream_nodes": [
+// 32
+// ],
+// "downstream_nodes": [
+// 33
+// ],
+// "issue": {
+// "id": 87193026,
+// "url": "https://api.github.com/repos/relentlessbreakfast/WebApp/issues/38",
+// "labels_url": "https://api.github.com/repos/relentlessbreakfast/WebApp/issues/38/labels{/name}",
+// "comments_url": "https://api.github.com/repos/relentlessbreakfast/WebApp/issues/38/comments",
+// "events_url": "https://api.github.com/repos/relentlessbreakfast/WebApp/issues/38/events",
+// "html_url": "https://github.com/relentlessbreakfast/WebApp/issues/38",
+// "number_github": 38,
+// "title": "Deploy - Issue1",
+// "creator": 7910250,
+// "labels": null,
+// "state": "open",
+// "locked": false,
+// "assignee": 7910250,
+// "comments": 0,
+// "created_at": "2015-06-11T03:15:14Z",
+// "updated_at": "2015-06-11T03:15:16Z",
+// "closed_at": "null",
+// "body": "Do some task"
+// }
+// },
+// "44": {
+// "id": 44,
+// "type": "issue",
+// "parent_cluster": 11,
+// "cluster_id": null,
+// "issue_id": 87193011,
+// "upstream_nodes": [
+// 32
+// ],
+// "downstream_nodes": [
+// 33
+// ],
+// "issue": {
+// "id": 87193011,
+// "url": "https://api.github.com/repos/relentlessbreakfast/WebApp/issues/23",
+// "labels_url": "https://api.github.com/repos/relentlessbreakfast/WebApp/issues/23/labels{/name}",
+// "comments_url": "https://api.github.com/repos/relentlessbreakfast/WebApp/issues/23/comments",
+// "events_url": "https://api.github.com/repos/relentlessbreakfast/WebApp/issues/23/events",
+// "html_url": "https://github.com/relentlessbreakfast/WebApp/issues/23",
+// "number_github": 23,
+// "title": "Deploy - Issue2",
+// "creator": 7910250,
+// "labels": null,
+// "state": "open",
+// "locked": false,
+// "assignee": 7910250,
+// "comments": 0,
+// "created_at": "2015-06-11T03:15:14Z",
+// "updated_at": "2015-06-11T03:15:15Z",
+// "closed_at": "null",
+// "body": "Do some other task"
+// }
+// },
+"parent_cluster": "11",
+"enter": 32,
+"exit": 33,
+"deleted": [36]
+};
+
 var graph_removed_19 = {
   "1": {
     "id": 1,
@@ -988,7 +1214,7 @@ var graph_removed_19 = {
   "parent_cluster": "1",
   "enter": 2,
   "exit": 3,
-  "deleted": [7]
+  "deleted": [19]
 };
 
 var graph2 = {
@@ -1306,4 +1532,6 @@ module.exports.issues = issues;
 module.exports.labels = labels;
 module.exports.graph1 = graph1;
 module.exports.graph2 = graph2;
+module.exports.graph10 = graph10;
 module.exports.clusters = clusters;
+module.exports.graph_removed_19 = graph_removed_19;

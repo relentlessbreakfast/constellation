@@ -41,3 +41,6 @@ vendor/
 
 # Scratch notes
 scratch/
+
+# API tokens
+github-token
