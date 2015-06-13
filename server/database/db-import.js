@@ -168,14 +168,20 @@ var createIssueNodes = function(issues, callback) {
         if ([86269811, 86269541, 86269457, 86269344, 86269119, 86269044].indexOf(issue.id) !== -1) {
           abbrev = 'Contr';
         }
+
         var queryParentCluster = "(SELECT id FROM clusters WHERE abbrev = '" + abbrev + "')";
-        queryAddNode += "(DEFAULT, 'issue', " + queryParentCluster + ", " + issue.id + ", ARRAY[(SELECT id FROM nodes WHERE parent_cluster = " + queryParentCluster + " AND type = 'enter')], ARRAY[(SELECT id FROM nodes WHERE parent_cluster = " + queryParentCluster + " AND type = 'exit')])";
+        var entryId = "(SELECT id FROM nodes WHERE parent_cluster = " + queryParentCluster + " AND type = 'enter')";
+        var exitId = "(SELECT id FROM nodes WHERE parent_cluster = " + queryParentCluster + " AND type = 'exit')";
+        queryAddNode += "(DEFAULT, 'issue', " + queryParentCluster + ", " + issue.id + ", ARRAY[" + entryId + "], ARRAY[" + exitId + "])";
 
         if (i !== issues.length-1) {
           queryAddNode += ', ';
         } else {
           queryAddNode += ';';
         }
+
+
+
       });
       return sqlClient.queryAsync(queryAddNode).thenReturn(queryAddNode);
 
