@@ -182,13 +182,27 @@ var postGraph = function(graph, callback) {
 
   return Bluebird.all([updateNodes(nodes), deleteNodes(deleted)])
     .then(function(test) {
-      // console.log('*****', test);
       callback(null, 'graph successfully posted.');
     })
     .catch(function (err) {
       callback(err, null);
     });
 
+};
+
+var getAvatars = function(callback) {
+  return pSqlClient
+    .then(function(sqlClient) {
+
+      var query = 'SELECT id, login, avatar_url, name FROM users WHERE NOT id = 0;';
+      return sqlClient.queryAsync(query);
+    })
+    .then(function(results) {
+      callback(null, results.rows);
+    })
+    .catch(function(err) {
+      callback(err, null);
+    });
 };
 
 
@@ -205,3 +219,4 @@ module.exports.getCluster = getCluster;
 module.exports.getIssue = getIssue;
 module.exports.closeConnection = closeConnection;
 module.exports.postGraph = postGraph;
+module.exports.getAvatars = getAvatars;
