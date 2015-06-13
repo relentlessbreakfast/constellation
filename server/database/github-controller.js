@@ -1,32 +1,32 @@
 /*
 * @Author: kuychaco
 * @Date:   2015-06-10 16:19:56
-* @Last Modified by:   kuychaco
-* @Last Modified time: 2015-06-11 00:19:39
+* @Last Modified by:   justinwebb
+* @Last Modified time: 2015-06-13 14:14:47
 */
 
 'use strict';
 
-var GitHubApi = require("github");
+var GitHubApi = require('github');
 
 var github = new GitHubApi({
   // required
-  version: "3.0.0",
+  version: '3.0.0',
   // optional
   // debug: true,
-  protocol: "https",
-  host: "api.github.com", // should be api.github.com for GitHub
-  // pathPrefix: "/api/v3", // for some GHEs; none for GitHub
+  protocol: 'https',
+  host: 'api.github.com', // should be api.github.com for GitHub
+  // pathPrefix: '/api/v3', // for some GHEs; none for GitHub
   timeout: 5000,
   headers: {
-    "user-agent": "My-Cool-GitHub-App" // GitHub is happy with a unique user agent
+    'user-agent': 'ConstellationPM'
   }
 });
 
-// OAuth2
 github.authenticate({
-  type: "oauth",
-  token: "<INSERT_GITHUB_TOKEN_HERE>"
+  type: 'oauth',
+  key: process.env.GITHUB_ID,
+  secret: process.env.GITHUB_SECRET
 });
 
 // Get all issues from specified repo

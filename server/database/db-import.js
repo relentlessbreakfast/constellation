@@ -1,21 +1,21 @@
 /*
 * @Author: kuychaco
 * @Date:   2015-06-03 10:20:55
-* @Last Modified by:   kuychaco
+* @Last Modified by:   justinwebb
 */
 
 'use strict';
 
 
+var dbUrl = process.env.DATABASE_URL;
 var Bluebird = require('bluebird');
 var fs = Bluebird.promisifyAll(require('fs'));
 var pg = Bluebird.promisifyAll(require('pg'));
 var config = require('../../build-config');
 
-var conString = 'postgres://localhost:5432/constellation';
 
 // Connect to database --> promise with value sqlClient
-var pSqlClient = pg.connectAsync(conString).spread(function(sqlClient, done) {
+var pSqlClient = pg.connectAsync(dbUrl).spread(function(sqlClient, done) {
   sqlClient.close = done;
   return sqlClient;
 });
