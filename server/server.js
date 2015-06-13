@@ -22,6 +22,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(config.dist));
 
+// Start server
 server.listen(config.port, function () {
   var port = server.address().port;
   var project = utils.grandParentDir(__dirname, true);
