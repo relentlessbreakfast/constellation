@@ -2,7 +2,7 @@
 * @Author: kuychaco
 * @Date:   2015-06-03 11:57:45
 * @Last Modified by:   kuychaco
-* @Last Modified time: 2015-06-12 20:50:21
+* @Last Modified time: 2015-06-12 23:48:50
 */
 
 'use strict';
@@ -18,6 +18,16 @@ router.get('/', function(req, res) {
   res.json({message: 'welcome to our api!'});
 });
 
+
+router.get('/avatars', function(req, res) {
+  dbController.getAvatarsAsync()
+    .then(function(results) {
+      res.json(results);
+    })
+    .catch(function(err) {
+      res.status(500).send(err.message);
+    });
+});
 
 router.get('/graph/:cluster_id', function(req, res) {
   console.log('get request for graph', req.params.cluster_id);
