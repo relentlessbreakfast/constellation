@@ -30,7 +30,6 @@ div.info-panel {
     margin: 0;
     font-family: 'Muli', sans-serif;
     font-weight: 300;
-    border: 1px solid red; //
   }
 }
 
@@ -46,8 +45,6 @@ $top-bar-height: 40px;
 body {
   font-family: 'Muli', sans-serif; 
   color: $text-color;
-  // width: inherit;
-  // height: inherit;
   margin: 0px; 
   padding: 0px;
   position: relative;
@@ -98,15 +95,18 @@ div.wrapper {
 
   div.information { // migrate these styles to div.info-panel
     @include box-sizing(border-box);
-    background: #000000;
+    background-color: rgba(0, 0, 0, 0.4);
     border: 1px solid #979797;
     color: $text-color;
     float:right;
     font-size: 30px;
     height: 100%;
-    opacity: 0.39;
     padding: 15px;    
     width: 50%;
+  
+    div.info-panel{
+
+    }
   }
 
   div.graph {
