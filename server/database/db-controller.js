@@ -101,7 +101,7 @@ var getGraph = function(clusterId, callback) {
 // Helper function to update nodes
 var updateNodes = function(nodes, callback) {
   return Bluebird.map(nodes, function(node) {
-    pSqlClient
+    return pSqlClient
       .then(function(sqlClient) {
         // update upstream and downstream arrays
         var upstream = node.upstream_nodes ? 'ARRAY['+node.upstream_nodes.toString()+']' : 'null';
@@ -145,7 +145,7 @@ var deleteNodes = function(deletedNodeIds) {
     .then(function(nodeIds) {
       deletedNodeIds = deletedNodeIds.concat(nodeIds);
       return Bluebird.map(deletedNodeIds, function(nodeId) {
-        pSqlClient
+        return pSqlClient
           .then(function(sqlClient) {
             // delete node
             var query = 'DELETE FROM nodes WHERE id = ' + nodeId + ';';
@@ -180,13 +180,25 @@ var postGraph = function(graph, callback) {
     }
   });
 
-  Bluebird.map([updateNodes(nodes), deleteNodes(deleted)], function(test) {
-    // console.log('*****', test);
-  });
+  return Bluebird.all([updateNodes(nodes), deleteNodes(deleted)])
+    .then(function(test) {
+      // console.log('*****', test);
+      callback(null, 'graph successfully posted.');
+    })
+    .catch(function (err) {
+      callback(err, null);
+    });
 
 };
 
 
+// setTimeout(function(){postGraph(data.graph_removed_19, function(err, results){
+//   if(err){
+//     return console.log(err);
+//   }
+//   console.log('@@@@@@', results);
+// });
+// }, 6000);
 
 module.exports.getGraph = getGraph;
 module.exports.getCluster = getCluster;
