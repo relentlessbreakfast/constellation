@@ -2,7 +2,7 @@
 * @Author: ChalrieHwang
 * @Date:   2015-06-05 17:38:31
 * @Last Modified by:   ChalrieHwang
-* @Last Modified time: 2015-06-12 22:36:48
+* @Last Modified time: 2015-06-12 22:41:28
 */
 
 'use strict';
@@ -160,7 +160,7 @@
             });
         } else if (clickObjType === 'path') {
           list.selectAll('li')
-              .data(menu1[1]).enter()
+              .data([menu1[1]]).enter()
               .append('li')
               .html(function(d) {
                 return d.title;
