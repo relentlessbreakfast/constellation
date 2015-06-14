@@ -1,7 +1,7 @@
 /*
 * @Author: kuychaco
 * @Date:   2015-06-03 10:20:55
-* @Last Modified by:   justinwebb
+* @Last Modified by:   kuychaco
 */
 
 'use strict';
@@ -60,7 +60,7 @@ var getGraph = function(clusterId, callback) {
     .then(function(results) {
       // create graph object
       var graph = {};
-      graph.parent_cluster = clusterId;
+      graph.parent_cluster_id = +clusterId;
       var clusters_and_issues = [];
       results.rows.forEach(function(node) {
         if (node.type === 'enter') {
@@ -84,6 +84,9 @@ var getGraph = function(clusterId, callback) {
           return getCluster(node.cluster_id).then(function(result) {
             result = result.rows[0];
             graph[node.id].cluster = result;
+            if (result.id === +clusterId) {
+              graph.grandparent_cluster_id = node.id;
+            }
           });
         }
       })
@@ -189,7 +192,7 @@ var postGraph = function(graph, callback) {
 
 };
 
-var getAvatars = function(callback) {
+var getUsers = function(callback) {
   return pSqlClient
     .then(function(sqlClient) {
 
@@ -218,4 +221,4 @@ module.exports.getCluster = getCluster;
 module.exports.getIssue = getIssue;
 module.exports.closeConnection = closeConnection;
 module.exports.postGraph = postGraph;
-module.exports.getAvatars = getAvatars;
+module.exports.getUsers = getUsers;
