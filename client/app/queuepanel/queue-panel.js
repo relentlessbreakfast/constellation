@@ -1,14 +1,14 @@
 /* 
 * @Author: ChalrieHwang
-* @Date:   2015-06-01 17:45:29
+* @Date:   2015-06-13 16:35:59
 * @Last Modified by:   ChalrieHwang
-* @Last Modified time: 2015-06-13 16:26:03
+* @Last Modified time: 2015-06-13 16:43:15
 */
 
 'use strict';
 (function(angular){
 
-  var GraphPanelController = function($scope, D3Service, $window){
+  var QueuePanelController = function($scope, D3Service, $window){
     var d3 = D3Service.getD3();
     var svg = d3.select('svg');
     var inner = svg.select('g');
@@ -80,14 +80,14 @@
 // ---------------------------------------------------------
 // Module Entry Point
 // ---------------------------------------------------------
-  angular.module('cd-app.graph-panel', [
-  	'ngAnimate',
-  	'ui.router',
+  angular.module('cd-app.queue-panel', [
+    'ngAnimate',
+    'ui.router',
 
     'cd-app.common'
   ])
-  .controller('GraphPanelController', GraphPanelController);
-})(angular);	
+  .controller('QueuePanelController', QueuePanelController);
+})(angular);  
 
 
 

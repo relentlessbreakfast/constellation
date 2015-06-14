@@ -2,7 +2,7 @@
 * @Author: ChalrieHwang
 * @Date:   2015-06-05 17:38:31
 * @Last Modified by:   ChalrieHwang
-* @Last Modified time: 2015-06-12 11:00:16
+* @Last Modified time: 2015-06-12 22:41:28
 */
 
 'use strict';
@@ -38,14 +38,31 @@
         upNodeId = Number($event.target.__data__.v);
         downNodeId = Number($event.target.__data__.w);
       } else if (clickObjType === 'svg'){
+
       }
 
       // Pop up window
       var menu1 = [
         {
-          title: 'Edit',
-          action: function(elm, d) {
-            console.log('elm', elm, 'd', d);
+          title: 'Add New Dependency',
+          action: function() {
+            d3.selectAll('.node')
+              .attr('class', 'cluster pick')
+              .on('click', function(clickId){
+                promise = $scope.graph.addNewDependency(nodeId, clickId);
+                if(promise){
+                  promise.then(function(result){
+                    if(result){
+                      $scope.graphData = $scope.graph.graphObj.graph;
+                      $scope.graph.postGraph();
+                      d3.selectAll('.cluster').remove();
+                      $scope.buildGraph($scope.graphData);
+                    }
+                  }, function(err){
+                      console.log('error', err);
+                  });
+                }
+              });
           }
         },
         {
@@ -65,14 +82,14 @@
             }
             if(promise){
               promise.then(function(result){
-                  if(result){
-                    $scope.graphData = $scope.graph.graphObj.graph;
-                    $scope.buildGraph($scope.graphData);
-                    $scope.graph.postGraph();
-                  }
-                }, function(err){
-                  console.log('error', err);
-                });
+                if(result){
+                  $scope.graphData = $scope.graph.graphObj.graph;
+                  $scope.buildGraph($scope.graphData);
+                  // $scope.graph.postGraph();
+                }
+              }, function(err){
+                console.log('error', err);
+              });
             }
           }
         }
@@ -104,20 +121,19 @@
 
       var menu2 = [
         {
-          title: 'Add New Custer',
-          action: function(elm, d) {
-            console.log('elm', elm, 'd', d);
+          title: 'Add New Cluster',
+          action: function() {
             promise = $scope.graph.addCluster(obj);
             if(promise){
               promise.then(function(result){
-                  if(result){
-                    $scope.graphData = $scope.graph.graphObj.graph;
-                    $scope.graph.postGraph();
-                    $scope.buildGraph($scope.graphData);
-                  }
-                }, function(err){
-                  console.log('error', err);
-                });
+                if(result){
+                  $scope.graphData = $scope.graph.graphObj.graph;
+                  $scope.graph.postGraph();
+                  $scope.buildGraph($scope.graphData);
+                }
+              }, function(err){
+                console.log('error', err);
+              });
             }
           }
         }
@@ -142,6 +158,17 @@
               d.action(d);
               d3.select('.context-menu').style('display', 'none');
             });
+        } else if (clickObjType === 'path') {
+          list.selectAll('li')
+              .data([menu1[1]]).enter()
+              .append('li')
+              .html(function(d) {
+                return d.title;
+              })
+              .on('click', function(d) {
+                d.action(d);
+                d3.select('.context-menu').style('display', 'none');
+              });
         } else if (clickObjType === 'svg'){
           list.selectAll('li').data(menu2).enter()
             .append('li')
@@ -149,7 +176,7 @@
               return d.title;
             })
             .on('click', function(d) {
-              d.action(d);
+              d.action(d);  
               d3.select('.context-menu').style('display', 'none');
             });
         }

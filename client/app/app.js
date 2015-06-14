@@ -1,8 +1,8 @@
 /* 
 * @Author: justinwebb
 * @Date:   2015-05-22 19:51:08
-* @Last Modified by:   Austin Liu
-* @Last Modified time: 2015-06-12 13:15:20
+* @Last Modified by:   ChalrieHwang
+* @Last Modified time: 2015-06-13 17:46:24
 */
 
 'use strict';
@@ -19,6 +19,10 @@
         'infopanel': {
             templateUrl: 'infopanel/info-panel.tpl.html',
             controller: 'InfoPanelController'
+        },
+        'queuepanel': {
+            templateUrl: 'queuepanel/queue-panel.tpl.html',
+            controller: 'QueuePanelController'
         }
       },
       controller: AppController
@@ -50,6 +54,7 @@
       'cd-app.login',
       'cd-app.graph-panel',
       'cd-app.info-panel',
+      'cd-app.queue-panel',
       'app-templates'
     ])
     .config(AppConfig)

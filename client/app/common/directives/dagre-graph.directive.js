@@ -1,8 +1,8 @@
 /* 
 * @Author: justinwebb
 * @Date:   2015-06-03 15:30:09
-* @Last Modified by:   Austin Liu
-* @Last Modified time: 2015-06-12 13:06:37
+* @Last Modified by:   ChalrieHwang
+* @Last Modified time: 2015-06-13 16:48:30
 */
 
 'use strict';
@@ -55,9 +55,9 @@
     };
 
     /**
-    * Define function for single click events
+    * Define function for mouseover events
     */
-    $scope.onClick = function($event){
+    $scope.mouseOver = function($event){
       var clickObjType = $event.path[0].tagName;
       if (clickObjType === 'circle'){
         $scope.rightClickId = Number($event.target.__data__);
@@ -242,9 +242,9 @@
         //Offset the label to center of the node
         if(label.length % 2 === 0){
           var transformTag = text.parentNode.parentNode;
-          var x = Number(transformTag.transform.animVal[0].matrix.e) + 4.8;
+          var x = Number(transformTag.transform.animVal[0].matrix.e) + 2;
           var y = transformTag.transform.animVal[0].matrix.f; 
-          transformTag.setAttribute('transform','translate('+x+','+y+')');
+          transformTag.setAttribute('transform','translate(' + x + ',' + y +')');
         }
       });
       //Add the parent node object to graph object
@@ -294,7 +294,7 @@
       controller: GraphDirectiveCtrl,
       template:  [
         '<div class="graph">',
-        '<svg id="canvas" ng-click="onClick($event)" ng-dblclick="onGraphDblClick($event)" ng-right-click><g/>',
+        '<svg id="canvas" ng-mouseover="mouseOver($event)" ng-dblclick="onGraphDblClick($event)" ng-right-click><g/>',
         '</svg>',
         '</div>'
       ].join('')
