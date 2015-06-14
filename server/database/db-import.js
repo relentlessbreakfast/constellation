@@ -217,16 +217,6 @@ var addEndpointDependencies = function(callback) {
 
 };
 
-setTimeout(function() {
-
-addEndpointDependencies(function(err, res) {
-  if (err) {
-    return console.error(err.message);
-  }
-  console.log(res);
-});
-
-}, 1000);
 
 module.exports.loadSchema = loadSchema;
 module.exports.postUsers = postUsers;
