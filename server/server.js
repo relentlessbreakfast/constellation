@@ -1,7 +1,7 @@
 /* 
 * @Author: justinwebb
 * @Date:   2015-05-28 22:46:32
-* @Last Modified by:   kuychaco
+* @Last Modified by:   justinwebb
 *
 * ----------------------------
 * Create application
@@ -11,9 +11,11 @@
 */
 
 'use strict';
-// Load environmental variables from .env file into ENV (process.env)
-if (require('fs').statSync('.env').isFile()) {
-  require('dotenv').load();
+try {
+    require('dotenv').load();
+} catch (err) {
+  console.log('[server] .env file not available:', err);
+  console.log('[server] loading production server environment variables');
 }
 
 var express = require('express');
