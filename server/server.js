@@ -56,5 +56,7 @@ server.listen(config.port, function () {
   var project = utils.grandParentDir(__dirname, true);
   console.log(project + ' is online at http://localhost:'+port,
     'on ' + process.env.NODE_ENV + ' server...');
+
+  console.log('[server] Dist:', config.dist);
 });
 
