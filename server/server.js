@@ -1,28 +1,52 @@
 /* 
 * @Author: justinwebb
 * @Date:   2015-05-28 22:46:32
-* @Last Modified by:   justinwebb
+* @Last Modified by:   kuychaco
+*
+* ----------------------------
+* Create application
+* Add middleware
+* Start server
+* ----------------------------
 */
 
 'use strict';
+// Load environmental variables from .env file into ENV (process.env)
 if (require('fs').statSync('.env').isFile()) {
   require('dotenv').load();
 }
+
 var express = require('express');
+// Create express application, app is a callback that handles requests
 var app = express();
-var server = require('http').createServer(app);
+
+// Import router
 var router = require('./routes/routes');
+
 var config = require('./server-config');
 var utils = require('../lib/utils');
-require('./database/db');
 var cors = require('cors');
 var bodyParser = require('body-parser');
+var http = require('http');
 
-// Initialize application
+// Set up database
+require('./database/db');
+
+// Enable CORS requests (browsersync proxy and github api)
 app.use(cors());
+
+// Get data from POST requests
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+// Serve static content for the app
 app.use(express.static(config.dist));
+
+// Register routes, all routes will be prefixed by '/api'
+app.use('/api', router);
+
+// Create node server
+var server = http.createServer(app);
 
 // Start server
 server.listen(config.port, function () {
@@ -32,8 +56,3 @@ server.listen(config.port, function () {
     'on ' + process.env.NODE_ENV + ' server...');
 });
 
-// Register routes. All routes will be prefixed by '/api'
-app.use('/api', router);
-
-// Module entry point
-module.exports.router = router;
