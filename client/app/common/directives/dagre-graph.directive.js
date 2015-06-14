@@ -1,8 +1,8 @@
 /* 
 * @Author: justinwebb
 * @Date:   2015-06-03 15:30:09
-* @Last Modified by:   cwhwang1986
-* @Last Modified time: 2015-06-13 09:38:17
+* @Last Modified by:   ChalrieHwang
+* @Last Modified time: 2015-06-13 16:48:30
 */
 
 'use strict';
@@ -55,7 +55,7 @@
     };
 
     /**
-    * Define function for single click events
+    * Define function for mouseover events
     */
     $scope.mouseOver = function($event){
       var clickObjType = $event.path[0].tagName;
