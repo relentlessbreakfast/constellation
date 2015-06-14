@@ -1,7 +1,7 @@
 /*
 * @Author: kuychaco
 * @Date:   2015-06-03 10:20:55
-* @Last Modified by:   justinwebb
+* @Last Modified by:   kuychaco
 */
 
 'use strict';
@@ -195,6 +195,22 @@ var createIssueNodes = function(issues, callback) {
 
 };
 
+var addEndpointDependencies = function(callback) {
+
+  pSqlClient
+    .then(function(sqlClient) {
+      var query = "SELECT id, upstream_nodes, downstream_nodes FROM nodes WHERE type = 'issue'";
+      return sqlClient.queryAsync(query);
+    })
+    .then(function(results) {
+      callback(null, results);
+    })
+    .catch(function(err) {
+      callback(err, null);
+    });
+
+};
+
 
 module.exports.loadSchema = loadSchema;
 module.exports.postUsers = postUsers;
@@ -203,3 +219,4 @@ module.exports.postIssues = postIssues;
 module.exports.closeConnection = closeConnection;
 module.exports.getIssueIds = getIssueIds;
 module.exports.createIssueNodes = createIssueNodes;
+module.exports.addEndpointDependencies = addEndpointDependencies;

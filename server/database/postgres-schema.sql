@@ -5,6 +5,11 @@
 */
 
 -- ---
+-- CONSTELLATION DATABASE SCHEMA
+-- ---
+
+
+-- ---
 -- Table 'users'
 --   Foreign keys: repo_list elements (not enforced)
 -- ---
@@ -100,7 +105,6 @@ CREATE TABLE IF NOT EXISTS issues (
 );
 
 
-
 -- ---
 -- Table 'clusters'
 --   Foreign keys: endponts elements, creator
@@ -117,7 +121,6 @@ CREATE TABLE IF NOT EXISTS clusters (
   children_complete integer,
   PRIMARY KEY (id)
 );
-
 
 
 -- ---
