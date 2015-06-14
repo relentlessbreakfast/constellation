@@ -1,8 +1,14 @@
 /*
 * @Author: kuychaco
 * @Date:   2015-06-10 16:19:56
-* @Last Modified by:   ChalrieHwang
-* @Last Modified time: 2015-06-13 15:14:09
+* @Last Modified by:   kuychaco
+* @Last Modified time: 2015-06-13 19:30:49
+*
+* ----------------------------
+* Connect to github API
+* Get issues from demo repo
+* Create issues for demo
+* ----------------------------
 */
 
 'use strict';
@@ -10,13 +16,9 @@
 var GitHubApi = require('github');
 
 var github = new GitHubApi({
-  // required
   version: '3.0.0',
-  // optional
-  // debug: true,
   protocol: 'https',
-  host: 'api.github.com', // should be api.github.com for GitHub
-  // pathPrefix: '/api/v3', // for some GHEs; none for GitHub
+  host: 'api.github.com',
   timeout: 5000,
   headers: {
     'user-agent': 'ConstellationPM'
@@ -45,8 +47,9 @@ var getIssues = function(callback) {
 
 };
 
-// Helper method to automate creation of issues
+// Helper method to automate creation of issues (one time invocation)
 var createIssue = function(title, body, label) {
+
   github.issues.create({
     user: 'relentlessbreakfast',
     repo: 'WebApp',
@@ -55,8 +58,12 @@ var createIssue = function(title, body, label) {
     assignee: 'kuychaco',
     labels: [label]
   }, function(err, res) {
-    console.log(res);
+    if (err) {
+      return console.error(err, null);
+    }
+    return console.log(null, res);
   });
+
 };
 
 module.exports.getIssues = getIssues;
