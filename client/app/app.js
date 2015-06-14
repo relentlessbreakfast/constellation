@@ -2,7 +2,7 @@
 * @Author: justinwebb
 * @Date:   2015-05-22 19:51:08
 * @Last Modified by:   ChalrieHwang
-* @Last Modified time: 2015-06-13 17:23:34
+* @Last Modified time: 2015-06-13 17:46:24
 */
 
 'use strict';
@@ -54,6 +54,7 @@
       'cd-app.login',
       'cd-app.graph-panel',
       'cd-app.info-panel',
+      'cd-app.queue-panel',
       'app-templates'
     ])
     .config(AppConfig)
