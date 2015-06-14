@@ -203,6 +203,12 @@ var addEndpointDependencies = function(callback) {
       return sqlClient.queryAsync(query);
     })
     .then(function(results) {
+      return Bluebird.map(results.rows, function(row) {
+        var addDepsQuery = "UPDATE nodes SET downstream_nodes = array_append(downstream_nodes, "+row.id+") WHERE id="+row.upstream_nodes[0]+"; UPDATE nodes SET upstream_nodes = array_append(upstream_nodes, "+row.id+") WHERE id="+row.downstream_nodes[0]+";"
+        return pSqlClient.value().queryAsync(addDepsQuery);
+      });
+    })
+    .then(function(results) {
       callback(null, results);
     })
     .catch(function(err) {
