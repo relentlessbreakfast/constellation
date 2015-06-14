@@ -3,7 +3,7 @@
 * @Date:   2015-05-26 15:18:17
 * @Last Modified by:   justinwebb
 <<<<<<< HEAD
-* @Last Modified time: 2015-06-13 14:55:56
+* @Last Modified time: 2015-06-13 17:35:03
 =======
 * @Last Modified time: 2015-06-09 19:28:40
 >>>>>>> 5582aded2cb60e2019fbb0e631a9246b6d602f6a
@@ -108,17 +108,7 @@ gulp.task('clean', function cleanPreviousBuild (cb) {
   cb();
 });
 
-gulp.task('copy', function copyMediaFiles () {
-  var media = [
-    '!'+ config.client +'/assets/styles/**/*',
-    config.client +'/assets/**/*'
-  ];
-  console.log('Media', media);
-  return gulp.src(media)
-    .pipe(gulp.dest(config.assets));
-});
-
-gulp.task('sass', function compileSassFiles (cb) {
+gulp.task('sass', ['clean', 'copy'], function compileSassFiles (cb) {
   gulp.src(config.appFiles.scss)
     .on('error', sass.logError)
     .pipe(sourcemaps.init())
@@ -134,7 +124,17 @@ gulp.task('sass', function compileSassFiles (cb) {
   cb();
 });
 
-gulp.task('dist', ['sass'], function transformSourceToDistFiles (cb) {
+gulp.task('copy', ['clean'], function copyMediaFiles (cb) {
+  var media = [
+    '!'+ config.client +'/assets/styles/**/*',
+    config.client +'/assets/**/*'
+  ];
+  gulp.src(media)
+    .pipe(gulp.dest(config.assets));
+  cb();
+});
+
+gulp.task('dist', ['clean', 'sass', 'copy'], function transformSourceToDistFiles (cb) {
   var environment = process.env.NODE_ENV || 'development';
   var startTag = {starttag: '<!-- inject:head:{{ext}} -->'};
   var cssDest = config.assets +'/styles/main.css';
@@ -199,9 +199,9 @@ gulp.task('dist', ['sass'], function transformSourceToDistFiles (cb) {
   intervalId = setInterval(injectWhenCSSReady, 60);
 });
 
-gulp.task('build', ['clean', 'copy', 'dist']);
+gulp.task('build', ['clean', 'dist']);
 
-gulp.task('nodemon', function runNodemon (cb) {
+gulp.task('nodemon', ['build'], function runNodemon (cb) {
   var isActive = false;
   return nodemon({
     script: config.server +'/server.js',
