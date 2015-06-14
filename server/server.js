@@ -5,7 +5,9 @@
 */
 
 'use strict';
-require('dotenv').load();
+if (require('fs').statSync('.env').isFile()) {
+  require('dotenv').load();
+}
 var express = require('express');
 var app = express();
 var server = require('http').createServer(app);
