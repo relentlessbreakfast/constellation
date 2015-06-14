@@ -2,35 +2,42 @@
 * @Author: kuychaco
 * @Date:   2015-06-03 11:57:45
 * @Last Modified by:   kuychaco
-* @Last Modified time: 2015-06-12 23:48:50
+* @Last Modified time: 2015-06-13 16:57:57
+*
+* ----------------------------
+* Create router
+* Set up routes to
+*  - get users
+*  - get graph
+*  - post graph
+* ----------------------------
 */
 
 'use strict';
 
 var Bluebird = require('bluebird');
 var dbController = Bluebird.promisifyAll(require('../database/db-controller'));
+
 var express = require('express');
+// Create an instance of an express router
 var router = express.Router();
-var data = require('../database/data-stubs');
 
+// Route to get user info (id, handle, name, avatar_url)
+router.get('/users', function(req, res) {
 
-router.get('/', function(req, res) {
-  res.json({message: 'welcome to our api!'});
-});
-
-
-router.get('/avatars', function(req, res) {
-  dbController.getAvatarsAsync()
+  dbController.getUsersAsync()
     .then(function(results) {
       res.json(results);
     })
     .catch(function(err) {
       res.status(500).send(err.message);
     });
+
 });
 
+// Route to get graph for cluster with id=cluster_id
 router.get('/graph/:cluster_id', function(req, res) {
-  console.log('get request for graph', req.params.cluster_id);
+  console.log('get request for graph for cluster_id =', req.params.cluster_id);
   var clusterId = req.params.cluster_id;
 
   dbController.getGraphAsync(clusterId)
@@ -40,28 +47,22 @@ router.get('/graph/:cluster_id', function(req, res) {
     .catch(function(err) {
       res.status(500).send(err.message);
     });
-    // .finally(function() {
-    //   // TODO: Research when to close connection
-    //   // dbController.closeConnection();
-    // });
 
 });
 
+// Route to post graph upon saving
 router.post('/graph', function(req, res) {
-  console.log('post request for graph with parent cluster id', req.body.parent_cluster);
+  console.log('post request for graph with parent cluster_id = ', req.body.parent_cluster);
 
   dbController.postGraphAsync(req.body)
-    .then(function(graph) {
+    .then(function() {
       res.end('graph successfully saved');
     })
     .catch(function(err) {
       res.status(500).send(err.message);
     });
-    // .finally(function() {
-    //   // TODO: Research when to close connection
-    //   // dbController.closeConnection();
-    // });
+
 });
 
-
+// Export to server.js
 module.exports = router;
