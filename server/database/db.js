@@ -46,6 +46,11 @@ controller.loadSchemaAsync()
   console.log('successfully retrieved list of issue IDs');
   return controller.createIssueNodesAsync(result.rows);
 })
+// Connect enter/exit nodes for issues
+.then(function(result) {
+  console.log(result);
+  return controller.addEndpointDependenciesAsync();
+})
 // Verify that nodes were created
 .then(function(result) {
   console.log(result);

@@ -85,7 +85,7 @@ var getGraph = function(clusterId, callback) {
             result = result.rows[0];
             graph[node.id].cluster = result;
             if (result.id === +clusterId) {
-              graph.grandparent_cluster_id = node.id;
+              graph.grandparent_cluster_id = node.parent_cluster;
             }
           });
         }

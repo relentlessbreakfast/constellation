@@ -209,7 +209,7 @@ var addEndpointDependencies = function(callback) {
       });
     })
     .then(function(results) {
-      callback(null, results);
+      callback(null, 'successfully connected enter/exit nodes for issues');
     })
     .catch(function(err) {
       callback(err, null);
