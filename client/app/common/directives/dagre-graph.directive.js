@@ -1,8 +1,8 @@
 /* 
 * @Author: justinwebb
 * @Date:   2015-06-03 15:30:09
-* @Last Modified by:   ChalrieHwang
-* @Last Modified time: 2015-06-13 16:48:30
+* @Last Modified by:   cwhwang1986
+* @Last Modified time: 2015-06-15 12:01:31
 */
 
 'use strict';
@@ -14,6 +14,11 @@
   var GraphDirectiveCtrl = function ($scope, D3Service, GraphService) {
     var d3 = D3Service.getD3();
     var dagreD3 = D3Service.getDagreD3();
+    var enterId;
+    var exitId;
+    var parentId;
+    var mouseOverId;
+    // var parentData;
     /**
     * Define function for double clicks events and re-fetch the data from server
     */
@@ -24,19 +29,19 @@
           nodeClass,
           promise;
       if (clickObjType === 'circle'){
-        nodeId = $event.target.__data__;
+        nodeId = Number($event.target.__data__);
         nodeClass = $scope.g.node(nodeId).class;
       } else if (clickObjType === 'tspan'){
-        nodeId = $event.path[4].__data__;
+        nodeId = Number($event.path[4].__data__);
         nodeClass = $scope.g.node(nodeId).class;
       } 
       //click cluster
       if(nodeClasses.indexOf(nodeClass) !== -1){
         if(nodeClass === 'cluster'){
-          var clusterId = $scope.g.node(nodeId).clusterId;
+          var clusterId = Number($scope.g.node(nodeId).clusterId);
           promise = GraphService.getGraph(clusterId);
         } else {
-          var parentId = $scope.g.node(nodeId).parentCluster;
+          var parentId = Number($scope.g.node(nodeId).parentCluster);
           var parentClusterId = $scope.g.node(parentId).parentCluster;
           if(parentClusterId){
             promise = GraphService.getGraph(parentClusterId);
@@ -60,12 +65,14 @@
     $scope.mouseOver = function($event){
       var clickObjType = $event.path[0].tagName;
       if (clickObjType === 'circle'){
-        $scope.rightClickId = Number($event.target.__data__);
+        mouseOverId = Number($event.target.__data__);
       } else if (clickObjType === 'tspan'){
-        $scope.rightClickId = Number($event.path[4].__data__);
+        mouseOverId = Number($event.path[4].__data__);
       }
-      if(clickObjType === 'circle' || clickObjType === 'tspan'){
-        $scope.$emit('singleClick', $scope.rightClickId);
+      if(mouseOverId !== enterId && mouseOverId !== exitId){
+        if(clickObjType === 'circle' || clickObjType === 'tspan'){
+          $scope.$emit('mouseOver', mouseOverId);
+        }
       }
     };
     
@@ -88,7 +95,7 @@
      */
     var renderGraph = function(canvas){
       var render = new dagreD3.render();
-      render(d3.select('svg g'), canvas);
+      render(d3.select('svg#canvas g'), canvas);
     };
 
     /**
@@ -115,7 +122,7 @@
      * @param  {json} jsonObj node data from server
      */
     var createIssueNode = function(jsonObj){
-      var id = jsonObj.id;
+      var id = Number(jsonObj.id);
       var label;
       if(jsonObj.type === 'issue'){
         label = '#' + jsonObj.issue.number_github;
@@ -132,11 +139,11 @@
         shape: 'circle'
       });
       $scope.g.node(id).parentCluster = jsonObj.parent_cluster;
-      $scope.g.node(id).clusterId = jsonObj.cluster_id;
       $scope.g.node(id).upstreams = jsonObj.upstream_nodes; 
       $scope.g.node(id).downstreams = jsonObj.downstream_nodes; 
       $scope.g.node(id).labelName = label;
       if(nodeType === 'issue'){
+        $scope.g.node(id).clusterId = jsonObj.cluster_id;
         $scope.g.node(id).description = jsonObj.issue.body;
         $scope.g.node(id).title = jsonObj.issue.title;
         $scope.g.node(id).createAt = jsonObj.issue.created_at || '';
@@ -155,7 +162,7 @@
      * @param  {json} jsonObj node data from server
      */
     var createClusterNode = function(jsonObj){
-      var id = jsonObj.id;
+      var id = Number(jsonObj.id);
       var label = jsonObj.cluster.abbrev;
       var nodeType = jsonObj.type;
       var text = '         ';
@@ -197,8 +204,10 @@
      */
     $scope.buildGraph = function(data){
       $scope.g = createCanvas();
-      //Track parent id
-      var parentId = data.parent_cluster;
+      //Track parent enter, exit
+      parentId = Number(data.parent_cluster);
+      enterId = Number(data.enter);
+      exitId = Number(data.exit);
       //Create Nodes
       _.each(data, function(obj, key){
         var tp = obj.type;
@@ -206,9 +215,59 @@
         if(obj.cluster_id){
           abbrev = obj.cluster.abbrev;
         }
-        if(tp === 'issue' || tp === 'enter' || tp === 'exit'){
+        if(tp === 'enter' || tp === 'exit'){
           createIssueNode(obj);
           //Prevent adding parent obj to graph
+        } else if(tp === 'issue') {
+          if(obj.upstream_nodes.length > 0){
+            createIssueNode(obj);
+          } 
+          if(obj.downstream_nodes.length > 0){
+            createIssueNode(obj);
+          }
+        } else if (tp === 'cluster' && Number(key) !== parentId && abbrev !== 'ROOT'){
+          if(obj.upstream_nodes.length > 0){
+            createClusterNode(obj);
+          } 
+          if(obj.downstream_nodes.length > 0){
+            createClusterNode(obj);
+          }
+        }
+      });
+      //Create Edges
+      _.each(data, function(obj, key){
+        var tp = obj.type;
+        var abbrev;
+        if(obj.cluster_id){
+          abbrev = obj.cluster.abbrev;
+        }
+        if(tp === 'enter' || tp === 'exit'){
+          createEdge(obj.id);
+          //Prevent adding parent obj to graph
+        } else if(tp === 'issue') {
+          if(obj.upstream_nodes.length > 0){
+            createEdge(obj.id);
+          } 
+          if(obj.downstream_nodes.length > 0){
+            createEdge(obj.id);
+          }
+        } else if (tp === 'cluster' && Number(key) !== parentId && abbrev !== 'ROOT'){
+          if(obj.upstream_nodes.length > 0){
+            createEdge(obj.id);
+          } 
+          if(obj.downstream_nodes.length > 0){
+            createEdge(obj.id);
+          }
+        }
+      });
+      //Draw the graph
+      renderGraph($scope.g);
+      // create the rest of the nodes
+      _.each(data, function(obj, key){
+        var tp = obj.type;
+        var abbrev;
+        if(tp === 'issue') {
+          createIssueNode(obj);
         } else if (tp === 'cluster' && Number(key) !== parentId && abbrev !== 'ROOT'){
           createClusterNode(obj);
         }
@@ -220,21 +279,20 @@
         if(obj.cluster_id){
           abbrev = obj.cluster.abbrev;
         }
-        if(tp === 'issue' || tp ==='enter' || tp === 'exit'){
+        if(tp === 'issue'){
           createEdge(obj.id);
         } else if (tp === 'cluster' && Number(key) !== parentId && abbrev !== 'ROOT'){
           createEdge(obj.id);
         } 
       });
-      //Draw the graph
-      renderGraph($scope.g);
+
       //Remove empty tag
       d3.select('.edgeLabels').remove();
       //reset the circle radius
-      d3.selectAll('circle')
+      d3.selectAll('svg#canvas g circle')
         .attr('r',40);
       //Add label to each node
-      var tspan = d3.selectAll('tspan')[0];
+      var tspan = d3.selectAll('svg#canvas tspan')[0];
       tspan.forEach(function(text){
         var id = Number(text.__data__);
         var label = $scope.g.node(id).labelName;
@@ -248,14 +306,33 @@
         }
       });
       //Add the parent node object to graph object
-      createClusterNode(data[parentId]);
+      // createClusterNode(data[parentId]);
       //Change the graph object size
-      var svg = d3.select('svg');
+      var svg = d3.select('svg#canvas');
       var inner = svg.select('g');
       $scope.$parent.size = [inner[0][0].getBBox().width, 
         inner[0][0].getBBox().height];
     };
 
+
+    $scope.graphData = {};
+    $scope.$on('newGraphDw',function(e,d){
+      $scope.graphData = d;
+      var skipKeys = ['deleted', 'enter', 'exit', 'parent_cluster'];
+      if($scope.graphData){
+        _.each($scope.graphData, function(obj, key){
+          if(skipKeys.indexOf(key) === -1 ){
+            if(!obj.upstream_nodes){
+              obj.upstream_nodes = [];
+            }
+            if(!obj.downstream_nodes){
+              obj.downstream_nodes = [];
+            }
+          }
+        });
+      }
+      $scope.buildGraph($scope.graphData);
+    });
     /**
       * Define function initialte the graph
      */
@@ -265,7 +342,7 @@
       if(promise){
         promise.then(function(result){
           if(result){
-            $scope.graphData = GraphService.graphObj.graph;
+            $scope.graphData = _.extend($scope.graphData, GraphService.graphObj.graph);
           }
         }, function(err){
           console.log('error', err);
@@ -278,9 +355,20 @@
      * Watch the data changes and re-render the graph
      */
     $scope.$watchCollection('graphData', function(newVal){
+      var skipKeys = ['deleted', 'enter', 'exit', 'parent_cluster'];
       if(newVal){
+        _.each(newVal, function(obj, key){
+          if(skipKeys.indexOf(key) === -1 ){
+            if(!obj.upstream_nodes){
+              obj.upstream_nodes = [];
+            }
+            if(!obj.downstream_nodes){
+              obj.downstream_nodes = [];
+            }
+          }
+        });
         $scope.buildGraph(newVal);
-        $scope.$emit('newGraph', $scope.g);
+        $scope.$emit('newGraph', newVal);
         return;
       }
     });
