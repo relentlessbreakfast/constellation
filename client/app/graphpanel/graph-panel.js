@@ -1,8 +1,8 @@
 /* 
 * @Author: ChalrieHwang
 * @Date:   2015-06-01 17:45:29
-* @Last Modified by:   justinwebb
-* @Last Modified time: 2015-06-13 23:21:51
+* @Last Modified by:   ChalrieHwang
+* @Last Modified time: 2015-06-15 12:24:44
 */
 
 'use strict';
@@ -10,33 +10,35 @@
 
   var GraphPanelController = function($scope, D3Service, $window){
     var d3 = D3Service.getD3();
-    var svg = d3.select('svg');
+    var svg = d3.selectAll('svg#canvas');
     var inner = svg.select('g');
     var xOffset = [$window.innerWidth * 0.45, 20];
-    var shrinkRate = 1;
+    var shrinkRate;
 
     $scope.canvasWidth = document.getElementsByClassName('graphpanel')[0].offsetWidth;
     $scope.canvasHeight = document.getElementsByClassName('graphpanel')[0].offsetHeight;
     $scope.size = [0, 0];
     $scope.idealHeight = $scope.canvasHeight * 0.9;
     $scope.idealWidth = $scope.canvasWidth * 0.9;
-
     /**
      * Attach event listener to window size
      */
-    $window.addEventListener('resize', function(){
+    $window.addEventListener('resize', function(e){
+      e.preventDefault();
       $scope.canvasWidth = document.getElementsByClassName('graphpanel')[0].offsetWidth;
       $scope.canvasHeight = document.getElementsByClassName('graphpanel')[0].offsetHeight;
-      if($scope.canvasWidth * 0.9 > $scope.size[0]){
+      if($scope.canvasWidth * 0.9 >= $scope.size[0]){
         xOffset = [0.5 * ($scope.canvasWidth - $scope.size[0]) - 5, 20];
-        inner.attr('transform', 'translate(' + xOffset + ')'+'scale(' + shrinkRate + ')');
+        $window.setTimeout(function(x){
+          inner.attr('transform', 'translate(' + x + ')'+'scale(' + shrinkRate + ')');
+        }, 100, xOffset);
       } else {
-        xOffset = [0.5 * ($scope.canvasWidth - $scope.size[0]) - 5, 20];
         var idealGraphWidth = $scope.canvasWidth * 0.9;
-        // shrinkRate = (1 - ($scope.size[0] - idealGraphWidth)/$scope.size[0]);
-        shrinkRate = idealGraphWidth/$scope.size[0];
-        xOffset[0] = xOffset[0] + 0.5 * (1 - shrinkRate) * $scope.size[0];
-        inner.attr('transform', 'translate(' + xOffset + ')'+'scale(' + shrinkRate + ')');
+        shrinkRate = idealGraphWidth * 0.9/$scope.size[0];
+        xOffset = [0.5 * ($scope.canvasWidth - $scope.size[0] * shrinkRate), 20];
+        $window.setTimeout(function(x, r){
+          inner.attr('transform', 'translate(' + x + ')'+'scale(' + r + ')');
+        }, 100, xOffset, shrinkRate);
       } 
     }, true);
     
@@ -62,6 +64,7 @@
      * @return {d3} [description]
      */
     $scope.zoom = d3.behavior.zoom().on('zoom', function() {
+      var shift = d3.event.translate;
       var scale = d3.event.scale;
       if(scale > shrinkRate) {
         shrinkRate = shrinkRate * 1.01;
@@ -69,11 +72,13 @@
       } else {
         shrinkRate = 100;
       }
-      inner.attr('transform', 'translate(' + d3.event.translate + ')'+'scale(' + scale + ')');
+      $window.setTimeout(function(shift, scale){
+          inner.attr('transform', 'translate(' + shift + ')'+'scale(' + scale + ')');
+        }, 100, shift, scale);
     });
   
     svg.call($scope.zoom);
-    d3.select('svg').on('dblclick.zoom', null);
+    d3.select('svg#canvas').on('dblclick.zoom', null);
   };
 
 
