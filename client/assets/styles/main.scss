@@ -9,7 +9,6 @@
 // @import 'font-awesome';
 
 // Styles shared between custom components
-// @import 'snippets/**';
 
 // Skins may exist in several locations throughout the 
 // application.  They may override existing framework styles
@@ -85,13 +84,30 @@ div.wrapper {
   width: 100vw;
   z-index: 1;
 
+  
+  div.queue {
+    @include box-sizing(border-box);
+    background-color: rgba(0, 0, 0, 0.4);
+    border: 1px solid #979797;
+    height: 7%;
+    width: 100%;
+
+    svg.queue{
+      height: 100%;
+      padding-right: 10px;
+      width: 100%;
+    }
+  }
+
+
   div.graphpanel{
     @include box-sizing(border-box);
     color: $brand-secondary;
     float: left;
-    height: 100%;
+    height: 93%;
     padding-right: 15px;
     width: 50%;
+    border: 1px solid #979797;
 
     div.graph {
       height: 100%;
@@ -109,6 +125,8 @@ div.wrapper {
     }   
   }
 
+
+
   div.information { // migrate these styles to div.info-panel
     @include box-sizing(border-box);
     background-color: rgba(0, 0, 0, 0.4);
@@ -116,7 +134,7 @@ div.wrapper {
     color: $text-color;
     float:right;
     font-size: 30px;
-    height: 100%;
+    height: 93%;
     padding: 15px;    
     width: 50%;
 
@@ -140,6 +158,25 @@ div.wrapper {
         font-size: 12pt;
         font-weight: normal;
       }
+    }
+  }
+
+  div.form {
+    @include box-sizing(border-box);
+    background-color: rgba(0, 0, 0, 0.4);
+    border: 1px solid #979797;
+    color: $text-color;
+    float:right;
+    font-size: 30px;
+    padding: 15px;    
+    height: 93%;
+    width: 50%;
+    
+    form {
+      font-family: 'Muli', sans-serif;
+      font-weight: 300;
+      margin: 0;
+      font-size: 16pt;
     }
   }
 }
@@ -303,3 +340,8 @@ div.description {
   color: #fefefe;
 }
 
+#wrapper {
+    width:450px;
+    margin:0 auto;
+    font-family:Verdana, sans-serif;
+}

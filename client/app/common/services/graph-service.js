@@ -287,7 +287,7 @@
       /**
        * Add new cluster function
        */
-      addNewDependency: function(downstreamId, upstreamId){
+      addPredecessor: function(downstreamId, upstreamId){
         var graphObj = this.graphObj;
         var deferred = $q.defer();
         downstreamId = Number(downstreamId);
