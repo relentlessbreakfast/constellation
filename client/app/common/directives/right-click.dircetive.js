@@ -2,7 +2,7 @@
 * @Author: ChalrieHwang
 * @Date:   2015-06-05 17:38:31
 * @Last Modified by:   ChalrieHwang
-* @Last Modified time: 2015-06-12 22:41:28
+* @Last Modified time: 2015-06-14 15:59:57
 */
 
 'use strict';
@@ -18,7 +18,6 @@
   };
 
   var link = function($scope, element){
-
     element.bind('contextmenu', function($event){
       $event.preventDefault();
       var clickObjType = $event.path[0].tagName;
@@ -40,22 +39,21 @@
       } else if (clickObjType === 'svg'){
 
       }
-
       // Pop up window
       var menu1 = [
         {
-          title: 'Add New Dependency',
+          title: 'Add Predecessor',
           action: function() {
-            d3.selectAll('.node')
+            d3.selectAll('svg#canvas .node')
               .attr('class', 'cluster pick')
               .on('click', function(clickId){
-                promise = $scope.graph.addNewDependency(nodeId, clickId);
+                //Link the nodes
+                promise = $scope.graph.addPredecessor(nodeId, clickId);
                 if(promise){
                   promise.then(function(result){
                     if(result){
                       $scope.graphData = $scope.graph.graphObj.graph;
-                      $scope.graph.postGraph();
-                      d3.selectAll('.cluster').remove();
+                      d3.selectAll('svg#canvas .cluster').remove();
                       $scope.buildGraph($scope.graphData);
                     }
                   }, function(err){
@@ -94,52 +92,6 @@
           }
         }
       ];
-
-
-      var obj = {
-        id: 300,
-        type: 'cluster',
-        parent_cluster: 1,
-        cluster_id: 100,
-        issue_id: null,
-        upstream_nodes: null,
-        downstream_nodes: null,
-        cluster: {
-          id: 100,
-          abbrev: 'NewCluster',
-          name: 'Add New cluster',
-          description: 'Add New Cluster',
-          endpoints: [
-            32,
-            33
-          ],
-          creator: 7910250,
-          children_count: 2,
-          children_complete: 0
-        }
-      };
-
-      var menu2 = [
-        {
-          title: 'Add New Cluster',
-          action: function() {
-            promise = $scope.graph.addCluster(obj);
-            if(promise){
-              promise.then(function(result){
-                if(result){
-                  $scope.graphData = $scope.graph.graphObj.graph;
-                  $scope.graph.postGraph();
-                  $scope.buildGraph($scope.graphData);
-                }
-              }, function(err){
-                console.log('error', err);
-              });
-            }
-          }
-        }
-      ];
-
-
       //Append the menu div
       if(clickObjType){
         d3.selectAll('.context-menu').data([1])
@@ -169,28 +121,15 @@
                 d.action(d);
                 d3.select('.context-menu').style('display', 'none');
               });
-        } else if (clickObjType === 'svg'){
-          list.selectAll('li').data(menu2).enter()
-            .append('li')
-            .html(function(d) {
-              return d.title;
-            })
-            .on('click', function(d) {
-              d.action(d);  
-              d3.select('.context-menu').style('display', 'none');
-            });
-        }
+        } 
         d3.select('.context-menu')
         .style('left', ($event.pageX - 2) + 'px')
         .style('top', ($event.pageY - 2) + 'px')
         .style('display', 'block');
-
         //Close the contextmenu once it got clicked 
         d3.select('body').on('click.context-menu', function() {
           d3.select('.context-menu').style('display', 'none');
         });
-
-        
       }
     });
   };
