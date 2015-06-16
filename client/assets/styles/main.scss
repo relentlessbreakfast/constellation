@@ -73,6 +73,20 @@ div.top{
 
 }
 
+// Clearfix used in edit forms –––––––––––––––––––––––––––––
+.clearfix:after{
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+.clearfix{
+  display: inline-block;
+}
+// –––––––––––––––––––––––––––––––––––––––––––––––––––-–––––
+ 
 .ng-scope:before {
   opacity: 0.7;
 }
@@ -178,13 +192,80 @@ div.wrapper {
     padding: 15px;    
     height: 93%;
     width: 50%;
-    
-    form {
+
+    fieldset, label, input, option, textarea{
       font-family: 'Muli', sans-serif;
       font-weight: 300;
-      margin: 0;
+      // font-style: italic;
+    }
+    fieldset{
       font-size: 16pt;
     }
+
+    input, textarea, select{
+      float: right;
+      background-color: #ddd;
+    }
+
+    label{
+      display: inline-block;
+      font-size: 14pt;
+      position: relative;
+      margin: 0.5em;
+      margin-left: 0;
+      padding-left: 0;
+      width: 100%;
+    
+      span{
+        display: block;
+        float: left;
+      }
+
+      input[type=text]{
+        font-style: italic;
+        font-size: 12pt;
+        color: black;
+        margin: 0;
+        width: 70%
+      }
+      select{
+        display: block;
+        width: 71%;
+        // border-width: 2px;
+      }
+      option{
+        background-color: #ddd;
+        color: #aaa;
+        font-style: italic;
+        font-size: 12pt;
+      }
+      textarea{
+        color: black;
+        font-size: 12pt;
+        height: 4em;
+        width: 70%;
+        margin: 0;
+      }
+    }
+  }
+
+  input[type=submit]{
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Muli', sans-serif;
+    font-size: 14px;
+    // width: 20%;
+    padding: 10px;
+    margin: 2px;
+  }
+  input[value=save]{
+    font-weight: bold;
+    color: $text-color;
+    // background-color: black;
+  }
+  input[value=cancel]{
+
   }
 }
 

@@ -1,22 +1,26 @@
 <form name="nodeform" novalidate>
   <div ng-show="showCluster"> 
     <fieldset>
-      <input type="text" name="abbrev" ng-model="displayObj.cluster.abbrev"/>
-      <input type="text" name="name" ng-model="displayObj.cluster.name"/>
-      <input type="text" name="description" ng-model="displayObj.cluster.description"/>
+    <legend>Edit Cluster Details</legend>
+      <label><span>Abbreviation:</span> <input type="text" name="abbrev" ng-model="displayObj.cluster.abbrev"/></label>
+      <label><span>Name:</span> <input type="text" name="name" ng-model="displayObj.cluster.name"/></label>
+      <!-- <label>Description: <input type="text" name="description" ng-model="displayObj.cluster.description"/></label> -->
+      <label><span>Description:</span> <textarea name="description" form="nodeform" ng-model="displayObj.cluster.description"></textarea></label>
+      <!-- <label><span>Dependencies:</span>
       <select multiple type="text" name="dependancy" ng-model="abbrevList" ng-options="obj.key for obj in abbrevList" required="" ng-click="selectItem()">
       <!-- <option value="">Select Predessor</option> -->
-      </select>
+      <!--</select></label> -->
     </fieldset>
   </div> 
   <div ng-show="!showCluster">
     <fieldset>
-      <input type="text" name="id" ng-model="displayObj.issue.number_github"/>
-      <input type="text" name="name" ng-model="displayObj.issue.title"/>
-      <input type="text" name="description" ng-model="displayObj.issue.body"/>
-      <select multiple type="text" name="dependancy" ng-model="abbrevList" ng-options="obj.key for obj in abbrevList" required="" ng-click="selectItem()">
+      <legend>Edit Issue Details</legend>
+      <label>Issue id#<input type="text" name="id" ng-model="displayObj.issue.number_github"/></label>
+      <label>Name: <input type="text" name="name" ng-model="displayObj.issue.title"/></label>
+      <label>Description: <input type="text" name="description" ng-model="displayObj.issue.body"/></label>
+      <!-- <select multiple type="text" name="dependancy" ng-model="abbrevList" ng-options="obj.key for obj in abbrevList" required="" ng-click="selectItem()"> -->
       <!-- <option value="">Select Predessor</option> -->
-      </select>
+      <!-- </select> -->
     </fieldset>
   </div>
   <input type="submit" class="btn" value="Save" ng-click="submit(id)"/>
