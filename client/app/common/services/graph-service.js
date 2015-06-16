@@ -43,7 +43,17 @@
       wrappedGraph.unlinkNodes(nodeId, downNodeId);
     });
     // remove node from graph object
+    // var parentClusterId = wrappedGraph.graph[nodeId].parent_cluster;
     delete wrappedGraph.graph[nodeId];
+    //change the cluster number count
+    // _.each(wrappedGraph.graph, function(obj){
+    //   if(obj.parent_cluster === parentClusterId){
+    //     if(obj.cluster.children_count >= 0){
+    //       obj.cluster.children_count--;
+    //     }
+    //   }
+    // });
+
     // create links between upstream and downstream nodes
     upstream.forEach(function(upNodeId) {
       downstream.forEach(function(downNodeId) {
@@ -206,11 +216,6 @@
         wrappedGraph.graph[downNodeId].upstream_nodes.splice(idx, 1);
       });
     };
-    // var downAllup = wrappedGraph.gatherAllUpNodes(downNodeId);
-    // var downAlldown = wrappedGraph.gatherAllDownNodes(downNodeId);
-    // var upAllDown = wrappedGraph.gatherAllDownNodes(upNodeId);
-    // var upAllup = wrappedGraph.gatherAllUpNodes(upNodeId);
-
     var checkUp = wrappedGraph.gatherAllUpNodes(downNodeId).hasOwnProperty(upNodeId);
     var checkDown = wrappedGraph.gatherAllDownNodes(downNodeId).hasOwnProperty(upNodeId);
     if(checkUp || checkDown){
@@ -279,7 +284,19 @@
       deleteNode: function(nodeId){
         var graphObj = this.graphObj;
         var deferred = $q.defer();
+        var clusterId = graphObj.graph[nodeId].parent_cluster;
         graphObj.deleteNode(nodeId);
+        var grandparentId = graphObj.graph.grandparent_cluster_id;
+        var saveObj = this.savedGraphObj;
+        if(Object.keys(saveObj).length > 0){
+          _.each(saveObj[grandparentId], function(obj){
+            if(obj.cluster_id === clusterId){
+              if(obj.cluster.children_count >= 0){
+                obj.cluster.children_count--;
+              }
+            }
+          });
+        }
         deferred.resolve('OK');
         return deferred.promise;
       },
@@ -315,7 +332,6 @@
         downstreamId = Number(downstreamId);
         upstreamId = Number(upstreamId);
         graphObj.linkNodes(downstreamId, upstreamId);
-        // graphObj.transitiveReduction(downstreamId, upstreamId);
         deferred.resolve('OK');
         return deferred.promise;
       },
@@ -329,7 +345,6 @@
         var deferred = $q.defer();
         var serviceObj = this;
         var saved = this.savedGraphObj;
-        // cluster_id = (cluster_id === undefined) ? 1 : cluster_id;
         if(saved.hasOwnProperty(cluster_id)){
           serviceObj.graphObj.graph = saved[cluster_id];
           deferred.resolve(serviceObj.graphObj);
