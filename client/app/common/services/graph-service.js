@@ -1,12 +1,12 @@
-/*
+  /*
 * @Author: kuychaco
 * @Date:   2015-06-07 10:37:28
-* @Last Modified by:   ChalrieHwang
+* @Last Modified by:   cwhwang1986
 */
 
 'use strict';
 
-(function(angular) {
+(function(angular, _) {
 
 
 // ---------------------------------------------------------
@@ -59,10 +59,6 @@
   WrappedGraph.prototype.addCluster = function(obj) {
     this.graph[300] = obj;
   };
-
-
-
-
 
   //Gather all possible upstream nodes
   WrappedGraph.prototype.gatherAllUpNodes = function(nodeId) {
@@ -167,6 +163,19 @@
       var upNodeImmediateDown = wrappedGraph.graph[upNodeId].downstream_nodes;
       //Node need to be delete by upNode
       var deletionQue = [];
+      var deleteDown = [];
+      upNodeImmediateDown.forEach(function(downId){
+        if(wrappedGraph.gatherAllDownNodes(downNodeId).hasOwnProperty(downId)){
+          deleteDown.push(downId);
+        }
+      });
+
+      deleteDown.forEach(function(downId){
+        var index = wrappedGraph.graph[upNodeId].downstream_nodes.indexOf(downId);
+        wrappedGraph.graph[upNodeId].downstream_nodes.splice(index, 1);
+        var id = wrappedGraph.graph[downId].upstream_nodes.indexOf(upNodeId);
+        wrappedGraph.graph[downId].upstream_nodes.splice(id, 1);
+      });
 
       upNodeImmediateDown.forEach(function(downId){
         var idx = downNodeImmediateDown.indexOf(downId); 
@@ -180,22 +189,38 @@
         var idx = wrappedGraph.graph[id].upstream_nodes.indexOf(upNodeId);
         wrappedGraph.graph[id].upstream_nodes.splice(idx,1);
       });
+
     };
-    // var downAllup = this.gatherAllUpNodes(downNodeId);
-    // var downAlldown = this.gatherAllDownNodes(downNodeId);
-    // var upAllDown = this.gatherAllDownNodes(upNodeId);
-    // var upAllup = this.gatherAllUpNodes(upNodeId);
+    var checkImmediateUp = function(downNodeId, upNodeId){
+      var downNodeImmediateUp = wrappedGraph.graph[downNodeId].upstream_nodes;
+      //Node need to be delete by upNode
+      var deleteUp = [];
+      downNodeImmediateUp.forEach(function(upId){
+        if(wrappedGraph.gatherAllUpNodes(upNodeId).hasOwnProperty(upId)){
+          deleteUp.push(upId);
+        }
+      });
+      deleteUp.forEach(function(id){
+        var index = wrappedGraph.graph[id].downstream_nodes.indexOf(downNodeId);
+        wrappedGraph.graph[id].downstream_nodes.splice(index, 1);
+        var idx = wrappedGraph.graph[downNodeId].upstream_nodes.indexOf(id);
+        wrappedGraph.graph[downNodeId].upstream_nodes.splice(idx, 1);
+      });
+    };
+    // var downAllup = wrappedGraph.gatherAllUpNodes(downNodeId);
+    // var downAlldown = wrappedGraph.gatherAllDownNodes(downNodeId);
+    // var upAllDown = wrappedGraph.gatherAllDownNodes(upNodeId);
+    // var upAllup = wrappedGraph.gatherAllUpNodes(upNodeId);
 
-
-    var checkUp = this.gatherAllUpNodes(downNodeId).hasOwnProperty(upNodeId);
-    var checkDown = this.gatherAllDownNodes(downNodeId).hasOwnProperty(upNodeId);
-
+    var checkUp = wrappedGraph.gatherAllUpNodes(downNodeId).hasOwnProperty(upNodeId);
+    var checkDown = wrappedGraph.gatherAllDownNodes(downNodeId).hasOwnProperty(upNodeId);
     if(checkUp || checkDown){
       return;
     } else {
+      checkImmediateUp(downNodeId, upNodeId);
       checkImmediateDown(downNodeId, upNodeId);
-      this.graph[upNodeId].downstream_nodes.push(Number(downNodeId));
-      this.graph[downNodeId].upstream_nodes.push(Number(upNodeId));
+      wrappedGraph.graph[upNodeId].downstream_nodes.push(Number(downNodeId));
+      wrappedGraph.graph[downNodeId].upstream_nodes.push(Number(upNodeId));
     }
   };
 
@@ -292,15 +317,12 @@
         var deferred = $q.defer();
         downstreamId = Number(downstreamId);
         upstreamId = Number(upstreamId);
+        console.log('inservice', downstreamId, upstreamId);
         graphObj.linkNodes(downstreamId, upstreamId);
         // graphObj.transitiveReduction(downstreamId, upstreamId);
         deferred.resolve('OK');
         return deferred.promise;
       },
-
-
-
-
 
       /**
        * get graph from server
@@ -314,6 +336,37 @@
         $http.get('http://localhost:3030/api/graph/' + cluster_id)
           .success(function(data, status) {
             var wrappedGraph = new WrappedGraph(data);
+            var skipKeys = ['deleted', 'enter', 'exit', 'parent_cluster_id','grandparent_cluster_id'];
+            var cleanData = function(graphObj){
+              _.each(graphObj, function(obj, key){
+                if(skipKeys.indexOf(key) === -1){
+                  if(obj.downstream_nodes === null){
+                    obj.downstream_nodes = [];
+                  }
+                  if(obj.upstream_nodes === null){
+                    obj.upstream_nodes = [];
+                  }
+                }
+              });
+              _.each(graphObj, function(obj, key){
+                if(skipKeys.indexOf(key) === -1){
+                  if(Number(obj.cluster_id) !== Number(graphObj.parent_cluster_id)){
+                    obj.downstream_nodes.forEach(function(id){
+                      if(graphObj[id].upstream_nodes.indexOf(id) === -1){
+                        graphObj[id].upstream_nodes.push(Number(key));
+                      }
+                    });
+                    obj.upstream_nodes.forEach(function(id){
+                      if(graphObj[id].downstream_nodes.indexOf(id) === -1){
+                        graphObj[id].downstream_nodes.push(Number(key));
+                      }
+                    });
+                  }
+                }
+              });
+              return graphObj;
+            };
+            wrappedGraph.graph = cleanData(wrappedGraph.graph);
             serviceObj.graphObj = wrappedGraph;
             console.log('Success', status);
             deferred.resolve(wrappedGraph);
@@ -332,7 +385,7 @@
         var deferred = $q.defer();
         var graphObj = this.graphObj.graph;
 
-        $http.post('http://localhost:3030/api/graph/'+graphObj.parent_cluster.id, graphObj)
+        $http.post('http://localhost:54538/api/graph/'+graphObj.parent_cluster.id, graphObj)
 
           .success(function(response, status) {
             console.log('successful post:', status);
@@ -496,4 +549,4 @@
     .module('cd-app.common')
     .factory('GraphService', GraphServiceFactory);
 
-})(angular);
+})(angular, _);
