@@ -1,7 +1,7 @@
 <div class="info-panel" ng-show="showInfo">
   <div ng-show = "!display">
     <h3>
-      Issue #{{displayId}}: {{displayTitle}}
+      Issue {{displayId}}: {{displayTitle}}
     </h3>
     <h4>
       {{displayState}}
@@ -10,7 +10,7 @@
       {{label}}
     </h4>
     <h4>
-      {{displayAssignee}}
+      Assignee: {{displayAssignee}}
     </h4>
     <hr>
     <p>
@@ -19,7 +19,7 @@
   </div>
   <div ng-show = "display">
     <h3>
-      {{displayId}}
+      {{displayAbbrev}}
     </h3>
     <h3>
       {{displayTitle}}
