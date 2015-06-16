@@ -2,7 +2,7 @@
 * @Author: justinwebb
 * @Date:   2015-06-03 15:30:09
 * @Last Modified by:   cwhwang1986
-* @Last Modified time: 2015-06-15 12:01:31
+* @Last Modified time: 2015-06-15 15:59:29
 */
 
 'use strict';
@@ -18,7 +18,7 @@
     var exitId;
     var parentId;
     var mouseOverId;
-    // var parentData;
+    // var previousData;
     /**
     * Define function for double clicks events and re-fetch the data from server
     */
@@ -28,6 +28,8 @@
       var nodeId,
           nodeClass,
           promise;
+      var parentId = $scope.graphData.grandparent_cluster_id;
+      var grandparentCluster = $scope.graphData[parentId].parent_cluster;
       if (clickObjType === 'circle'){
         nodeId = Number($event.target.__data__);
         nodeClass = $scope.g.node(nodeId).class;
@@ -41,10 +43,8 @@
           var clusterId = Number($scope.g.node(nodeId).clusterId);
           promise = GraphService.getGraph(clusterId);
         } else {
-          var parentId = Number($scope.g.node(nodeId).parentCluster);
-          var parentClusterId = $scope.g.node(parentId).parentCluster;
-          if(parentClusterId){
-            promise = GraphService.getGraph(parentClusterId);
+          if(grandparentCluster){
+            promise = GraphService.getGraph(grandparentCluster);
           } 
         }
         if(promise){
@@ -318,7 +318,7 @@
     $scope.graphData = {};
     $scope.$on('newGraphDw',function(e,d){
       $scope.graphData = d;
-      var skipKeys = ['deleted', 'enter', 'exit', 'parent_cluster'];
+      var skipKeys = ['deleted', 'enter', 'exit', 'parent_cluster_id','grandparent_cluster_id'];
       if($scope.graphData){
         _.each($scope.graphData, function(obj, key){
           if(skipKeys.indexOf(key) === -1 ){
@@ -355,7 +355,7 @@
      * Watch the data changes and re-render the graph
      */
     $scope.$watchCollection('graphData', function(newVal){
-      var skipKeys = ['deleted', 'enter', 'exit', 'parent_cluster'];
+      var skipKeys = ['deleted', 'enter', 'exit', 'parent_cluster_id', 'grandparent_cluster_id'];
       if(newVal){
         _.each(newVal, function(obj, key){
           if(skipKeys.indexOf(key) === -1 ){
