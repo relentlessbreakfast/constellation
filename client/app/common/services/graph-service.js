@@ -29,11 +29,11 @@
     var upstream = [];
     var downstream = [];
     // store upstream and downstream arrays
-    if(this.graph[nodeId].upstream_nodes){
-      upstream = this.graph[nodeId].upstream_nodes.slice();
+    if(wrappedGraph.graph[nodeId].upstream_nodes){
+      upstream = wrappedGraph.graph[nodeId].upstream_nodes.slice();
     }
-    if(this.graph[nodeId].downstream_nodes){
-      downstream = this.graph[nodeId].downstream_nodes.slice();
+    if(wrappedGraph.graph[nodeId].downstream_nodes){
+      downstream = wrappedGraph.graph[nodeId].downstream_nodes.slice();
     }
     // break links to nodeId
     upstream.forEach(function(upNodeId) {
@@ -48,7 +48,7 @@
     upstream.forEach(function(upNodeId) {
       downstream.forEach(function(downNodeId) {
         // linkNodes calls transitive reduction
-        wrappedGraph.linkNodes(upNodeId, downNodeId);
+        wrappedGraph.linkNodes(downNodeId, upNodeId);
       });
     });
     //add deleted node to
@@ -229,21 +229,10 @@
     var graphObj = this.graph;
     downNodeId = Number(downNodeId);
     upNodeId = Number(upNodeId);
-    if(graphObj[upNodeId].downstream_nodes){
-      graphObj[upNodeId].downstream_nodes.forEach(function(nodeId, i, arr) {
-        if (nodeId === Number(downNodeId)) {
-          arr.splice(i,1);
-        }
-      });
-    }
-    // remove upNodeId from downNodeId's upstream array
-    if(graphObj[downNodeId].upstream_nodes){
-      graphObj[downNodeId].upstream_nodes.forEach(function(nodeId, i, arr) {
-        if (nodeId === Number(upNodeId)) {
-          arr.splice(i,1);
-        }
-      });
-    }
+    var idx = graphObj[upNodeId].downstream_nodes.indexOf(downNodeId);
+    graphObj[upNodeId].downstream_nodes.splice(idx,1);
+    var index = graphObj[downNodeId].upstream_nodes.indexOf(upNodeId);
+    graphObj[downNodeId].upstream_nodes.splice(index,1);
   };
 
   WrappedGraph.prototype.countNodes = function(){

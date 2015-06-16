@@ -2,7 +2,7 @@
 * @Author: ChalrieHwang
 * @Date:   2015-06-05 17:38:31
 * @Last Modified by:   cwhwang1986
-* @Last Modified time: 2015-06-15 16:22:31
+* @Last Modified time: 2015-06-15 18:04:41
 */
 
 'use strict';
@@ -59,7 +59,6 @@
                   promise.then(function(result){
                     if(result){
                       $scope.graphData = $scope.graph.graphObj.graph;
-                      console.log('service work', $scope.graphData);
                       d3.selectAll('.cluster').remove();
                       $scope.$emit('addPredecessor', $scope.graphData);
                     }
