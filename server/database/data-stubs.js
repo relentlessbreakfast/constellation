@@ -1,7 +1,7 @@
 /*
 * @Author: kuychaco
 * @Date:   2015-06-07 14:42:36
-* @Last Modified by:   kuychaco
+* @Last Modified by:   ChalrieHwang
 */
 
 'use strict';
@@ -1449,80 +1449,80 @@ var clusters = [
     name: 'Authentication',
     description: 'Set up authentication',
     creator: 7910250,
-    children_count: 5,
-    children_complete: 0
+    children_count: 2,
+    children_complete: 1
   },
   {
     abbrev: 'DB',
     name: 'Database',
     description: 'Set up database',
     creator: 7910250,
-    children_count: 5,
-    children_complete: 0
+    children_count: 2,
+    children_complete: 1
   },
   {
     abbrev: 'ExAPI',
     name: 'Github API',
     description: 'Pull info from Github API',
     creator: 7910250,
-    children_count: 5,
-    children_complete: 0
+    children_count: 2,
+    children_complete: 1
   },
   {
     abbrev: 'View Plan',
     name: 'Plan out User Interface',
     description: 'Mock up user interface',
     creator: 7910250,
-    children_count: 5,
-    children_complete: 0
+    children_count: 2,
+    children_complete: 1
   },
   {
     abbrev: 'Model',
     name: 'Design data model',
     description: 'Set up app models',
     creator: 7910250,
-    children_count: 5,
-    children_complete: 0
+    children_count: 2,
+    children_complete: 1
   },
   {
     abbrev: 'Contr',
     name: 'Data controller',
     description: 'Set up data controller',
     creator: 7910250,
-    children_count: 5,
-    children_complete: 0
+    children_count: 6,
+    children_complete: 4
   },
   {
     abbrev: 'View',
     name: 'Implement angular front end',
     description: 'Create angular front end',
     creator: 7910250,
-    children_count: 5,
-    children_complete: 0
+    children_count: 2,
+    children_complete: 2
   },
   {
     abbrev: 'Styling',
     name: 'Polish the UI',
     description: 'CSS makeover',
     creator: 7910250,
-    children_count: 5,
-    children_complete: 0
+    children_count: 2,
+    children_complete: 1
   },
   {
     abbrev: 'Integ',
     name: 'Integration',
     description: 'Combine all parts',
     creator: 7910250,
-    children_count: 5,
-    children_complete: 0
+    children_count: 2,
+    children_complete: 1
   },
   {
     abbrev: 'Deploy',
     name: 'Deploy the application',
     description: 'Deploy the application',
     creator: 7910250,
-    children_count: 5,
-    children_complete: 0
+    children_count: 2,
+    children_complete: 1
   }
 ];
 

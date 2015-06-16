@@ -1,8 +1,8 @@
 /* 
 * @Author: justinwebb
 * @Date:   2015-06-03 15:30:09
-* @Last Modified by:   cwhwang1986
-* @Last Modified time: 2015-06-15 15:59:29
+* @Last Modified by:   ChalrieHwang
+* @Last Modified time: 2015-06-16 11:03:00
 */
 
 'use strict';
@@ -28,8 +28,6 @@
       var nodeId,
           nodeClass,
           promise;
-      var parentId = $scope.graphData.grandparent_cluster_id;
-      var grandparentCluster = $scope.graphData[parentId].parent_cluster;
       if (clickObjType === 'circle'){
         nodeId = Number($event.target.__data__);
         nodeClass = $scope.g.node(nodeId).class;
@@ -39,11 +37,15 @@
       } 
       //click cluster
       if(nodeClasses.indexOf(nodeClass) !== -1){
+        var parentCluster = Number($scope.graphData[nodeId].parent_cluster);
         if(nodeClass === 'cluster'){
           var clusterId = Number($scope.g.node(nodeId).clusterId);
+          GraphService.saveData(parentCluster, $scope.graphData);
           promise = GraphService.getGraph(clusterId);
         } else {
+          var grandparentCluster = $scope.graphData.grandparent_cluster_id;
           if(grandparentCluster){
+            GraphService.saveData(parentCluster, $scope.graphData);
             promise = GraphService.getGraph(grandparentCluster);
           } 
         }
@@ -96,24 +98,6 @@
     var renderGraph = function(canvas){
       var render = new dagreD3.render();
       render(d3.select('svg#canvas g'), canvas);
-    };
-
-    /**
-     * Define function for resizing the label showing on the node
-     */
-    var reSizeText = function(label){
-      var labelName = label.slice(0,9);
-      var len = labelName.length;
-      if(len === 2){
-        labelName = '   ' + labelName; 
-      }else if(len === 3){
-        labelName = '   ' + labelName; 
-      } else if (len <= 5){
-        labelName = '  ' + labelName; 
-      } else if (len <= 7){
-        labelName = ' ' + labelName; 
-      } 
-      return labelName;
     };
 
     /**
@@ -296,18 +280,16 @@
       tspan.forEach(function(text){
         var id = Number(text.__data__);
         var label = $scope.g.node(id).labelName;
-        text.innerHTML = reSizeText(label);
-        //Offset the label to center of the node
-        if(label.length % 2 === 0){
-          var transformTag = text.parentNode.parentNode;
-          var x = Number(transformTag.transform.animVal[0].matrix.e) + 2;
-          var y = transformTag.transform.animVal[0].matrix.f; 
-          transformTag.setAttribute('transform','translate(' + x + ',' + y +')');
-        }
+        text.innerHTML = label;
       });
-      //Add the parent node object to graph object
-      // createClusterNode(data[parentId]);
-      //Change the graph object size
+      if(d3.selectAll('svg#canvas g.label g')[0][0]){
+        var shiftY = d3.selectAll('svg#canvas g.label g')[0][0].transform.animVal[0].matrix.f;
+        d3.selectAll('svg#canvas text')
+          .attr('text-anchor', 'middle');
+        d3.selectAll('svg#canvas g.label g')
+          .attr('transform','translate(' + 0 + ',' + shiftY +')');
+      }
+
       var svg = d3.select('svg#canvas');
       var inner = svg.select('g');
       $scope.$parent.size = [inner[0][0].getBBox().width, 
