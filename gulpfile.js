@@ -2,7 +2,7 @@
 * @Author: justinwebb
 * @Date:   2015-05-26 15:18:17
 * @Last Modified by:   justinwebb
-* @Last Modified time: 2015-06-13 19:20:12
+* @Last Modified time: 2015-06-15 23:07:17
 */
 
 'use strict';
@@ -104,7 +104,7 @@ gulp.task('clean', function cleanPreviousBuild (cb) {
   cb();
 });
 
-gulp.task('sass', ['clean', 'copy'], function compileSassFiles (cb) {
+gulp.task('sass', ['copy'], function compileSassFiles (cb) {
   gulp.src(config.appFiles.scss)
     .on('error', sass.logError)
     .pipe(sourcemaps.init())
@@ -120,7 +120,7 @@ gulp.task('sass', ['clean', 'copy'], function compileSassFiles (cb) {
   cb();
 });
 
-gulp.task('copy', ['clean'], function copyMediaFiles (cb) {
+gulp.task('copy', function copyMediaFiles (cb) {
   var media = [
     '!'+ config.client +'/assets/styles/**/*',
     config.client +'/assets/**/*'
