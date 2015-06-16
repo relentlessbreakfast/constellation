@@ -1,7 +1,7 @@
   /*
 * @Author: kuychaco
 * @Date:   2015-06-07 10:37:28
-* @Last Modified by:   cwhwang1986
+* @Last Modified by:   ChalrieHwang
 */
 
 'use strict';
@@ -260,8 +260,17 @@
 // Service Definition
 // ---------------------------------------------------------
   var GraphServiceFactory = function($http, $q) {
+    
     return {
       graphObj: {},
+      savedGraphObj:{},
+
+      /**
+       * Define function to save the changed data
+       */
+      saveData: function(endpoint, data){
+        this.savedGraphObj[endpoint] = data;
+      },
 
       /**
        * Delete node and Run transitive reduction check
@@ -319,48 +328,54 @@
       getGraph: function(cluster_id) {
         var deferred = $q.defer();
         var serviceObj = this;
-        cluster_id = (cluster_id === undefined) ? 1 : cluster_id;
-        $http.get('http://localhost:3030/api/graph/' + cluster_id)
-          .success(function(data, status) {
-            var wrappedGraph = new WrappedGraph(data);
-            var skipKeys = ['deleted', 'enter', 'exit', 'parent_cluster_id','grandparent_cluster_id'];
-            var cleanData = function(graphObj){
-              _.each(graphObj, function(obj, key){
-                if(skipKeys.indexOf(key) === -1){
-                  if(obj.downstream_nodes === null){
-                    obj.downstream_nodes = [];
+        var saved = this.savedGraphObj;
+        // cluster_id = (cluster_id === undefined) ? 1 : cluster_id;
+        if(saved.hasOwnProperty(cluster_id)){
+          serviceObj.graphObj.graph = saved[cluster_id];
+          deferred.resolve(serviceObj.graphObj);
+        } else {
+          $http.get('http://localhost:3030/api/graph/' + cluster_id)
+            .success(function(data, status) {
+              var wrappedGraph = new WrappedGraph(data);
+              var skipKeys = ['deleted', 'enter', 'exit', 'parent_cluster_id','grandparent_cluster_id'];
+              var cleanData = function(graphObj){
+                _.each(graphObj, function(obj, key){
+                  if(skipKeys.indexOf(key) === -1){
+                    if(obj.downstream_nodes === null){
+                      obj.downstream_nodes = [];
+                    }
+                    if(obj.upstream_nodes === null){
+                      obj.upstream_nodes = [];
+                    }
                   }
-                  if(obj.upstream_nodes === null){
-                    obj.upstream_nodes = [];
+                });
+                _.each(graphObj, function(obj, key){
+                  if(skipKeys.indexOf(key) === -1){
+                    if(Number(obj.cluster_id) !== Number(graphObj.parent_cluster_id)){
+                      obj.downstream_nodes.forEach(function(id){
+                        if(graphObj[id].upstream_nodes.indexOf(id) === -1){
+                          graphObj[id].upstream_nodes.push(Number(key));
+                        }
+                      });
+                      obj.upstream_nodes.forEach(function(id){
+                        if(graphObj[id].downstream_nodes.indexOf(id) === -1){
+                          graphObj[id].downstream_nodes.push(Number(key));
+                        }
+                      });
+                    }
                   }
-                }
-              });
-              _.each(graphObj, function(obj, key){
-                if(skipKeys.indexOf(key) === -1){
-                  if(Number(obj.cluster_id) !== Number(graphObj.parent_cluster_id)){
-                    obj.downstream_nodes.forEach(function(id){
-                      if(graphObj[id].upstream_nodes.indexOf(id) === -1){
-                        graphObj[id].upstream_nodes.push(Number(key));
-                      }
-                    });
-                    obj.upstream_nodes.forEach(function(id){
-                      if(graphObj[id].downstream_nodes.indexOf(id) === -1){
-                        graphObj[id].downstream_nodes.push(Number(key));
-                      }
-                    });
-                  }
-                }
-              });
-              return graphObj;
-            };
-            wrappedGraph.graph = cleanData(wrappedGraph.graph);
-            serviceObj.graphObj = wrappedGraph;
-            console.log('Success', status);
-            deferred.resolve(wrappedGraph);
-          })
-          .error(function(data, status) {
-            console.log('error on get:', status);
-          });
+                });
+                return graphObj;
+              };
+              wrappedGraph.graph = cleanData(wrappedGraph.graph);
+              serviceObj.graphObj = wrappedGraph;
+              console.log('Success', status);
+              deferred.resolve(wrappedGraph);
+            })
+            .error(function(data, status) {
+              console.log('error on get:', status);
+            });
+        }
         return deferred.promise;
       },
 

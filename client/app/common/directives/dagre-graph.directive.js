@@ -2,7 +2,7 @@
 * @Author: justinwebb
 * @Date:   2015-06-03 15:30:09
 * @Last Modified by:   ChalrieHwang
-* @Last Modified time: 2015-06-16 06:42:43
+* @Last Modified time: 2015-06-16 09:40:41
 */
 
 'use strict';
@@ -37,12 +37,15 @@
       } 
       //click cluster
       if(nodeClasses.indexOf(nodeClass) !== -1){
+        var parentCluster = Number($scope.graphData[nodeId].parent_cluster);
         if(nodeClass === 'cluster'){
           var clusterId = Number($scope.g.node(nodeId).clusterId);
+          GraphService.saveData(parentCluster, $scope.graphData);
           promise = GraphService.getGraph(clusterId);
         } else {
           var grandparentCluster = $scope.graphData.grandparent_cluster_id;
           if(grandparentCluster){
+            GraphService.saveData(parentCluster, $scope.graphData);
             promise = GraphService.getGraph(grandparentCluster);
           } 
         }
