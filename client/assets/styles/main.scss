@@ -30,6 +30,7 @@
 // VARIABLES –––––––––––––––––––––––––––––––––––––––––––––––
 $text-color: white;
 $top-bar-height: 40px;
+$node-background: #272727;
 // –––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
 
@@ -125,7 +126,13 @@ div.wrapper {
     }   
   }
 
-
+  text {
+    font-family: 'Ubuntu Mono', monospace;
+    font-weight: 700;
+    stroke: $text-color; //#534741;
+    stroke-width: 0; //0.8px;
+    fill: $text-color;
+  }
 
   div.information { // migrate these styles to div.info-panel
     @include box-sizing(border-box);
@@ -216,10 +223,10 @@ div.wrapper {
   width: inherit;
 }
 .exit {
-  fill: $text-color;
+  fill: $node-background;
   opacity: 1;
-  stroke: #cc0000;
-  stroke-opacity: 0.6;
+  stroke: #FF8B4D;
+  stroke-opacity: 1;
   stroke-width: 7px;
 }
 
@@ -227,15 +234,15 @@ div.wrapper {
   opacity: 1;
   stroke: #d1b6f1;
   stroke-width: 12px;
-  stroke-opacity: 0.7;
+  stroke-opacity: 1;
   cursor:pointer;
 }
 
 .enter {
   opacity: 1;
-  fill: $text-color;
-  stroke-opacity: 0.6;
-  stroke: #cc0000;
+  fill: $node-background;
+  stroke-opacity: 1;
+  stroke: #FF8B4D;
   stroke-width: 7px;
 }
 
@@ -243,16 +250,16 @@ div.wrapper {
   opacity: 1;
   stroke: #d1b6f1;
   stroke-width: 12px;
-  stroke-opacity: 0.7;
+  stroke-opacity: 1;
   cursor:pointer;
 }
 
 .cluster {
   opacity: 1;
-  stroke: #154de5;
-  fill: $text-color;
+  stroke: #1E89BD;
+  fill: $node-background;
   stroke-width: 7px;
-  stroke-opacity: 0.7;
+  stroke-opacity: 1;
   stroke-linecap: "round";
 }
 
@@ -260,7 +267,7 @@ div.wrapper {
   opacity: 1;
   stroke: #ffff00;
   stroke-width: 12px;
-  stroke-opacity: 0.7;
+  stroke-opacity: 1;
   cursor: pointer;
 }
 
@@ -268,16 +275,16 @@ div.wrapper {
   opacity: 1;
   stroke: #ffa500;
   stroke-width: 12px;
-  stroke-opacity: 0.7;
+  stroke-opacity: 1;
   cursor: pointer;
 }
 
 .issue {
   opacity: 1;
-  fill: $text-color;
+  fill: $node-background;
   stroke: #66cdaa;
   stroke-width: 7px;
-  stroke-opacity: 0.7;
+  stroke-opacity: 1;
 }
 
 .issue:hover {
@@ -285,7 +292,7 @@ div.wrapper {
   fill: $text-color;
   stroke: #fff68f;
   stroke-width: 12px;
-  stroke-opacity: 0.7;
+  stroke-opacity: 1;
   cursor: pointer;
 }
 text:hover {
@@ -295,14 +302,6 @@ text:hover {
 
 .label{
   align: center;
-}
-
-text {
-  font-family: monospace;
-  stroke: #534741;
-  stroke-width: 0.8px;
-  fill: #534741;
-  // align: center;
 }
 
 div.name {
