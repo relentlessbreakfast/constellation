@@ -2,7 +2,7 @@
 * @Author: justinwebb
 * @Date:   2015-06-03 15:30:09
 * @Last Modified by:   ChalrieHwang
-* @Last Modified time: 2015-06-16 09:40:41
+* @Last Modified time: 2015-06-16 11:03:00
 */
 
 'use strict';
@@ -99,24 +99,6 @@
       var render = new dagreD3.render();
       render(d3.select('svg#canvas g'), canvas);
     };
-
-    // /**
-    //  * Define function for resizing the label showing on the node
-    //  */
-    // var reSizeText = function(label){
-    //   var labelName = label.slice(0,9);
-    //   var len = labelName.length;
-    //   if(len === 2){
-    //     labelName = '   ' + labelName; 
-    //   }else if(len === 3){
-    //     labelName = '   ' + labelName; 
-    //   } else if (len <= 5){
-    //     labelName = '  ' + labelName; 
-    //   } else if (len <= 7){
-    //     labelName = ' ' + labelName; 
-    //   } 
-    //   return labelName;
-    // };
 
     /**
      * Define function to create node in graph object
@@ -299,25 +281,15 @@
         var id = Number(text.__data__);
         var label = $scope.g.node(id).labelName;
         text.innerHTML = label;
-        // text.innerHTML = reSizeText(label);
-        //Offset the label to center of the node
-        // if(label.length % 2 === 0){
-        //   var transformTag = text.parentNode.parentNode;
-        //   var x = Number(transformTag.transform.animVal[0].matrix.e) + 2;
-        //   var y = transformTag.transform.animVal[0].matrix.f; 
-        //   transformTag.setAttribute('transform','translate(' + x + ',' + y +')');
-        // }
       });
-      // var shiftX = d3.selectAll('svg#canvas g.label g')[0][0].transform.animVal[0].matrix.e;
-      var shiftY = d3.selectAll('svg#canvas g.label g')[0][0].transform.animVal[0].matrix.f;
+      if(d3.selectAll('svg#canvas g.label g')[0][0]){
+        var shiftY = d3.selectAll('svg#canvas g.label g')[0][0].transform.animVal[0].matrix.f;
+        d3.selectAll('svg#canvas text')
+          .attr('text-anchor', 'middle');
+        d3.selectAll('svg#canvas g.label g')
+          .attr('transform','translate(' + 0 + ',' + shiftY +')');
+      }
 
-      d3.selectAll('svg#canvas text')
-        .attr('text-anchor', 'middle');
-      d3.selectAll('svg#canvas g.label g')
-        .attr('transform','translate(' + 0 + ',' + shiftY +')');
-      //Add the parent node object to graph object
-      // createClusterNode(data[parentId]);
-      //Change the graph object size
       var svg = d3.select('svg#canvas');
       var inner = svg.select('g');
       $scope.$parent.size = [inner[0][0].getBBox().width, 
