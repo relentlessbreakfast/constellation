@@ -1,8 +1,8 @@
 /* 
 * @Author: justinwebb
 * @Date:   2015-06-03 15:30:09
-* @Last Modified by:   cwhwang1986
-* @Last Modified time: 2015-06-15 15:59:29
+* @Last Modified by:   ChalrieHwang
+* @Last Modified time: 2015-06-15 23:54:36
 */
 
 'use strict';
@@ -28,8 +28,6 @@
       var nodeId,
           nodeClass,
           promise;
-      var parentId = $scope.graphData.grandparent_cluster_id;
-      var grandparentCluster = $scope.graphData[parentId].parent_cluster;
       if (clickObjType === 'circle'){
         nodeId = Number($event.target.__data__);
         nodeClass = $scope.g.node(nodeId).class;
@@ -43,6 +41,7 @@
           var clusterId = Number($scope.g.node(nodeId).clusterId);
           promise = GraphService.getGraph(clusterId);
         } else {
+          var grandparentCluster = $scope.graphData.grandparent_cluster_id;
           if(grandparentCluster){
             promise = GraphService.getGraph(grandparentCluster);
           } 
