@@ -127,7 +127,6 @@
 
   /** Given a particular node and a new dependency (new upstream node) **/
   WrappedGraph.prototype.transitiveReduction = function(nodeId, newUpNodeId) {
-    console.log('transitive');
     // gather all upstream nodeIds
     var catalog = this.gatherAllUpNodes(nodeId);
     // remove all uplinks from node at nodeId
@@ -317,7 +316,6 @@
         var deferred = $q.defer();
         downstreamId = Number(downstreamId);
         upstreamId = Number(upstreamId);
-        console.log('inservice', downstreamId, upstreamId);
         graphObj.linkNodes(downstreamId, upstreamId);
         // graphObj.transitiveReduction(downstreamId, upstreamId);
         deferred.resolve('OK');

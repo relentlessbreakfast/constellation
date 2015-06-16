@@ -1,8 +1,8 @@
 /* 
 * @Author: justinwebb
 * @Date:   2015-05-22 19:51:08
-* @Last Modified by:   ChalrieHwang
-* @Last Modified time: 2015-06-15 12:24:07
+* @Last Modified by:   cwhwang1986
+* @Last Modified time: 2015-06-15 15:55:25
 */
 
 'use strict';
@@ -58,12 +58,18 @@
       $scope.showForm = false;
       return;
     });
+    $scope.$on('addPredecessor', function($event, data){
+      $scope.$broadcast('newGraphDw', data);
+      return;
+    });
+    $scope.$on('delete', function($event, data){
+      $scope.$broadcast('newGraphDw', data);
+      return;
+    });
     $scope.$on('placeNode', function($event, data){
       var entryId =  Number($scope.graph.enter);
-      console.log('entry', entryId);
       $scope.graph[entryId].downstream_nodes.push(Number(data));
       $scope.graph[data].upstream_nodes.push(entryId);
-      console.log('place',$scope.graph);
       $scope.$broadcast('newGraphDw', $scope.graph);
       return;
     });
