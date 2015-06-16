@@ -1,8 +1,8 @@
 /* 
 * @Author: ChalrieHwang
 * @Date:   2015-06-05 17:38:31
-* @Last Modified by:   ChalrieHwang
-* @Last Modified time: 2015-06-14 15:59:57
+* @Last Modified by:   cwhwang1986
+* @Last Modified time: 2015-06-15 16:22:31
 */
 
 'use strict';
@@ -42,6 +42,12 @@
       // Pop up window
       var menu1 = [
         {
+          title: 'Edit',
+          action: function() {
+            $scope.$emit('clickEdit', nodeId);
+          }
+        },
+        {
           title: 'Add Predecessor',
           action: function() {
             d3.selectAll('svg#canvas .node')
@@ -53,8 +59,9 @@
                   promise.then(function(result){
                     if(result){
                       $scope.graphData = $scope.graph.graphObj.graph;
-                      d3.selectAll('svg#canvas .cluster').remove();
-                      $scope.buildGraph($scope.graphData);
+                      console.log('service work', $scope.graphData);
+                      d3.selectAll('.cluster').remove();
+                      $scope.$emit('addPredecessor', $scope.graphData);
                     }
                   }, function(err){
                       console.log('error', err);
@@ -82,8 +89,7 @@
               promise.then(function(result){
                 if(result){
                   $scope.graphData = $scope.graph.graphObj.graph;
-                  $scope.buildGraph($scope.graphData);
-                  // $scope.graph.postGraph();
+                  $scope.$emit('delete', $scope.graphData);
                 }
               }, function(err){
                 console.log('error', err);
@@ -112,7 +118,7 @@
             });
         } else if (clickObjType === 'path') {
           list.selectAll('li')
-              .data([menu1[1]]).enter()
+              .data([menu1[2]]).enter()
               .append('li')
               .html(function(d) {
                 return d.title;
