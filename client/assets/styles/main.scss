@@ -104,7 +104,7 @@ div.wrapper {
     @include box-sizing(border-box);
     background-color: rgba(0, 0, 0, 0.4);
     border: 1px solid #979797;
-    height: 7%;
+    height: 10%;
     width: 100%;
 
     svg.queue{
@@ -119,7 +119,7 @@ div.wrapper {
     @include box-sizing(border-box);
     color: $brand-secondary;
     float: left;
-    height: 93%;
+    height: 90%;
     padding-right: 15px;
     width: 50%;
     border: 1px solid #979797;
@@ -155,7 +155,7 @@ div.wrapper {
     color: $text-color;
     float:right;
     font-size: 30px;
-    height: 93%;
+    height: 90%;
     padding: 15px;    
     width: 50%;
 
@@ -190,7 +190,7 @@ div.wrapper {
     float:right;
     font-size: 30px;
     padding: 15px;    
-    height: 93%;
+    height: 90%;
     width: 50%;
 
     fieldset, label, input, option, textarea{
@@ -354,7 +354,7 @@ div.wrapper {
 
 .node.cluster:hover {
   opacity: 1;
-  stroke: #ffa500;
+  stroke: #ee4035;
   stroke-width: 12px;
   stroke-opacity: 1;
   cursor: pointer;
@@ -394,7 +394,7 @@ div.description {
 .context-menu {
   position: absolute;
   display: none;
-  background-color: #f2f2f2;
+  background-color: #708090;
   border-radius: 4px;
   font-family: 'open sans', sans-serif; 
   font-size: 14px;
@@ -407,7 +407,7 @@ div.description {
   list-style-type: none;
   margin: 4px 0px;
   padding: 0px;
-  cursor: default;
+  cursor: pointer;
 }
 
 .context-menu ul li {
@@ -415,7 +415,7 @@ div.description {
 }
 
 .context-menu ul li:hover {
-  background-color: #4677f8;
+  background-color: #66ccff;
   color: #fefefe;
 }
 
@@ -423,4 +423,28 @@ div.description {
     width:450px;
     margin:0 auto;
     font-family:Verdana, sans-serif;
+}
+
+
+
+.chart {
+    background: #eee;
+    padding: 3px;
+}
+
+.chart div {
+  width: 0;
+  transition: all 1s ease-out;
+  -moz-transition: all 1s ease-out;
+  -webkit-transition: all 1s ease-out;
+}
+
+.chart div {
+  font: 10px sans-serif;
+  background-color: steelblue;
+  text-align: right;
+  padding: 3px;
+  margin: 5px;
+  color: white;
+  box-shadow: 2px 2px 2px #666;
 }
