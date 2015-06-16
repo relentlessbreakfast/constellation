@@ -38,7 +38,7 @@ var InfoPanelController = function ($scope) {
     } else if (objClass === 'cluster'){
       $scope.display = true;
       $scope.abbrev = infoData[id].cluster.abbrev;
-      $scope.displayTitle = infoData[id].cluster.title;
+      $scope.displayTitle = infoData[id].cluster.name;
       $scope.displayDescription = infoData[id].cluster.description;
       $scope.displayCount = infoData[id].cluster.children_count;
       $scope.displayComplete =  infoData[id].cluster.children_complete;
