@@ -12,11 +12,11 @@
     </div>
       
     <div class="wrapper">
+      <div ui-view="queuepanel" class="queue"></div>
       <div ui-view="graphpanel" class="graphpanel"></div>
-      <div ui-view="infopanel" class="information">
-      </div>
-      <div ui-view="queuepanel" class="queue">
-      </div>
+      <div ui-view="infopanel" class="information" ng-show="!showForm"></div>
+      <div ui-view="formpanel" class="form" ng-show="showForm"></div>
+
     </div>
     <!-- inject:js -->
     <!-- endinject -->

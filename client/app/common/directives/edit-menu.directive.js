@@ -1,8 +1,8 @@
 /* 
 * @Author: ChalrieHwang
-* @Date:   2015-06-05 17:38:31
+* @Date:   2015-06-14 15:48:11
 * @Last Modified by:   cwhwang1986
-* @Last Modified time: 2015-06-15 18:04:41
+* @Last Modified time: 2015-06-15 11:33:51
 */
 
 'use strict';
@@ -10,9 +10,9 @@
 
 
 // ---------------------------------------------------------
-// RightClickDirective - Right click deletion
+// EditMenuDirective - Right click deletion
 // ---------------------------------------------------------
-  var RightClickCtrl = function ($scope, GraphService) {
+  var EditMenuCtrl = function ($scope, GraphService) {
     $scope.graph = GraphService;
     $scope.show = false;
   };
@@ -27,18 +27,18 @@
           promise,
           upNodeId,
           downNodeId;
+          
       if (clickObjType === 'circle'){
         nodeId = Number($event.target.__data__);
-        nodeClass = $scope.g.node(nodeId).class;
+        nodeClass = $scope.q.node(nodeId).class;
       } else if (clickObjType === 'tspan'){
         nodeId = Number($event.path[4].__data__);
-        nodeClass = $scope.g.node(nodeId).class;
+        nodeClass = $scope.q.node(nodeId).class;
       } else if (clickObjType === 'path'){
         upNodeId = Number($event.target.__data__.v);
         downNodeId = Number($event.target.__data__.w);
-      } else if (clickObjType === 'svg'){
+      } 
 
-      }
       // Pop up window
       var menu1 = [
         {
@@ -48,25 +48,9 @@
           }
         },
         {
-          title: 'Add Predecessor',
+          title: 'Place on graph',
           action: function() {
-            d3.selectAll('svg#canvas .node')
-              .attr('class', 'cluster pick')
-              .on('click', function(clickId){
-                //Link the nodes
-                promise = $scope.graph.addPredecessor(nodeId, clickId);
-                if(promise){
-                  promise.then(function(result){
-                    if(result){
-                      $scope.graphData = $scope.graph.graphObj.graph;
-                      d3.selectAll('.cluster').remove();
-                      $scope.$emit('addPredecessor', $scope.graphData);
-                    }
-                  }, function(err){
-                      console.log('error', err);
-                  });
-                }
-              });
+            $scope.$emit('placeNode', nodeId);
           }
         },
         {
@@ -88,7 +72,8 @@
               promise.then(function(result){
                 if(result){
                   $scope.graphData = $scope.graph.graphObj.graph;
-                  $scope.$emit('delete', $scope.graphData);
+                  $scope.buildQueue($scope.graphData);
+                  // $scope.graph.postGraph();
                 }
               }, function(err){
                 console.log('error', err);
@@ -97,6 +82,7 @@
           }
         }
       ];
+
       //Append the menu div
       if(clickObjType){
         d3.selectAll('.context-menu').data([1])
@@ -117,7 +103,7 @@
             });
         } else if (clickObjType === 'path') {
           list.selectAll('li')
-              .data([menu1[2]]).enter()
+              .data([menu1[1]]).enter()
               .append('li')
               .html(function(d) {
                 return d.title;
@@ -126,24 +112,28 @@
                 d.action(d);
                 d3.select('.context-menu').style('display', 'none');
               });
-        } 
+        } else if (clickObjType === 'svg'){
+        }
         d3.select('.context-menu')
         .style('left', ($event.pageX - 2) + 'px')
         .style('top', ($event.pageY - 2) + 'px')
         .style('display', 'block');
+
         //Close the contextmenu once it got clicked 
-        d3.select('body').on('click.context-menu', function() {
+        d3.select('body').on('click', function() {
           d3.select('.context-menu').style('display', 'none');
         });
+
+        
       }
     });
   };
 
 
-  var RighClickDirective = function () {
+  var EditMenuDirective = function () {
     return {
       restrict: 'EA',
-      controller: RightClickCtrl,
+      controller: EditMenuCtrl,
       link: link,
       scope: true
     };
@@ -156,6 +146,6 @@
 
   angular
     .module('cd-app.common')
-    .directive('ngRightClick', RighClickDirective);
+    .directive('ngEditMenu', EditMenuDirective);
 
 })(angular);

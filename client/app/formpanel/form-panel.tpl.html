@@ -1,0 +1,24 @@
+<form name="nodeform" novalidate>
+  <div ng-show="showCluster"> 
+    <fieldset>
+      <input type="text" name="abbrev" ng-model="displayObj.cluster.abbrev"/>
+      <input type="text" name="name" ng-model="displayObj.cluster.name"/>
+      <input type="text" name="description" ng-model="displayObj.cluster.description"/>
+      <select multiple type="text" name="dependancy" ng-model="abbrevList" ng-options="obj.key for obj in abbrevList" required="" ng-click="selectItem()">
+      <!-- <option value="">Select Predessor</option> -->
+      </select>
+    </fieldset>
+  </div> 
+  <div ng-show="!showCluster">
+    <fieldset>
+      <input type="text" name="id" ng-model="displayObj.issue.number_github"/>
+      <input type="text" name="name" ng-model="displayObj.issue.title"/>
+      <input type="text" name="description" ng-model="displayObj.issue.body"/>
+      <select multiple type="text" name="dependancy" ng-model="abbrevList" ng-options="obj.key for obj in abbrevList" required="" ng-click="selectItem()">
+      <!-- <option value="">Select Predessor</option> -->
+      </select>
+    </fieldset>
+  </div>
+  <input type="submit" class="btn" value="Save" ng-click="submit(id)"/>
+  <input type="submit" class="btn" value="Cancel" ng-click="cancel()"/>
+</form>
