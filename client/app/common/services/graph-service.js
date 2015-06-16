@@ -368,12 +368,12 @@
                   if(skipKeys.indexOf(key) === -1){
                     if(Number(obj.cluster_id) !== Number(graphObj.parent_cluster_id)){
                       obj.downstream_nodes.forEach(function(id){
-                        if(graphObj[id].upstream_nodes.indexOf(id) === -1){
+                        if(graphObj[id].upstream_nodes.indexOf(Number(key)) === -1){
                           graphObj[id].upstream_nodes.push(Number(key));
                         }
                       });
                       obj.upstream_nodes.forEach(function(id){
-                        if(graphObj[id].downstream_nodes.indexOf(id) === -1){
+                        if(graphObj[id].downstream_nodes.indexOf(Number(key)) === -1){
                           graphObj[id].downstream_nodes.push(Number(key));
                         }
                       });
