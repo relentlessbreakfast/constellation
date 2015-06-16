@@ -2,7 +2,7 @@
 * @Author: ChalrieHwang
 * @Date:   2015-06-13 16:35:59
 * @Last Modified by:   ChalrieHwang
-* @Last Modified time: 2015-06-14 15:36:24
+* @Last Modified time: 2015-06-16 12:41:47
 */
 
 'use strict';
@@ -56,23 +56,23 @@
       inner.attr('transform', 'translate(' + xOffset + ')'+'scale(' + shrinkRate + ')');
     });
 
-    /**
-     * Define event listeners to handle zooming
-     * @return {d3} [description]
-     */
-    $scope.zoom = d3.behavior.zoom().on('zoom', function() {
-      var scale = d3.event.scale;
-      if(scale > shrinkRate) {
-        shrinkRate = shrinkRate * 1.01;
-        scale = shrinkRate;
-      } else {
-        shrinkRate = 100;
-      }
-      inner.attr('transform', 'scale(' + scale + ')');
-    });
+    // /**
+    //  * Define event listeners to handle zooming
+    //  * @return {d3} [description]
+    //  */
+    // $scope.zoom = d3.behavior.zoom().on('zoom', function() {
+    //   var scale = d3.event.scale;
+    //   if(scale > shrinkRate) {
+    //     shrinkRate = shrinkRate * 1.01;
+    //     scale = shrinkRate;
+    //   } else {
+    //     shrinkRate = 100;
+    //   }
+    //   inner.attr('transform', 'scale(' + scale + ')');
+    // });
   
-    svg.call($scope.zoom);
-    d3.select('svg.queue').on('dblclick.zoom', null);
+    // svg.call($scope.zoom);
+    // d3.select('svg.queue').on('dblclick.zoom', null);
   };
 
 
