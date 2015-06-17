@@ -208,6 +208,11 @@ div.wrapper {
       background-color: #ddd;
     }
 
+    input.btn:hover {
+      background-color: #0f4a58;
+      color: #fefefe;
+    }
+
     label{
       display: inline-block;
       font-size: 14pt;
@@ -430,7 +435,6 @@ div.description {
 }
 
 
-
 .chart {
     padding: 3px;
 }
@@ -446,8 +450,8 @@ div.description {
   font: 18px 'Muli', sans-serif; ;
   background-color: steelblue;
   text-align: right;
-  padding: 3px;
-  margin: 5px;
+  padding-right: 3px;
+  margin-right: 5px;
   color: white;
   box-shadow: 2px 2px 2px #666;
 }

@@ -1,8 +1,8 @@
 /* 
 * @Author: justinwebb
 * @Date:   2015-06-03 15:30:09
-* @Last Modified by:   ChalrieHwang
-* @Last Modified time: 2015-06-16 11:03:00
+* @Last Modified by:   cwhwang1986
+* @Last Modified time: 2015-06-16 18:37:55
 */
 
 'use strict';
@@ -275,6 +275,13 @@
       //reset the circle radius
       d3.selectAll('svg#canvas g circle')
         .attr('r',40);
+
+      d3.selectAll('svg marker')
+        .attr('markerWidth', 20)
+        .attr('markerHeight',5);
+
+      d3.selectAll('svg marker path')
+        .attr('style', 'fill: red');
       //Add label to each node
       var tspan = d3.selectAll('svg#canvas tspan')[0];
       tspan.forEach(function(text){
