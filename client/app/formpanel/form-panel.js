@@ -1,8 +1,8 @@
-/* 
+  /* 
 * @Author: cwhwang1986
 * @Date:   2015-06-14 17:23:52
-* @Last Modified by:   cwhwang1986
-* @Last Modified time: 2015-06-15 15:36:21
+* @Last Modified by:   ChalrieHwang
+* @Last Modified time: 2015-06-16 10:14:20
 */
 
 'use strict';
@@ -24,6 +24,7 @@
     $scope.$on('newGraphDown', function(){
       $scope.graphData = arguments[1];
     });
+
     $scope.$on('edit', function(){
       editId = arguments[1];
       type = $scope.graphData[editId].type;
@@ -56,7 +57,6 @@
     $scope.list=[];
     $scope.submit = function(){
       $scope.graphData[editId] = $scope.displayObj;
-      $scope.graphData[editId] = 
       $scope.$emit('closeForm', $scope.graphData);
     };
     $scope.selectItem = function(){
@@ -72,7 +72,7 @@
         $scope.graphData[editId].issue.title = name;
         $scope.graphData[editId].issue.body = description;
       }
-      $scope.$emit('closeForm');
+      $scope.$emit('closeForm', $scope.graphData);
     };
   };
 

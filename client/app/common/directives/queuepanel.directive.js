@@ -1,8 +1,8 @@
 /* 
 * @Author: cwhwang1986
 * @Date:   2015-06-10 15:40:30
-* @Last Modified by:   cwhwang1986
-* @Last Modified time: 2015-06-15 12:03:43
+* @Last Modified by:   ChalrieHwang
+* @Last Modified time: 2015-06-16 12:33:40
 */
 
 'use strict';
@@ -42,24 +42,6 @@
     var renderQueue = function(canvas){
       var render = new dagreD3.render();
       render(d3.select('svg.queue g'), canvas);
-    };
-
-    /**
-     * Define function for resizing the label showing on the node
-     */
-    var reSizeText = function(label){
-      var labelName = label.slice(0,9);
-      var len = labelName.length;
-      if(len === 2){
-        labelName = '   ' + labelName; 
-      }else if(len === 3){
-        labelName = '   ' + labelName; 
-      } else if (len <= 5){
-        labelName = '  ' + labelName; 
-      } else if (len <= 7){
-        labelName = ' ' + labelName; 
-      } 
-      return labelName;
     };
 
     /**
@@ -168,10 +150,10 @@
     $scope.buildQueue = function(data){
       $scope.q = createQueue();
       //Track parent enter, exit
-      parentId = Number(data.parent_cluster);
+      parentId = Number(data.parent_cluster_id);
       enterId = Number(data.enter);
       exitId = Number(data.exit);
-      _.each(data, function(obj, key){
+      _.each(data, function(obj){
         var tp = obj.type;
         var abbrev;
         if(obj.cluster_id){
@@ -183,14 +165,16 @@
           if(obj.upstream_nodes.length === 0 && obj.downstream_nodes.length === 0){
             createIssueNode(obj);
           } 
-        } else if (tp === 'cluster' && Number(key) !== parentId && abbrev !== 'ROOT'){
+        } else if (tp === 'cluster' && abbrev !== 'ROOT'){
           if(obj.upstream_nodes.length === 0 && obj.downstream_nodes.length === 0){
-            createClusterNode(obj);
+            if(obj.cluster_id !== parentId){
+              createClusterNode(obj);
+            }
           }
         }
       });
       //Create Edges
-      _.each(data, function(obj, key){
+      _.each(data, function(obj){
         var tp = obj.type;
         var abbrev;
         if(obj.cluster_id){
@@ -202,9 +186,11 @@
           if(obj.upstream_nodes.length === 0 && obj.downstream_nodes.length === 0){
             createEdge(obj.id);
           }
-        } else if (tp === 'cluster' && Number(key) !== parentId && abbrev !== 'ROOT'){
+        } else if (tp === 'cluster' && abbrev !== 'ROOT'){
           if(obj.upstream_nodes.length === 0 && obj.downstream_nodes.length === 0){
-            createEdge(obj.id);
+            if(obj.cluster_id !== parentId){
+              createEdge(obj.id);
+            }
           } 
         }
       });
@@ -220,27 +206,21 @@
       tspan.forEach(function(text){
         var id = Number(text.__data__);
         var label = $scope.q.node(id).labelName;
-        text.innerHTML = reSizeText(label);
-        //Offset the label to center of the node
-        if(label.length % 2 === 0){
-          var transformTag = text.parentNode.parentNode;
-          var x = Number(transformTag.transform.animVal[0].matrix.e) + 2;
-          var y = transformTag.transform.animVal[0].matrix.f; 
-          transformTag.setAttribute('transform','translate(' + x + ',' + y +')');
-        }
+        text.innerHTML = label;
       });
-      
-      //Add the parent node object to graph object
-      // createClusterNode(data[parentId]);
-      //Change the graph object size
+      if(d3.selectAll('svg.queue g.label g')[0][0]){
+        var shiftY = d3.selectAll('svg.queue g.label g')[0][0].transform.animVal[0].matrix.f;
+        d3.selectAll('svg.queue text')
+          .attr('text-anchor', 'middle');
+        d3.selectAll('svg.queue g.label g')
+          .attr('transform','translate(' + 0 + ',' + shiftY +')');
+      }
+
       var svg = d3.select('svg.queue');
       var inner = svg.select('g');
       $scope.$parent.size = [inner[0][0].getBBox().width, 
         inner[0][0].getBBox().height];
     };
-    
-
-
   };
 
   

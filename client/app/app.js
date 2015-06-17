@@ -1,8 +1,8 @@
 /* 
 * @Author: justinwebb
 * @Date:   2015-05-22 19:51:08
-* @Last Modified by:   cwhwang1986
-* @Last Modified time: 2015-06-15 15:55:25
+* @Last Modified by:   ChalrieHwang
+* @Last Modified time: 2015-06-16 09:55:57
 */
 
 'use strict';
@@ -54,8 +54,9 @@
       $scope.$broadcast('edit', Number(data));
       return;
     });
-    $scope.$on('closeForm', function(){
+    $scope.$on('closeForm', function($event, data){
       $scope.showForm = false;
+      $scope.$broadcast('newGraphDw', data);
       return;
     });
     $scope.$on('addPredecessor', function($event, data){
