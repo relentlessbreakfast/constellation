@@ -274,26 +274,29 @@ div.wrapper {
   stroke: #333;
 }
 
+.path, .path:hover, .edgePath:hover{
+  stroke-linecap: "round";
+}
+
 .path {
   stroke: $text-color;
   stroke-width: 4px;
-  stroke-linecap: "butt";
 }
 
+$hover-yellow: #ffe100;
+
 .path:hover {
-  stroke: red;
-  fill: red;
-  stroke-width: 8px;
-  stroke-linecap: "butt"; 
+  stroke: $hover-yellow;
+  fill: $hover-yellow;
+  stroke-width: 5px;
   cursor: pointer;
 }
 
 .edgePath:hover {
-  stroke: red;
-  fill: red;
-  stroke-width: 2px;
+  stroke: $hover-yellow;
+  fill: $hover-yellow;
+  stroke-width: 1px;
   cursor: pointer;
-  stroke-linecap: "butt"; 
 }
 
 .output {
