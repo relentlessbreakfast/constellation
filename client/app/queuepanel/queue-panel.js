@@ -2,7 +2,7 @@
 * @Author: ChalrieHwang
 * @Date:   2015-06-13 16:35:59
 * @Last Modified by:   ChalrieHwang
-* @Last Modified time: 2015-06-16 12:49:11
+* @Last Modified time: 2015-06-16 22:45:25
 */
 
 'use strict';
@@ -30,7 +30,7 @@
         xOffset = [0.5 * ($scope.queueWidth - $scope.size[0]) - 5, 0];
         inner.attr('transform', 'translate(' + xOffset + ')'+'scale(' + shrinkRate + ')');
       } else {
-        xOffset = [0.5 * ($scope.queueWidth - $scope.size[0]) - 5, -8];
+        xOffset = [0.5 * ($scope.queueWidth - $scope.size[0]) - 5, -5];
         var idealGraphWidth = $scope.queueWidth * 0.9;
         // shrinkRate = (1 - ($scope.size[0] - idealGraphWidth)/$scope.size[0]);
         shrinkRate = idealGraphWidth/$scope.size[0];
@@ -40,11 +40,11 @@
     }, true);
     
 
-    //Watch the graph width changes and zoom the graph
+    //Watch the graph width changes and zoom the idealGraphWidth
     $scope.$watchCollection('size', function(newVal){
       var shrinkRateX = 1;
       var shrinkRateY = 1;
-      xOffset = [0.5 * ($scope.queueWidth - newVal[0]) - 5, -15];
+      xOffset = [0.5 * ($scope.queueWidth - newVal[0]) - 5, -5];
       if(newVal[1] >= $scope.idealHeight){
         shrinkRateY = $scope.idealHeight/newVal[1];
       } 

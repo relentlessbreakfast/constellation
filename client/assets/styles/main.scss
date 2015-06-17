@@ -95,7 +95,7 @@ div.wrapper {
   @include box-sizing(border-box);
   height: 100vh;
   padding: 15px;
-  padding-top: $top-bar-height+15;
+  padding-top: $top-bar-height;
   width: 100vw;
   z-index: 1;
 
@@ -104,7 +104,7 @@ div.wrapper {
     @include box-sizing(border-box);
     background-color: rgba(0, 0, 0, 0.7);
     // border: 1px solid #979797;
-    height: 10%;
+    height: 12%;
     width: 100%;
     margin-bottom: 15px;
 
@@ -120,7 +120,7 @@ div.wrapper {
     @include box-sizing(border-box);
     color: $brand-secondary;
     float: left;
-    height: 90%;
+    height: 88%;
     padding-right: 15px;
     width: 50%;
     // border: 1px solid #979797;
@@ -156,7 +156,7 @@ div.wrapper {
     color: $text-color;
     float:right;
     font-size: 30px;
-    height: 90%;
+    height: 88%;
     padding: 15px;    
     width: 50%;
 
@@ -191,7 +191,7 @@ div.wrapper {
     float:right;
     font-size: 30px;
     padding: 15px;    
-    height: 90%;
+    height: 88%;
     width: 50%;
 
     fieldset, label, input, option, textarea{
@@ -206,6 +206,11 @@ div.wrapper {
     input, textarea, select{
       float: right;
       background-color: #ddd;
+    }
+
+    input.btn:hover {
+      background-color: #0f4a58;
+      color: #fefefe;
     }
 
     label{
@@ -291,6 +296,10 @@ $hover-yellow: #ffe100;
   fill: $hover-yellow;
   stroke-width: 5px;
   cursor: pointer;
+}
+
+marker.path:hover {
+  fill: $hover-yellow;
 }
 
 .edgePath:hover {
@@ -430,9 +439,7 @@ div.description {
 }
 
 
-
 .chart {
-    background: #eee;
     padding: 3px;
 }
 
@@ -444,11 +451,11 @@ div.description {
 }
 
 .chart div {
-  font: 10px sans-serif;
+  font: 18px 'Muli', sans-serif; ;
   background-color: steelblue;
   text-align: right;
-  padding: 3px;
-  margin: 5px;
+  padding-right: 3px;
+  margin-right: 5px;
   color: white;
   box-shadow: 2px 2px 2px #666;
 }

@@ -10,6 +10,7 @@ var InfoPanelController = function ($scope) {
   var infoData,
       mouseOverId;
   $scope.showInfo = true;
+
   $scope.$on('newGraphDown', function(event, data){
       infoData = data;
   });
@@ -17,6 +18,7 @@ var InfoPanelController = function ($scope) {
   $scope.$on('mouseOverId', function(event,data){
     mouseOverId = Number(data);
     renderInfo(mouseOverId);
+    $scope.$broadcast('progressive', $scope.ratio);
     return;
   });
 
@@ -42,6 +44,7 @@ var InfoPanelController = function ($scope) {
       $scope.displayDescription = infoData[id].cluster.description;
       $scope.displayCount = infoData[id].cluster.children_count;
       $scope.displayComplete =  infoData[id].cluster.children_complete;
+      $scope.ratio = [Number(Number($scope.displayComplete)/Number($scope.displayCount)).toFixed(2) * 100];
     }
   };
 };

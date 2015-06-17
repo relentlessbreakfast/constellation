@@ -1435,6 +1435,7 @@ var graph2 = {
   "deleted": []
   };
 
+
 var clusters = [
   {
     abbrev: 'ROOT',
@@ -1447,7 +1448,7 @@ var clusters = [
   {
     abbrev: 'Auth',
     name: 'Authentication',
-    description: 'Set up authentication',
+    description: 'Set up authentication, Requiring the module and using its passport.initialize() and passport.session() middleware with express.Configuring passport with at least one Strategy and setting up passports serializeUser and deserializeUser methods. Specifying a route which uses the passport authenticate middleware to actually authenticate a user.',
     creator: 7910250,
     children_count: 2,
     children_complete: 1
@@ -1455,7 +1456,7 @@ var clusters = [
   {
     abbrev: 'DB',
     name: 'Database',
-    description: 'Set up database',
+    description: 'Set up database, A relational database is a collection of data items organized as a set of formally-described tables from which data can be accessed or reassembled in many different ways without having to reorganize the database tables.',
     creator: 7910250,
     children_count: 2,
     children_complete: 1
@@ -1463,7 +1464,7 @@ var clusters = [
   {
     abbrev: 'ExAPI',
     name: 'Github API',
-    description: 'Pull info from Github API',
+    description: 'Pull info from Github API, API v3 uses HTTP redirection where appropriate. Clients should assume that any request may result in a redirection. Receiving an HTTP redirection is not an error and clients should follow that redirect. Redirect responses will have a Location header field which contains the URI of the resource to which the client should repeat the requests.',
     creator: 7910250,
     children_count: 2,
     children_complete: 1
@@ -1471,7 +1472,7 @@ var clusters = [
   {
     abbrev: 'View Plan',
     name: 'Plan out User Interface',
-    description: 'Mock up user interface',
+    description: 'Mock up user interface, designing into an information device with which a human being may interact -- including display screen, keyboard, mouse, light pen, the appearance of a desktop, illuminated characters, help messages, and how an application program or a Web site invites interaction and responds to it.',
     creator: 7910250,
     children_count: 2,
     children_complete: 1
@@ -1479,7 +1480,7 @@ var clusters = [
   {
     abbrev: 'Model',
     name: 'Design data model',
-    description: 'Set up app models',
+    description: 'Set up app models, Data modeling is the act of exploring data-oriented structures. Like other modeling artifacts data models can be used for a variety of purposes, from high-level conceptual models to physical data models.  From the point of view of an object-oriented developer data modeling is conceptually similar to class modeling. With data modeling you identify entity types whereas with class modeling you identify classes. Data attributes are assigned to entity types just as you would assign attributes and operations to classes.',
     creator: 7910250,
     children_count: 2,
     children_complete: 1
@@ -1487,15 +1488,15 @@ var clusters = [
   {
     abbrev: 'Contr',
     name: 'Data controller',
-    description: 'Set up data controller',
+    description: 'The controller is the input mechanism of the user interface, which is often tangled up in the view, particularly with GUIs. Nevertheless, view is output and controller is input. A view can often work without a corresponding controller, but a controller is usually far less useful without a view. User-friendly controllers use the view to interpret the users input in a more meaningful, intuitive fashion. This is what it makes it hard separate the controller concept from the view.',
     creator: 7910250,
     children_count: 6,
     children_complete: 4
   },
   {
     abbrev: 'View',
-    name: 'Implement angular front end',
-    description: 'Create angular front end',
+    name: 'Implement MV* frame work with angular',
+    description: 'AngularJS adopts a Model-View-Controller (MVC)-like pattern for structuring any application. If you think about it, there are three parts to your application.There is the actual data that you want to display to the user, or get the user to enter through your application. This is the model in an AngularJS project, which is mostly pure data, and represented using JSON objects.Then there is the user interface or the final rendered HTML that the user sees and interacts with, which displays the data to the user. This is the view.',
     creator: 7910250,
     children_count: 2,
     children_complete: 2
@@ -1503,7 +1504,7 @@ var clusters = [
   {
     abbrev: 'Styling',
     name: 'Polish the UI',
-    description: 'CSS makeover',
+    description: 'CSS describes the syntax and forms of the language and introduces fundamentals like specificity and inheritance, the box model and margin collapsing, stacking and block-formatting contexts, or the initial, computed, used and actual values. Entities like CSS shorthand properties are also defined.',
     creator: 7910250,
     children_count: 2,
     children_complete: 1
@@ -1511,7 +1512,7 @@ var clusters = [
   {
     abbrev: 'Integ',
     name: 'Integration',
-    description: 'Combine all parts',
+    description: 'A system is an aggregation of subsystems cooperating so that the system is able to deliver the overarching functionality. System integration involves integrating existing often disparate systems.System integration (SI) is also about adding value to the system, capabilities that are possible because of interactions between subsystems',
     creator: 7910250,
     children_count: 2,
     children_complete: 1
@@ -1519,7 +1520,7 @@ var clusters = [
   {
     abbrev: 'Deploy',
     name: 'Deploy the application',
-    description: 'Deploy the application',
+    description: 'The general deployment process consists of several interrelated activities with possible transitions between them. These activities can occur at the producer side or at the consumer side or both. Because every software system is unique, the precise processes or procedures within each activity can hardly be defined.',
     creator: 7910250,
     children_count: 2,
     children_complete: 1
