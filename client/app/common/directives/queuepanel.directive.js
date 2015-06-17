@@ -2,7 +2,7 @@
 * @Author: cwhwang1986
 * @Date:   2015-06-10 15:40:30
 * @Last Modified by:   ChalrieHwang
-* @Last Modified time: 2015-06-16 12:33:40
+* @Last Modified time: 2015-06-16 22:09:23
 */
 
 'use strict';
@@ -200,7 +200,7 @@
       d3.select('.edgeLabels').remove();
       //reset the circle radius
       d3.selectAll('svg.queue circle')
-        .attr('r',30);
+        .attr('r',32);
       //Add label to each node
       var tspan = d3.selectAll('svg.queue tspan')[0];
       tspan.forEach(function(text){

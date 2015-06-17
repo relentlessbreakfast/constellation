@@ -1,8 +1,8 @@
 /* 
 * @Author: justinwebb
 * @Date:   2015-06-03 15:30:09
-* @Last Modified by:   cwhwang1986
-* @Last Modified time: 2015-06-16 18:37:55
+* @Last Modified by:   ChalrieHwang
+* @Last Modified time: 2015-06-16 22:07:27
 */
 
 'use strict';
@@ -277,11 +277,11 @@
         .attr('r',40);
 
       d3.selectAll('svg marker')
-        .attr('markerWidth', 20)
-        .attr('markerHeight',5);
+        .attr('markerWidth', 15)
+        .attr('markerHeight',4);
 
       d3.selectAll('svg marker path')
-        .attr('style', 'fill: red');
+        .attr('style', 'fill: white');
       //Add label to each node
       var tspan = d3.selectAll('svg#canvas tspan')[0];
       tspan.forEach(function(text){
