@@ -2,7 +2,7 @@
 * @Author: justinwebb
 * @Date:   2015-05-26 15:18:17
 * @Last Modified by:   justinwebb
-* @Last Modified time: 2015-06-15 23:07:17
+* @Last Modified time: 2015-06-16 19:47:38
 */
 
 'use strict';
@@ -230,7 +230,8 @@ gulp.task('develop', ['build', 'nodemon'], function serveOnBrowserSync() {
   browserSync.init({
     server: {
       baseDir: config.dist,
-      proxy: 'http://localhost:'+ port,
+      proxy: 'https://localhost:'+ port,
+      https: true
     }
   });
 
