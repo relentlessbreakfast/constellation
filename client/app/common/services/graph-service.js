@@ -349,7 +349,7 @@
           serviceObj.graphObj.graph = saved[cluster_id];
           deferred.resolve(serviceObj.graphObj);
         } else {
-          $http.get('http://localhost:3030/api/graph/' + cluster_id)
+          $http.get('http://constellationpm.herokuapp.com/api/graph/' + cluster_id)
             .success(function(data, status) {
               var wrappedGraph = new WrappedGraph(data);
               var skipKeys = ['deleted', 'enter', 'exit', 'parent_cluster_id','grandparent_cluster_id'];
