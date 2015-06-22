@@ -1,8 +1,8 @@
 /* 
 * @Author: justinwebb
 * @Date:   2015-05-27 15:34:14
-* @Last Modified by:   Justin Webb
-* @Last Modified time: 2015-06-16 19:28:31
+* @Last Modified by:   justinwebb
+* @Last Modified time: 2015-06-19 14:54:12
 */
 
 'use strict';
@@ -15,7 +15,9 @@ module.exports = {
   dist: path.resolve('dist'),
   ssl: {
     key: fs.readFileSync(path.join(home, process.env.SSL_DIR, 'key.pem')),
-    cert: fs.readFileSync(path.join(home, process.env.SSL_DIR, 'cert.pem'))
+    cert: fs.readFileSync(path.join(home, process.env.SSL_DIR, 'cert.pem')),
+    requestCert: false,
+    rejectUnauthorized: false
   }
 
 };
