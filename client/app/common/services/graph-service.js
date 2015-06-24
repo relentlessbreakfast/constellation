@@ -1,7 +1,7 @@
 /*
 * @Author: kuychaco
 * @Date:   2015-06-07 10:37:28
-* @Last Modified by:   justinwebb
+* @Last Modified by:   Justin Webb
 */
 
 'use strict';
@@ -349,7 +349,7 @@
           serviceObj.graphObj.graph = saved[cluster_id];
           deferred.resolve(serviceObj.graphObj);
         } else {
-          $http.get('https://localhost:3030/api/graph/' + cluster_id)
+          $http.get('/api/graph/' + cluster_id)
             .success(function(data, status) {
               var wrappedGraph = new WrappedGraph(data);
               var skipKeys = ['deleted', 'enter', 'exit', 'parent_cluster_id','grandparent_cluster_id'];
@@ -402,7 +402,7 @@
         var deferred = $q.defer();
         var graphObj = this.graphObj.graph;
 
-        $http.post('https://localhost:54538/api/graph/'+graphObj.parent_cluster.id, graphObj)
+        $http.post('/api/graph/'+graphObj.parent_cluster.id, graphObj)
 
           .success(function(response, status) {
             console.log('successful post:', status);
