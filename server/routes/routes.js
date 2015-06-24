@@ -1,8 +1,8 @@
 /*
 * @Author: kuychaco
 * @Date:   2015-06-03 11:57:45
-* @Last Modified by:   justinwebb
-* @Last Modified time: 2015-06-16 18:49:05
+* @Last Modified by:   Justin Webb
+* @Last Modified time: 2015-06-23 17:30:38
 *
 * ----------------------------
 * Create router
@@ -23,7 +23,7 @@ var express = require('express');
 var router = express.Router();
 
 // Route to get user info (id, handle, name, avatar_url)
-router.get('api/users', function(req, res) {
+router.get('/api/users', function(req, res) {
 
   dbController.getUsersAsync()
     .then(function(results) {
