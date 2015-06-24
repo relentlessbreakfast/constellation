@@ -1,8 +1,8 @@
 /*
 * @Author: kuychaco
 * @Date:   2015-06-03 11:57:45
-* @Last Modified by:   kuychaco
-* @Last Modified time: 2015-06-13 16:57:57
+* @Last Modified by:   justinwebb
+* @Last Modified time: 2015-06-16 18:49:05
 *
 * ----------------------------
 * Create router
@@ -23,7 +23,7 @@ var express = require('express');
 var router = express.Router();
 
 // Route to get user info (id, handle, name, avatar_url)
-router.get('/users', function(req, res) {
+router.get('api/users', function(req, res) {
 
   dbController.getUsersAsync()
     .then(function(results) {
@@ -36,7 +36,7 @@ router.get('/users', function(req, res) {
 });
 
 // Route to get graph for cluster with id=cluster_id
-router.get('/graph/:cluster_id', function(req, res) {
+router.get('/api/graph/:cluster_id', function(req, res) {
   console.log('get request for graph for cluster_id =', req.params.cluster_id);
   var clusterId = req.params.cluster_id;
 
@@ -51,7 +51,7 @@ router.get('/graph/:cluster_id', function(req, res) {
 });
 
 // Route to post graph upon saving
-router.post('/graph', function(req, res) {
+router.post('/api/graph', function(req, res) {
   console.log('post request for graph with parent cluster_id = ', req.body.parent_cluster);
 
   dbController.postGraphAsync(req.body)

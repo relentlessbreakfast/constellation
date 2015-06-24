@@ -1,7 +1,7 @@
 /* 
 * @Author: justinwebb
 * @Date:   2015-05-28 22:46:32
-* @Last Modified by:   cwhwang1986
+* @Last Modified by:   justinwebb
 *
 * ----------------------------
 * Create application
@@ -20,16 +20,17 @@ try {
 
 var express = require('express');
 // Create express application, app is a callback that handles requests
-var app = express();
-
-// Import router
-var router = require('./routes/routes');
-
-var config = require('./server-config');
-var utils = require('../lib/utils');
 var cors = require('cors');
 var bodyParser = require('body-parser');
-var http = require('http');
+var https = require('https');
+// var crypto = require('crypto');
+var router = require('./routes/routes');
+var config = require('./server-config');
+var utils = require('../lib/utils');
+var app = express();
+var server = null;
+// var credentials = null;
+
 
 // Set up database
 require('./database/db');
@@ -45,18 +46,25 @@ app.use(bodyParser.json());
 app.use(express.static(config.dist));
 
 // Register routes, all routes will be prefixed by '/api'
-app.use('/api', router);
+app.use(router);
 
-// Create node server
-var server = http.createServer(app);
 
-// Start server
+
+
+// Create and start node server
+if (process.env.NODE_ENV === 'development') {
+  server = https.createServer(config.ssl, app);
+} else {
+  server = https.createServer(app);
+}
 server.listen(config.port, function () {
   var port = server.address().port;
   var project = utils.grandParentDir(__dirname, true);
-  console.log(project + ' is online at http://localhost:'+port,
-    'on ' + process.env.NODE_ENV + ' server...');
 
+  console.log(project + ' is online at https://localhost:'+port,
+    'on '+ process.env.NODE_ENV +' server...');
   console.log('[server] Dist:', config.dist);
+
+  // console.log('[server]', arguments);
 });
 
