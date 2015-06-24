@@ -24,6 +24,7 @@ var fs = require('fs');
 var path = require('path');
 var cors = require('cors');
 var bodyParser = require('body-parser');
+var http = require('http');
 var https = require('https');
 // var crypto = require('crypto');
 var router = require('./routes/routes');
@@ -64,7 +65,7 @@ if (process.env.NODE_ENV === 'development') {
   };
   server = https.createServer(ssl, app);
 } else {
-  server = https.createServer(app);
+  server = http.createServer(app);
 }
 server.listen(config.port, function () {
   var port = server.address().port;
