@@ -20,6 +20,8 @@ try {
 
 var express = require('express');
 // Create express application, app is a callback that handles requests
+var fs = require('fs');
+var path = require('path');
 var cors = require('cors');
 var bodyParser = require('body-parser');
 var https = require('https');
