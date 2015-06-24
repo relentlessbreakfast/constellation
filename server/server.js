@@ -1,7 +1,7 @@
 /* 
 * @Author: justinwebb
 * @Date:   2015-05-28 22:46:32
-* @Last Modified by:   justinwebb
+* @Last Modified by:   Justin Webb
 *
 * ----------------------------
 * Create application
@@ -53,7 +53,14 @@ app.use(router);
 
 // Create and start node server
 if (process.env.NODE_ENV === 'development') {
-  server = https.createServer(config.ssl, app);
+  var home = process.env[(process.platform === 'win32') ? 'USERPROFILE' : 'HOME'];
+  var ssl = {
+    key: fs.readFileSync(path.join(home, process.env.SSL_DIR, 'key.pem')),
+    cert: fs.readFileSync(path.join(home, process.env.SSL_DIR, 'cert.pem')),
+    requestCert: false,
+    rejectUnauthorized: false
+  };
+  server = https.createServer(ssl, app);
 } else {
   server = https.createServer(app);
 }
